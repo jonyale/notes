@@ -1,0 +1,994 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Forward Guidance Asset Positioning, May 2026</title>
+<style>
+  :root {
+    /* Surfaces */
+    --bg: #0E1117;
+    --bg-deep: #090C12;
+    --surface: #161B22;
+    --surface-2: #1C232E;
+    --rule: #262F3E;
+    --rule-soft: #1E2532;
+
+    /* Ink (all UI chrome lives in this grayscale spectrum) */
+    --ink: #E8EAF0;
+    --ink-soft: #B6BCCC;
+    --muted: #7C8395;
+    --muted-soft: #4F5666;
+
+    /* Position colors — used ONLY on position pills and the catalyst left-bar
+       (catalysts are bear-direction risk flags). */
+    --bull: #5BCA89;
+    --bull-bg: rgba(91, 202, 137, 0.11);
+    --bull-line: rgba(91, 202, 137, 0.32);
+    --bear: #F26B5B;
+    --bear-bg: rgba(242, 107, 91, 0.10);
+    --bear-line: rgba(242, 107, 91, 0.32);
+    --mixed: #E6B450;
+    --mixed-bg: rgba(230, 180, 80, 0.10);
+    --mixed-line: rgba(230, 180, 80, 0.32);
+
+    /* Type */
+    --sans: -apple-system, BlinkMacSystemFont, "Helvetica Neue", "Segoe UI Variable Display", "Segoe UI", Helvetica, Arial, system-ui, sans-serif;
+    --mono: "SF Mono", "JetBrains Mono", "Fira Code", Menlo, Consolas, monospace;
+  }
+
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    background-image: radial-gradient(ellipse 90% 60% at 50% -10%, rgba(255, 255, 255, 0.025) 0%, transparent 60%);
+    background-attachment: fixed;
+    color: var(--ink);
+    font-family: var(--sans);
+    font-size: 16px;
+    line-height: 1.62;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  /* ─── Layout ───────────────────────────────────────────── */
+  .wrap {
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 72px 36px 112px;
+  }
+  @media (max-width: 720px) {
+    .wrap { padding: 40px 20px 72px; }
+    body { font-size: 15.5px; line-height: 1.58; }
+  }
+
+  /* ─── Header / masthead ───────────────────────────────── */
+  header { margin-bottom: 56px; }
+  .eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.26em;
+    text-transform: uppercase;
+    color: var(--muted);
+    font-weight: 500;
+    margin-bottom: 28px;
+  }
+  .eyebrow::before {
+    content: "";
+    display: inline-block;
+    width: 32px;
+    height: 1px;
+    background: var(--muted);
+  }
+
+  h1, h2, h3, h4 {
+    font-family: var(--sans);
+    color: var(--ink);
+  }
+  h1 {
+    font-size: clamp(2rem, 4.8vw, 2.75rem);
+    line-height: 1.06;
+    letter-spacing: -0.028em;
+    font-weight: 600;
+    margin: 0 0 24px;
+  }
+
+  .lede {
+    font-size: clamp(1.02rem, 1.4vw, 1.14rem);
+    line-height: 1.55;
+    color: var(--ink-soft);
+    margin: 0 0 36px;
+    max-width: 66ch;
+    font-weight: 400;
+  }
+
+  /* Meta row */
+  .meta {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0;
+    padding: 22px 0;
+    border-top: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+    margin-bottom: 64px;
+  }
+  .meta span {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding: 0 26px;
+    border-left: 1px solid var(--rule);
+    font-size: 15px;
+    color: var(--ink);
+    font-variant-numeric: tabular-nums;
+  }
+  .meta span:first-child { padding-left: 0; border-left: none; }
+  .meta span strong {
+    font-family: var(--mono);
+    font-size: 10.5px;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: var(--muted);
+    font-weight: 500;
+  }
+  @media (max-width: 720px) {
+    .meta { grid-template-columns: 1fr; gap: 16px; padding: 18px 0; }
+    .meta span { padding: 0; border-left: none; }
+  }
+
+  /* ─── Section headers (large numbered chapter marks) ─── */
+  article { counter-reset: section; }
+  h2 {
+    font-size: clamp(1.55rem, 3vw, 1.85rem);
+    line-height: 1.18;
+    letter-spacing: -0.018em;
+    font-weight: 600;
+    margin: 96px 0 32px;
+    padding-top: 36px;
+    border-top: 1px solid var(--rule);
+    position: relative;
+  }
+  h2::before {
+    counter-increment: section;
+    content: counter(section, decimal-leading-zero);
+    display: block;
+    font-family: var(--mono);
+    font-size: clamp(2.2rem, 4vw, 2.8rem);
+    font-weight: 400;
+    letter-spacing: 0;
+    line-height: 1;
+    color: var(--muted);
+    margin-bottom: 14px;
+  }
+  article > section:first-of-type h2 { margin-top: 0; }
+
+  h3 {
+    font-size: 1.16rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    margin: 40px 0 14px;
+  }
+
+  p { margin: 0 0 18px; }
+
+  a {
+    color: var(--ink);
+    text-decoration: none;
+    border-bottom: 1px solid var(--muted-soft);
+    transition: color 0.12s ease, border-color 0.12s ease;
+  }
+  a:hover {
+    color: var(--ink);
+    border-bottom-color: var(--ink-soft);
+  }
+
+  /* ─── Table of contents (3-column, column-major) ──────── */
+  .toc {
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-radius: 10px;
+    padding: 10px;
+    margin-bottom: 72px;
+  }
+  .toc-title {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.26em;
+    text-transform: uppercase;
+    color: var(--muted);
+    padding: 14px 18px 12px;
+    border-bottom: 1px solid var(--rule);
+    margin-bottom: 6px;
+    font-weight: 500;
+  }
+  .toc ul {
+    list-style: none;
+    counter-reset: tocs;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    grid-auto-flow: column;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(4, auto);
+    gap: 2px 8px;
+  }
+  @media (max-width: 900px) {
+    .toc ul {
+      grid-template-columns: repeat(2, 1fr);
+      grid-template-rows: repeat(6, auto);
+    }
+  }
+  @media (max-width: 560px) {
+    .toc ul {
+      grid-auto-flow: row;
+      grid-template-columns: 1fr;
+      grid-template-rows: auto;
+    }
+  }
+  .toc ul li { counter-increment: tocs; }
+  .toc a {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 12px 16px;
+    border-radius: 6px;
+    font-size: 15px;
+    color: var(--ink-soft);
+    border: none;
+    background: none;
+    transition: background 0.12s ease, color 0.12s ease;
+  }
+  .toc a::before {
+    content: counter(tocs, decimal-leading-zero);
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 0.1em;
+    min-width: 20px;
+  }
+  .toc a::after {
+    content: "→";
+    margin-left: auto;
+    font-family: var(--mono);
+    color: var(--muted);
+    font-size: 14px;
+    transition: transform 0.15s ease, color 0.15s ease;
+  }
+  .toc a:hover {
+    background: var(--surface-2);
+    color: var(--ink);
+  }
+  .toc a:hover::before { color: var(--ink-soft); }
+  .toc a:hover::after { color: var(--ink); transform: translateX(3px); }
+
+  /* ─── Source list ─────────────────────────────────────── */
+  .source-list {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 24px;
+    display: grid;
+    gap: 8px;
+  }
+  .source-list li {
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-radius: 8px;
+    font-size: 14.5px;
+    transition: background 0.12s ease, border-color 0.12s ease;
+  }
+  .source-list li:hover {
+    background: var(--surface-2);
+    border-color: var(--muted-soft);
+  }
+  .source-list li a {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: 18px;
+    align-items: center;
+    padding: 14px 18px;
+    color: var(--ink);
+    border: none;
+    background: none;
+  }
+  .source-list li .src-date {
+    display: inline-block;
+    font-family: var(--mono);
+    font-size: 11.5px;
+    color: var(--muted);
+    letter-spacing: 0.04em;
+    min-width: 86px;
+    font-variant-numeric: tabular-nums;
+  }
+  .source-list li .src-ext {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-family: var(--mono);
+    font-size: 10.5px;
+    color: var(--muted);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+  }
+  .source-list li .src-ext::before {
+    content: "↗";
+    color: var(--muted);
+    font-size: 11px;
+    letter-spacing: 0;
+  }
+  @media (max-width: 640px) {
+    .source-list li a {
+      grid-template-columns: auto auto;
+      grid-template-rows: auto auto;
+      gap: 6px 12px;
+    }
+    .source-list li .src-date { grid-row: 1; grid-column: 1; }
+    .source-list li .src-ext { grid-row: 1; grid-column: 2; justify-self: end; }
+    .source-list li a > :not(.src-date):not(.src-ext) {
+      grid-row: 2;
+      grid-column: 1 / -1;
+    }
+  }
+
+  /* ─── Speaker key (grid) ──────────────────────────────── */
+  .speaker-key {
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-radius: 8px;
+    padding: 22px 26px;
+    margin-bottom: 32px;
+  }
+  .speaker-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px 28px;
+  }
+  @media (max-width: 640px) {
+    .speaker-grid { grid-template-columns: 1fr; gap: 10px; }
+  }
+  .speaker-entry {
+    font-size: 14.5px;
+    line-height: 1.5;
+    color: var(--ink-soft);
+  }
+  .speaker-entry strong {
+    color: var(--ink);
+    font-weight: 600;
+    margin-right: 8px;
+  }
+  .speaker-key .note {
+    margin: 18px 0 0;
+    padding-top: 16px;
+    border-top: 1px solid var(--rule);
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.55;
+  }
+
+  /* ─── Tables ──────────────────────────────────────────── */
+  .table-scroll {
+    overflow-x: auto;
+    margin: 0 -4px 32px;
+    padding: 0 4px;
+  }
+  table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    font-size: 14.5px;
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-radius: 8px;
+    overflow: hidden;
+    font-variant-numeric: tabular-nums;
+    table-layout: auto;
+  }
+  th, td {
+    text-align: left;
+    padding: 14px 18px;
+    vertical-align: top;
+    border-bottom: 1px solid var(--rule-soft);
+  }
+  th {
+    background: var(--bg-deep);
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: var(--muted);
+    font-weight: 500;
+    border-bottom: 1px solid var(--rule);
+    white-space: nowrap;
+    padding-top: 13px;
+    padding-bottom: 13px;
+  }
+  tbody tr:last-child td { border-bottom: none; }
+  tbody tr { transition: background 0.12s ease; }
+  tbody tr:hover { background: var(--surface-2); }
+  td strong { color: var(--ink); font-weight: 600; }
+  td.asset {
+    white-space: normal;
+    max-width: 220px;
+    overflow-wrap: break-word;
+    padding-right: 18px;
+  }
+  td.asset strong {
+    font-size: 15px;
+    font-weight: 600;
+    letter-spacing: -0.005em;
+    color: var(--ink);
+  }
+  td.source {
+    color: var(--muted);
+    font-size: 13px;
+    min-width: 175px;
+    font-family: var(--mono);
+  }
+  td.source a {
+    color: var(--ink-soft);
+    border-bottom: 1px dotted var(--muted-soft);
+    background: none;
+  }
+  td.source a:hover {
+    color: var(--ink);
+    border-bottom-color: var(--ink-soft);
+  }
+  td.source .ep-date {
+    display: inline-block;
+    font-family: var(--mono);
+    font-size: 10.5px;
+    color: var(--muted);
+    font-style: normal;
+    margin-left: 1px;
+    margin-right: 2px;
+    white-space: nowrap;
+    letter-spacing: 0.04em;
+  }
+  td.source .src-line { display: block; margin-bottom: 4px; }
+  td.source .src-line:last-child { margin-bottom: 0; }
+  @media (max-width: 720px) {
+    table { font-size: 13.5px; }
+    th, td { padding: 11px 12px; }
+    td.asset { max-width: 160px; }
+    td.source { white-space: normal; min-width: 140px; }
+  }
+
+  /* ─── Position pills ──────────────────────────────────── */
+  .pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-family: var(--mono);
+    font-size: 10.5px;
+    font-weight: 500;
+    line-height: 1.2;
+    padding: 5px 10px 5px 9px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    margin-right: 5px;
+    margin-bottom: 5px;
+    white-space: nowrap;
+  }
+  .pill::before {
+    font-size: 9px;
+    display: inline-block;
+    line-height: 1;
+  }
+  .pill.bull {
+    background: var(--bull-bg);
+    color: var(--bull);
+    border-color: var(--bull-line);
+  }
+  .pill.bull::before { content: "▲"; }
+  .pill.bear {
+    background: var(--bear-bg);
+    color: var(--bear);
+    border-color: var(--bear-line);
+  }
+  .pill.bear::before { content: "▼"; }
+  .pill.mixed {
+    background: var(--mixed-bg);
+    color: var(--mixed);
+    border-color: var(--mixed-line);
+  }
+  .pill.mixed::before { content: "◆"; }
+  .pill.watch {
+    background: transparent;
+    color: var(--ink-soft);
+    border-color: var(--rule);
+  }
+  .pill.watch::before { content: "◇"; color: var(--muted); }
+  .pill.conviction {
+    background: var(--bull);
+    color: var(--bg);
+    border-color: var(--bull);
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    padding: 5px 11px;
+  }
+  .pill.conviction::before { content: "■"; color: var(--bg); }
+
+  .position-cell { min-width: 200px; }
+  .position-text {
+    display: block;
+    margin-top: 6px;
+    font-style: italic;
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.45;
+  }
+
+  /* ─── Portfolio (composite) cards ─────────────────────── */
+  .composite-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 16px;
+    margin: 28px 0 36px;
+  }
+  .composite-card {
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-radius: 8px;
+    padding: 22px 24px 24px;
+  }
+  .composite-card h4 {
+    font-family: var(--mono);
+    font-size: 10.5px;
+    margin: 0 0 14px;
+    text-transform: uppercase;
+    letter-spacing: 0.26em;
+    font-weight: 500;
+    color: var(--muted);
+  }
+  .composite-card.long h4 { color: var(--bull); }
+  .composite-card.short h4 { color: var(--bear); }
+  .composite-card.sell-vol h4 { color: var(--mixed); }
+  .composite-card.buy-vol h4 { color: var(--ink-soft); }
+  .composite-card p {
+    font-size: 14.5px;
+    line-height: 1.6;
+    color: var(--ink-soft);
+    margin: 0;
+  }
+
+  /* ─── Invalidation (catalysts) ────────────────────────── */
+  .catalyst-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 14px;
+  }
+  .catalyst-list li {
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-left: 2px solid var(--bear);
+    border-radius: 6px;
+    padding: 18px 22px;
+    position: relative;
+  }
+  .catalyst-list li strong {
+    display: block;
+    font-size: 1.05rem;
+    font-weight: 600;
+    margin-bottom: 6px;
+    color: var(--ink);
+    letter-spacing: -0.005em;
+  }
+  .catalyst-list li span {
+    font-size: 14px;
+    color: var(--ink-soft);
+    line-height: 1.5;
+  }
+
+  /* ─── Inference intro ─────────────────────────────────── */
+  .inference-intro {
+    color: var(--ink-soft);
+    margin-bottom: 28px;
+    max-width: 72ch;
+  }
+  .inference-intro em {
+    color: var(--ink);
+    font-style: italic;
+  }
+
+  /* ─── Footer ──────────────────────────────────────────── */
+  .footer {
+    margin-top: 112px;
+    padding-top: 32px;
+    border-top: 1px solid var(--rule);
+    font-size: 13.5px;
+    color: var(--muted);
+    line-height: 1.65;
+  }
+  .footer p { margin: 0 0 10px; }
+  .disclaimer {
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-radius: 6px;
+    padding: 16px 22px;
+    font-size: 13px;
+    color: var(--ink-soft);
+    margin-top: 24px;
+    line-height: 1.55;
+  }
+
+  /* ─── Print (invert to clean light) ──────────────────── */
+  @media print {
+    @page { margin: 14mm 14mm 18mm; }
+    body {
+      background: white !important;
+      background-image: none !important;
+      color: #1A1A1A !important;
+      font-size: 10.5pt;
+      line-height: 1.42;
+    }
+    .wrap { max-width: 100%; padding: 0; }
+
+    h1, h2, h3, h4 { color: #0A0A0A !important; }
+    h1 { font-size: 24pt; line-height: 1.05; }
+    h2 {
+      font-size: 15pt;
+      page-break-after: avoid;
+      border-top-color: #CCC !important;
+      margin-top: 26pt;
+      padding-top: 12pt;
+    }
+    h2::before { font-size: 22pt; color: #666 !important; margin-bottom: 8pt; }
+    h3 { font-size: 12pt; }
+
+    .eyebrow { color: #666 !important; }
+    .eyebrow::before { background: #666 !important; }
+    .lede { color: #333 !important; }
+
+    .meta { border-color: #CCC !important; }
+    .meta span { border-color: #CCC !important; color: #1A1A1A !important; }
+    .meta span strong { color: #666 !important; }
+
+    a {
+      color: #1A1A1A !important;
+      text-decoration: none !important;
+      border-bottom: none !important;
+    }
+
+    .toc, .source-list li, .speaker-key, .composite-card, .catalyst-list li, .disclaimer, table {
+      background: white !important;
+      border-color: #DDD !important;
+      box-shadow: none !important;
+    }
+    .toc-title { color: #666 !important; border-color: #DDD !important; }
+    .toc a { color: #1A1A1A !important; }
+    .toc a::before { color: #777 !important; }
+    .toc a::after { color: #777 !important; }
+    .toc a:hover { background: none !important; }
+
+    .source-list li .src-date { color: #555 !important; }
+    .source-list li .src-ext { color: #888 !important; }
+    .source-list li .src-ext::before { color: #777 !important; }
+
+    .speaker-key { color: #333 !important; }
+    .speaker-entry { color: #333 !important; }
+    .speaker-entry strong { color: #0A0A0A !important; }
+    .speaker-key .note { color: #555 !important; border-color: #DDD !important; }
+
+    th {
+      background: #F3F3F0 !important;
+      color: #555 !important;
+      border-color: #DDD !important;
+    }
+    td { border-color: #EEE !important; color: #1A1A1A !important; }
+    td.source, td.source a { color: #555 !important; }
+    td.source a { border-color: #999 !important; }
+    td.source .ep-date { color: #888 !important; }
+    tbody tr:hover { background: none !important; }
+    td.asset strong { color: #0A0A0A !important; }
+
+    .pill {
+      background: white !important;
+      border: 1px solid !important;
+      font-weight: 600 !important;
+    }
+    .pill.bull { color: #1F6E45 !important; border-color: #1F6E45 !important; }
+    .pill.bear { color: #8C342A !important; border-color: #8C342A !important; }
+    .pill.mixed { color: #7A5510 !important; border-color: #7A5510 !important; }
+    .pill.watch { color: #555 !important; border-color: #999 !important; }
+    .pill.watch::before { color: #555 !important; }
+    .pill.conviction {
+      background: #1F6E45 !important;
+      color: white !important;
+      border-color: #1F6E45 !important;
+    }
+    .pill.conviction::before { color: white !important; }
+    .position-text { color: #555 !important; }
+
+    .composite-card h4 { color: #555 !important; }
+    .composite-card.long h4 { color: #1F6E45 !important; }
+    .composite-card.short h4 { color: #8C342A !important; }
+    .composite-card.sell-vol h4 { color: #7A5510 !important; }
+    .composite-card.buy-vol h4 { color: #555 !important; }
+    .composite-card p { color: #333 !important; }
+
+    .catalyst-list li { border-left-color: #8C342A !important; }
+    .catalyst-list li strong { color: #0A0A0A !important; }
+    .catalyst-list li span { color: #333 !important; }
+
+    .footer { color: #555 !important; border-color: #CCC !important; }
+    .disclaimer {
+      color: #333 !important;
+      border-color: #DDD !important;
+    }
+
+    table, .composite-card, .catalyst-list li, .source-list li, .speaker-key, .disclaimer {
+      page-break-inside: avoid;
+    }
+    tr { page-break-inside: avoid; }
+  }
+</style>
+</head>
+<body>
+
+<article class="wrap">
+
+<header>
+  <div class="eyebrow">Macro Research Note</div>
+  <h1>Forward Guidance Asset Positioning</h1>
+  <p class="lede">A synthesis of every specific asset mentioned across eight Forward Guidance episodes, with bull/bear theses by speaker, plus extrapolated trades and a composite portfolio expression. Every source attribution links to the moment in the video where the call was made. Dates next to each speaker indicate the episode publication date.</p>
+  <div class="meta">
+    <span><strong>Window</strong> April 16 – May 13, 2026</span>
+    <span><strong>Episodes</strong> 8</span>
+    <span><strong>Compiled</strong> May 13, 2026</span>
+  </div>
+</header>
+
+<nav class="toc" aria-label="Table of contents">
+  <div class="toc-title">Contents</div>
+  <ul>
+    <li><a href="#composite">Portfolio</a></li>
+    <li><a href="#catalysts">Invalidation</a></li>
+    <li><a href="#equities">Equity Indices &amp; Themes</a></li>
+    <li><a href="#stocks">Single Stocks</a></li>
+    <li><a href="#bonds">Bonds &amp; Rates</a></li>
+    <li><a href="#fx">FX</a></li>
+    <li><a href="#commodities">Commodities</a></li>
+    <li><a href="#crypto">Crypto</a></li>
+    <li><a href="#realestate">Real Estate</a></li>
+    <li><a href="#inferences">Inferences (Extrapolations)</a></li>
+    <li><a href="#sources">Sources</a></li>
+    <li><a href="#speakers">Speaker Key</a></li>
+  </ul>
+</nav>
+
+<section id="composite">
+  <h2>Portfolio</h2>
+  <p>One portfolio that respects what these speakers actually said.</p>
+  <div class="composite-grid">
+    <div class="composite-card long">
+      <h4>Long</h4>
+      <p>AI infrastructure (incl. utilities / power), copper, agricultural commodities, gold (smaller, contested), December oil futures, long-dated fixed-rate mortgage debt, USD basket, LNG, stablecoin infrastructure, Brazil / Mexico equities, defense.</p>
+    </div>
+    <div class="composite-card short">
+      <h4>Short / Hedge</h4>
+      <p>Yen, JGBs, software / SaaS basket, Japanese equities, US long bonds, EUR.</p>
+    </div>
+    <div class="composite-card sell-vol">
+      <h4>Sell Vol On</h4>
+      <p>SOX, USO (96th percentile premium. Sell puts under shares).</p>
+    </div>
+    <div class="composite-card buy-vol">
+      <h4>Buy Vol On</h4>
+      <p>VIX upside, USDJPY upside breakout convexity.</p>
+    </div>
+  </div>
+</section>
+
+<section id="catalysts">
+  <h2>Invalidation</h2>
+  <ul class="catalyst-list">
+    <li><strong>Oil &gt; $150</strong><span>Demand destruction kicks in.</span></li>
+    <li><strong>10y yield &gt; 5.5%</strong><span>Bond market breaks.</span></li>
+    <li><strong>USDJPY 160 break</strong><span>Dollar wrecking ball / global capital repatriation.</span></li>
+    <li><strong>Fed turns actually hawkish</strong><span>Not just "no cuts." Active tightening.</span></li>
+  </ul>
+</section>
+
+<section id="equities">
+  <h2>Equity Indices &amp; Themes</h2>
+  <div class="table-scroll">
+  <table>
+    <thead><tr><th>Asset</th><th>Position</th><th>Thesis</th><th>Source</th></tr></thead>
+    <tbody>
+      <tr><td class="asset"><strong>S&amp;P 500</strong></td><td class="position-cell"><span class="pill bull">Bull</span><span class="position-text">Near-term, late-cycle</span></td><td>Melt-up parabolic until oil $150 / 10y &gt;5.5% / Fed turns hawkish. Sell-the-news on Fed meetings now.</td><td class="source"><a href="https://youtu.be/MO9ZTZPUwXY?t=2642" target="_blank" rel="noopener">Dayan</a><span class="ep-date">· May 6</span></td></tr>
+      <tr><td class="asset"><strong>QQQ / NASDAQ</strong></td><td class="position-cell"><span class="pill mixed">Mixed</span><span class="position-text">Tactical bull, structural risk</span></td><td>30% is hyperscalers. P/FCF &gt;&gt; P/E creates an air pocket if AI productivity disappoints. Hit if USDJPY 160 breaks.</td><td class="source"><a href="https://youtu.be/K25wV7gF3oY?t=2044" target="_blank" rel="noopener">Tyler</a><span class="ep-date">· May 8</span>, <a href="https://youtu.be/SrXH0YsSuMk?t=2495" target="_blank" rel="noopener">Quinn</a><span class="ep-date">· Apr 30</span></td></tr>
+      <tr><td class="asset"><strong>Equal-weight S&amp;P (RSP)</strong></td><td class="position-cell"><span class="pill bear">Bear</span><span class="position-text">Lagging</span></td><td>Hasn't made a new ATH; keeps getting rejected. "Not Main Street's turn."</td><td class="source"><a href="https://youtu.be/K25wV7gF3oY?t=1292" target="_blank" rel="noopener">Quinn</a><span class="ep-date">· May 8</span></td></tr>
+      <tr><td class="asset"><strong>MAG7 / MAGS ETF</strong></td><td class="position-cell"><span class="pill bear">Bear</span><span class="position-text">Lagging</span></td><td>Below yearly open, well off October highs while SOX is +15–20% above prior highs.</td><td class="source"><a href="https://youtu.be/E5TnXygEIy4?t=1134" target="_blank" rel="noopener">Quinn</a><span class="ep-date">· Apr 24</span></td></tr>
+      <tr><td class="asset"><strong>Semis (SMH / SOX)</strong></td><td class="position-cell"><span class="pill bull">Bull</span><span class="position-text">Trend / short-term stretched</span></td><td>Up 16 days in a row; implied vol at 96th percentile. Sell vol, don't fade direction.</td><td class="source"><a href="https://youtu.be/E5TnXygEIy4?t=1205" target="_blank" rel="noopener">Tyler</a><span class="ep-date">· Apr 24</span></td></tr>
+      <tr><td class="asset"><strong>AI infrastructure</strong></td><td class="position-cell"><span class="pill conviction">High Conviction Bull</span></td><td>Marginal driver of US growth. Many names still cheap.</td><td class="source"><a href="https://youtu.be/E5TnXygEIy4?t=1099" target="_blank" rel="noopener">Tyler</a><span class="ep-date">· Apr 24</span></td></tr>
+      <tr><td class="asset"><strong>Software (IGV)</strong></td><td class="position-cell"><span class="pill bear">Bear</span></td><td>Service Now -14% blew up the software bounce. Capital rotating from software to hardware.</td><td class="source"><a href="https://youtu.be/E5TnXygEIy4?t=1294" target="_blank" rel="noopener">Tyler</a><span class="ep-date">· Apr 24</span></td></tr>
+      <tr><td class="asset"><strong>Retail (XRT)</strong></td><td class="position-cell"><span class="pill bear">Bear</span></td><td>"Looks horrible" alongside homebuilders and home improvement.</td><td class="source"><a href="https://youtu.be/EljEGEoEYeI?t=1119" target="_blank" rel="noopener">Dutta</a><span class="ep-date">· May 13</span></td></tr>
+      <tr><td class="asset"><strong>Homebuilders</strong></td><td class="position-cell"><span class="pill bear">Bear</span></td><td>Chart "looks like horrible."</td><td class="source"><a href="https://youtu.be/EljEGEoEYeI?t=1113" target="_blank" rel="noopener">Dutta</a><span class="ep-date">· May 13</span></td></tr>
+    </tbody>
+  </table>
+  </div>
+</section>
+
+<section id="stocks">
+  <h2>Single Stocks</h2>
+  <div class="table-scroll">
+  <table>
+    <thead><tr><th>Asset</th><th>Position</th><th>Thesis</th><th>Source</th></tr></thead>
+    <tbody>
+      <tr><td class="asset"><strong>NVDA / Nvidia</strong></td><td class="position-cell"><span class="pill bull">Bull</span><span class="position-text">Implicit</span></td><td>Plumbers/electricians = bottleneck quote came from Jensen on Dwarkesh. Capex story intact.</td><td class="source"><a href="https://youtu.be/E5TnXygEIy4?t=1690" target="_blank" rel="noopener">Felix</a><span class="ep-date">· Apr 24</span></td></tr>
+      <tr><td class="asset"><strong>Intel (INTC)</strong></td><td class="position-cell"><span class="pill bull">Bull</span></td><td>+13–16% AH on blowout. "This has legs."</td><td class="source"><a href="https://youtu.be/E5TnXygEIy4?t=3429" target="_blank" rel="noopener">Felix</a><span class="ep-date">· Apr 24</span></td></tr>
+      <tr><td class="asset"><strong>Tesla (TSLA)</strong></td><td class="position-cell"><span class="pill watch">Watch</span><span class="position-text">Capex spender</span></td><td>$25B+ capex Q2–Q4. Forced into the AI race.</td><td class="source"><a href="https://youtu.be/E5TnXygEIy4?t=1042" target="_blank" rel="noopener">Tyler</a><span class="ep-date">· Apr 24</span></td></tr>
+      <tr><td class="asset"><strong>Oracle (ORCL)</strong></td><td class="position-cell"><span class="pill watch">Watch</span><span class="position-text">Cautionary tale</span></td><td>Trade horizon discipline. Don't buy 20-day OTM calls on a multi-year thesis.</td><td class="source"><a href="https://youtu.be/E5TnXygEIy4?t=1342" target="_blank" rel="noopener">Felix</a><span class="ep-date">· Apr 24</span></td></tr>
+      <tr><td class="asset"><strong>Service Now</strong></td><td class="position-cell"><span class="pill bear">Bear</span><span class="position-text">Trigger</span></td><td>-14% on earnings; software ETF spillover.</td><td class="source"><a href="https://youtu.be/E5TnXygEIy4?t=1294" target="_blank" rel="noopener">Tyler</a><span class="ep-date">· Apr 24</span></td></tr>
+      <tr><td class="asset"><strong>Allbirds, Warby Parker, Credo</strong></td><td class="position-cell"><span class="pill watch">Meme</span><span class="position-text">Avoid being short</span></td><td>Allbirds AI pivot = Kodak crypto 2019 redux. Pandora's box for short-interest squeezes. Credo whipsaw 220→80→up.</td><td class="source"><a href="https://youtu.be/Weratj-dnOI?t=1015" target="_blank" rel="noopener">Felix</a><span class="ep-date">· Apr 16</span>, <a href="https://youtu.be/Weratj-dnOI?t=973" target="_blank" rel="noopener">Tyler</a><span class="ep-date">· Apr 16</span></td></tr>
+      <tr><td class="asset"><strong>Bloom Energy</strong></td><td class="position-cell"><span class="pill bull">Bull</span><span class="position-text">Implicit</span></td><td>Off-grid power for data centers = "21st-century gas stations."</td><td class="source"><a href="https://youtu.be/SrXH0YsSuMk?t=2055" target="_blank" rel="noopener">Tyler</a><span class="ep-date">· Apr 30</span></td></tr>
+      <tr><td class="asset"><strong>SpaceX, OpenAI, Anthropic</strong></td><td class="position-cell"><span class="pill watch">IPO watch</span></td><td>Diversification trigger when these list.</td><td class="source"><a href="https://youtu.be/Weratj-dnOI?t=924" target="_blank" rel="noopener">Tyler</a><span class="ep-date">· Apr 16</span></td></tr>
+      <tr><td class="asset"><strong>Coinbase, Cloudflare, Upwork</strong></td><td class="position-cell"><span class="pill bear">Bear</span><span class="position-text">Labor disruption</span></td><td>Headline layoffs (20–24% workforce cuts). "Bullshit jobs" disruption.</td><td class="source"><a href="https://youtu.be/K25wV7gF3oY?t=2568" target="_blank" rel="noopener">Felix</a><span class="ep-date">· May 8</span></td></tr>
+      <tr><td class="asset"><strong>Doordash</strong></td><td class="position-cell"><span class="pill watch">Tell</span></td><td>Q1 blew the doors off. Top decile still spending.</td><td class="source"><a href="https://youtu.be/K25wV7gF3oY?t=1177" target="_blank" rel="noopener">Felix</a><span class="ep-date">· May 8</span></td></tr>
+    </tbody>
+  </table>
+  </div>
+</section>
+
+<section id="bonds">
+  <h2>Bonds &amp; Rates</h2>
+  <div class="table-scroll">
+  <table>
+    <thead><tr><th>Asset</th><th>Position</th><th>Thesis</th><th>Source</th></tr></thead>
+    <tbody>
+      <tr><td class="asset"><strong>US bonds (long-end)</strong></td><td class="position-cell"><span class="pill bear">Bear (yields up)</span></td><td>"Bearish bonds even if war ends." Growth re-accelerates either way. Watch 10y 5.5%.</td><td class="source"><a href="https://youtu.be/K25wV7gF3oY?t=1747" target="_blank" rel="noopener">Quinn</a><span class="ep-date">· May 8</span>, <a href="https://youtu.be/MO9ZTZPUwXY?t=2896" target="_blank" rel="noopener">Dayan</a><span class="ep-date">· May 6</span></td></tr>
+      <tr><td class="asset"><strong>2y / front-end</strong></td><td class="position-cell"><span class="pill bear">Hikes pricing</span></td><td>Terminal policy rate up across major bond markets. Curve flattening, not steepening.</td><td class="source"><a href="https://youtu.be/9AAG6dpEgjs?t=2490" target="_blank" rel="noopener">Howell</a><span class="ep-date">· Apr 22</span></td></tr>
+      <tr><td class="asset"><strong>Term premium</strong></td><td class="position-cell"><span class="pill bear">Down</span></td><td>Demand for safe assets rising as liquidity tightens. Opposite of the media narrative.</td><td class="source"><a href="https://youtu.be/9AAG6dpEgjs?t=2532" target="_blank" rel="noopener">Howell</a><span class="ep-date">· Apr 22</span></td></tr>
+      <tr><td class="asset"><strong>Yield curve</strong></td><td class="position-cell"><span class="pill bear">Bear flatten</span></td><td>Bear-flattening phase confirmed. Was contrarian Jan 1 call.</td><td class="source"><a href="https://youtu.be/9AAG6dpEgjs?t=162" target="_blank" rel="noopener">Howell</a><span class="ep-date">· Apr 22</span></td></tr>
+      <tr><td class="asset"><strong>TIP / IEF ratio</strong></td><td class="position-cell"><span class="pill bull">Bull</span><span class="position-text">Inflation regime</span></td><td>Broke out. New regime signal.</td><td class="source"><a href="https://youtu.be/K25wV7gF3oY?t=1990" target="_blank" rel="noopener">Tyler</a><span class="ep-date">· May 8</span></td></tr>
+      <tr><td class="asset"><strong>5y inflation swap</strong></td><td class="position-cell"><span class="pill bull">Bull</span></td><td>At 3-year highs.</td><td class="source"><a href="https://youtu.be/K25wV7gF3oY?t=2009" target="_blank" rel="noopener">Tyler</a><span class="ep-date">· May 8</span></td></tr>
+      <tr><td class="asset"><strong>High yield (HY)</strong></td><td class="position-cell"><span class="pill watch">No edge</span></td><td>Spreads 317bp, only +2bp despite war. The crappy stuff is hiding in private credit.</td><td class="source"><a href="https://youtu.be/E5TnXygEIy4?t=1892" target="_blank" rel="noopener">Tyler</a><span class="ep-date">· Apr 24</span></td></tr>
+      <tr><td class="asset"><strong>Private credit</strong></td><td class="position-cell"><span class="pill watch">Risk hidden</span></td><td>Where the bad deals are warehoused.</td><td class="source"><a href="https://youtu.be/E5TnXygEIy4?t=1929" target="_blank" rel="noopener">Tyler</a><span class="ep-date">· Apr 24</span></td></tr>
+      <tr><td class="asset"><strong>MOVE index</strong></td><td class="position-cell"><span class="pill watch">Suppressed</span></td><td>Every 10pt rise → ~$28B Treasury buybacks. Targeting vol low for the basis trade.</td><td class="source"><a href="https://youtu.be/9AAG6dpEgjs?t=1533" target="_blank" rel="noopener">Howell</a><span class="ep-date">· Apr 22</span></td></tr>
+      <tr><td class="asset"><strong>VIX</strong></td><td class="position-cell"><span class="pill bull">Buy upside</span></td><td>At 17 with 1–1.5% daily moves. Don't bet on lower.</td><td class="source"><a href="https://youtu.be/MO9ZTZPUwXY?t=2917" target="_blank" rel="noopener">Dayan</a><span class="ep-date">· May 6</span></td></tr>
+      <tr><td class="asset"><strong>Rate hike bets</strong></td><td class="position-cell"><span class="pill bull">Long</span></td><td>Hedge structure of choice. RBA already hiking; US likely follows.</td><td class="source"><a href="https://youtu.be/MO9ZTZPUwXY?t=2896" target="_blank" rel="noopener">Dayan</a><span class="ep-date">· May 6</span></td></tr>
+    </tbody>
+  </table>
+  </div>
+</section>
+
+<section id="fx">
+  <h2>FX</h2>
+  <div class="table-scroll">
+  <table>
+    <thead><tr><th>Asset</th><th>Position</th><th>Thesis</th><th>Source</th></tr></thead>
+    <tbody>
+      <tr><td class="asset"><strong>USD (DXY)</strong></td><td class="position-cell"><span class="pill bull">Bull</span><span class="position-text">Base forming</span></td><td>Massive base. SWIFT usage surging. Stablecoins are the next leg. Short bias ending.</td><td class="source"><a href="https://youtu.be/E5TnXygEIy4?t=3030" target="_blank" rel="noopener">Quinn</a><span class="ep-date">· Apr 24</span>, <a href="https://youtu.be/Weratj-dnOI?t=459" target="_blank" rel="noopener">Tyler</a><span class="ep-date">· Apr 16</span>, <a href="https://youtu.be/MO9ZTZPUwXY?t=2781" target="_blank" rel="noopener">Dayan</a><span class="ep-date">· May 6</span></td></tr>
+      <tr><td class="asset"><strong>USDJPY</strong></td><td class="position-cell"><span class="pill conviction">Highest conviction long</span></td><td>230% debt/GDP, BOJ 100% balance sheet, vol at 2y lows. 160 break = wrecking ball. Jan 2027 expiry trade.</td><td class="source"><a href="https://youtu.be/SrXH0YsSuMk?t=2345" target="_blank" rel="noopener">Quinn</a><span class="ep-date">· Apr 30</span></td></tr>
+      <tr><td class="asset"><strong>EUR</strong></td><td class="position-cell"><span class="pill bear">Bear</span></td><td>Pricing ECB hikes already. Limited upside.</td><td class="source"><a href="https://youtu.be/MO9ZTZPUwXY?t=2801" target="_blank" rel="noopener">Dayan</a><span class="ep-date">· May 6</span></td></tr>
+      <tr><td class="asset"><strong>GBP / AUD / NZD</strong></td><td class="position-cell"><span class="pill bear">Bear</span></td><td>BoE / RBA / RBNZ priced. US rates have more room.</td><td class="source"><a href="https://youtu.be/MO9ZTZPUwXY?t=2796" target="_blank" rel="noopener">Dayan</a><span class="ep-date">· May 6</span></td></tr>
+    </tbody>
+  </table>
+  </div>
+</section>
+
+<section id="commodities">
+  <h2>Commodities</h2>
+  <div class="table-scroll">
+  <table>
+    <thead><tr><th>Asset</th><th>Position</th><th>Thesis</th><th>Source</th></tr></thead>
+    <tbody>
+      <tr><td class="asset"><strong>Oil (WTI / Brent / USO)</strong></td><td class="position-cell"><span class="pill conviction">High Conviction Long</span><span class="position-text">Dec futures + sell long-dated puts</span></td><td>50–60% annualized carry. Restocking demand underappreciated. Gold/oil 20× ratio → oil up is the cycle ender.</td><td class="source"><a href="https://youtu.be/K25wV7gF3oY?t=249" target="_blank" rel="noopener">Quinn</a><span class="ep-date">· May 8</span>, <a href="https://youtu.be/K25wV7gF3oY?t=478" target="_blank" rel="noopener">Tyler</a><span class="ep-date">· May 8</span>, <a href="https://youtu.be/9AAG6dpEgjs?t=3187" target="_blank" rel="noopener">Howell</a><span class="ep-date">· Apr 22</span></td></tr>
+      <tr><td class="asset"><strong>WTI vs Brent spread</strong></td><td class="position-cell"><span class="pill bull">Long Brent / Short WTI</span></td><td>Export-ban scenario spikes Brent, tanks WTI.</td><td class="source"><a href="https://youtu.be/SrXH0YsSuMk?t=1401" target="_blank" rel="noopener">Quinn</a><span class="ep-date">· Apr 30</span></td></tr>
+      <tr><td class="asset"><strong>Gold</strong></td><td class="position-cell"><span class="pill mixed">Split call</span></td><td>Bullish: China bid back, Fed sidelined, inflation up (Quinn, Tyler). Bearish: dollar substitute, story not intact (Dayan). Net: still bullish through midterms.</td><td class="source"><a href="https://youtu.be/K25wV7gF3oY?t=1821" target="_blank" rel="noopener">Quinn</a><span class="ep-date">· May 8</span>, <a href="https://youtu.be/MO9ZTZPUwXY?t=2855" target="_blank" rel="noopener">Dayan</a><span class="ep-date">· May 6</span></td></tr>
+      <tr><td class="asset"><strong>Silver</strong></td><td class="position-cell"><span class="pill bear">Skip</span></td><td>"Same story as gold, don't need it."</td><td class="source"><a href="https://youtu.be/MO9ZTZPUwXY?t=2871" target="_blank" rel="noopener">Dayan</a><span class="ep-date">· May 6</span></td></tr>
+      <tr><td class="asset"><strong>Copper</strong></td><td class="position-cell"><span class="pill bull">Bull</span></td><td>Data centers + supply chain. Preferred over gold/silver.</td><td class="source"><a href="https://youtu.be/MO9ZTZPUwXY?t=2851" target="_blank" rel="noopener">Dayan</a><span class="ep-date">· May 6</span></td></tr>
+      <tr><td class="asset"><strong>Agriculture (wheat, sugar, corn, soybeans, cattle, cocoa)</strong></td><td class="position-cell"><span class="pill bull">Bull</span></td><td>"Every commodity on the screen ripping. How inflation starts. 2021 redux."</td><td class="source"><a href="https://youtu.be/K25wV7gF3oY?t=1682" target="_blank" rel="noopener">Quinn</a><span class="ep-date">· May 8</span></td></tr>
+      <tr><td class="asset"><strong>Lumber</strong></td><td class="position-cell"><span class="pill bull">Bull</span><span class="position-text">Replacement cost</span></td><td>Housing replacement cost rising. Labor shortage + commodity inputs.</td><td class="source"><a href="https://youtu.be/K25wV7gF3oY?t=2745" target="_blank" rel="noopener">Quinn</a><span class="ep-date">· May 8</span></td></tr>
+      <tr><td class="asset"><strong>Uranium / nuclear</strong></td><td class="position-cell"><span class="pill bull">Bull</span><span class="position-text">Implicit</span></td><td>US needs to rebuild nuclear base for the AI power race vs. China.</td><td class="source"><a href="https://youtu.be/K25wV7gF3oY?t=895" target="_blank" rel="noopener">Tyler</a><span class="ep-date">· May 8</span></td></tr>
+    </tbody>
+  </table>
+  </div>
+</section>
+
+<section id="crypto">
+  <h2>Crypto</h2>
+  <div class="table-scroll">
+  <table>
+    <thead><tr><th>Asset</th><th>Position</th><th>Thesis</th><th>Source</th></tr></thead>
+    <tbody>
+      <tr><td class="asset"><strong>Bitcoin</strong></td><td class="position-cell"><span class="pill bear">Sell into gold</span></td><td>"Probably a good place to sell BTC and buy gold."</td><td class="source"><a href="https://youtu.be/K25wV7gF3oY?t=1974" target="_blank" rel="noopener">Quinn</a><span class="ep-date">· May 8</span></td></tr>
+      <tr><td class="asset"><strong>BTC / ETH / SOL basket</strong></td><td class="position-cell"><span class="pill bear">Bear near-term</span></td><td>Liquidity leads 13 weeks. Heading into a "tougher period."</td><td class="source"><a href="https://youtu.be/9AAG6dpEgjs?t=2869" target="_blank" rel="noopener">Howell</a><span class="ep-date">· Apr 22</span></td></tr>
+      <tr><td class="asset"><strong>Stablecoins</strong></td><td class="position-cell"><span class="pill bull">Bull</span><span class="position-text">Structural</span></td><td>Next leg of dollar dominance; disintermediates banks.</td><td class="source"><a href="https://youtu.be/9AAG6dpEgjs?t=2254" target="_blank" rel="noopener">Howell</a><span class="ep-date">· Apr 22</span></td></tr>
+    </tbody>
+  </table>
+  </div>
+</section>
+
+<section id="realestate">
+  <h2>Real Estate</h2>
+  <div class="table-scroll">
+  <table>
+    <thead><tr><th>Asset</th><th>Position</th><th>Thesis</th><th>Source</th></tr></thead>
+    <tbody>
+      <tr><td class="asset"><strong>Residential (coveted areas) with 30y fixed debt</strong></td><td class="position-cell"><span class="pill conviction">High Conviction Long</span></td><td>1970–80 analog: mortgage rates 2×, home values 3×. Get long-term fixed debt now.</td><td class="source"><a href="https://youtu.be/K25wV7gF3oY?t=2775" target="_blank" rel="noopener">Quinn</a><span class="ep-date">· May 8</span></td></tr>
+      <tr><td class="asset"><strong>General US housing / building permits</strong></td><td class="position-cell"><span class="pill bear">Bear</span><span class="position-text">Near-term</span></td><td>Permits at multi-month lows; residential investment sluggish.</td><td class="source"><a href="https://youtu.be/EljEGEoEYeI?t=2010" target="_blank" rel="noopener">Dutta</a><span class="ep-date">· May 13</span></td></tr>
+      <tr><td class="asset"><strong>Commercial real estate (offices)</strong></td><td class="position-cell"><span class="pill bear">Bear</span><span class="position-text">Long-term</span></td><td>Empty offices, no return-to-office. Citadel canceling $6B NYC tower.</td><td class="source"><a href="https://youtu.be/E5TnXygEIy4?t=1534" target="_blank" rel="noopener">Tyler</a><span class="ep-date">· Apr 24</span></td></tr>
+      <tr><td class="asset"><strong>Austin / Miami / TX / FL CRE</strong></td><td class="position-cell"><span class="pill bull">Bull</span></td><td>Permissive states pull data center jobs + young workers.</td><td class="source"><a href="https://youtu.be/E5TnXygEIy4?t=2522" target="_blank" rel="noopener">Tyler &amp; Quinn</a><span class="ep-date">· Apr 24</span></td></tr>
+      <tr><td class="asset"><strong>SF / NYC / CA / NY / WA / GA CRE</strong></td><td class="position-cell"><span class="pill bear">Bear</span></td><td>Restrictive policy, banning data centers, losing the build.</td><td class="source"><a href="https://youtu.be/Weratj-dnOI?t=1788" target="_blank" rel="noopener">Quinn</a><span class="ep-date">· Apr 16</span></td></tr>
+    </tbody>
+  </table>
+  </div>
+</section>
+
+<section id="inferences">
+  <h2>Inferences (Extrapolations)</h2>
+  <p class="inference-intro">Not mentioned by name but follow directly from positioning. Treat as <em>candidates</em> consistent with the speakers' framework, not their explicit calls. No timestamp links because these are extrapolations, not direct quotes.</p>
+  <div class="table-scroll">
+  <table>
+    <thead><tr><th>Inference trade</th><th>From whose thesis</th><th>Logic</th></tr></thead>
+    <tbody>
+      <tr><td class="asset"><strong>Long power / utility names with data-center exposure</strong><br><span class="position-text">VST, CEG, TLN, NRG, PWR</span></td><td>Hou + Tyler</td><td>Skilled-trades shortage + grid limits → priced in power producers and electrical contractors.</td></tr>
+      <tr><td class="asset"><strong>Long industrials with data-center build exposure</strong><br><span class="position-text">J, FIX, PWR, EME</span></td><td>Dutta</td><td>Non-res construction is the payroll story; heavy/civil engineering + specialty trade contractors.</td></tr>
+      <tr><td class="asset"><strong>Long natural gas / LNG</strong><br><span class="position-text">LNG, CHRD, RRC, EQT</span></td><td>Tyler</td><td>US LNG exporter to weaken China energy + Bloom Energy off-grid; direct domestic energy-security beneficiary.</td></tr>
+      <tr><td class="asset"><strong>Long defense</strong><br><span class="position-text">LMT, NOC, RTX, GD, ANDU</span></td><td>Tyler aside</td><td>"Depleting US arsenal, China edge on Taiwan" implies rebuilds incoming.</td></tr>
+      <tr><td class="asset"><strong>Long ag producers / fertilizer</strong><br><span class="position-text">DE, AGCO, CTVA, NTR, MOS, ADM</span></td><td>Quinn</td><td>"Every ag commodity ripping." Direct way to express the broad commodity thesis.</td></tr>
+      <tr><td class="asset"><strong>Long Korean / Taiwanese export proxies</strong><br><span class="position-text">TSM, EWY, EWT, SMSN</span></td><td>Hou</td><td>"Korean/Taiwanese economies on fire from chip/memory exports." Mirror side of US AI imports.</td></tr>
+      <tr><td class="asset"><strong>Long mid / small-cap industrials</strong><br><span class="position-text">IWM cyclical sleeve</span></td><td>Quinn</td><td>"S&amp;P 600 / midcap EPS revisions higher." Earnings broadening beyond AI.</td></tr>
+      <tr><td class="asset"><strong>Short long-duration consumer discretionary</strong><br><span class="position-text">e.g. Carvana, RH, beaten-down DTC</span></td><td>Dutta + Tyler</td><td>Real-income squeeze (XRT, homebuilders) + DTC vintage rot (Allbirds analog).</td></tr>
+      <tr><td class="asset"><strong>Long Berkshire / cash-rich value</strong></td><td>Howell</td><td>Cash wins in turbulence phase per the 4-season framework.</td></tr>
+      <tr><td class="asset"><strong>Short Japanese equities (EWJ)</strong> or hedge the yen leg</td><td>Quinn</td><td>JGB Ponzi call extends to Japanese stocks if the currency breaks.</td></tr>
+      <tr><td class="asset"><strong>Short emerging Asia ex-energy producers</strong></td><td>Hou + Dutta</td><td>Split EM Asia: long chip exporters (Korea, Taiwan), short energy importers (India, broader South Asia).</td></tr>
+      <tr><td class="asset"><strong>Long platinum / palladium</strong><br><span class="position-text">PPLT, PALL</span></td><td>Dayan</td><td>Per Dayan's "commodities you need" framing over gold/silver. Auto + industrial demand, tight supply.</td></tr>
+      <tr><td class="asset"><strong>Buy long-dated VIX / SPX vol</strong></td><td>Tyler, Dayan</td><td>Vol at 17 floor; convexity into Sep / Oct.</td></tr>
+      <tr><td class="asset"><strong>Short SaaS basket</strong><br><span class="position-text">IGV, WCLD</span></td><td>Tyler</td><td>"Software bouncing then rolling over." Capex spread + price-isn't-right on AI tokens.</td></tr>
+      <tr><td class="asset"><strong>Long ag REITs / farmland</strong><br><span class="position-text">LAND, FPI</span></td><td>Quinn</td><td>Food / ag inflation. Real assets with cash yield.</td></tr>
+      <tr><td class="asset"><strong>Long Mexico / Latam</strong><br><span class="position-text">EWW, EWZ</span></td><td>Tyler aside</td><td>"Western hemisphere strongholds, Greenland / Venezuela." Hemisphere dominance frame.</td></tr>
+    </tbody>
+  </table>
+  </div>
+</section>
+
+<section id="sources">
+  <h2>Sources</h2>
+  <ul class="source-list">
+    <li><a href="https://youtu.be/Weratj-dnOI" target="_blank" rel="noopener"><span class="src-date">2026-04-16</span>Market Structure Is Fueling an Inflation Trap. Weekly Roundup<span class="src-ext">YouTube</span></a></li>
+    <li><a href="https://youtu.be/9AAG6dpEgjs" target="_blank" rel="noopener"><span class="src-date">2026-04-22</span>Markets Are Misreading a Late-Cycle Liquidity Crunch. Michael Howell<span class="src-ext">YouTube</span></a></li>
+    <li><a href="https://youtu.be/E5TnXygEIy4" target="_blank" rel="noopener"><span class="src-date">2026-04-24</span>The Fed Is Irrelevant While CapEx Runs the Economy. Weekly Roundup<span class="src-ext">YouTube</span></a></li>
+    <li><a href="https://youtu.be/kqdeBukSvho" target="_blank" rel="noopener"><span class="src-date">2026-04-29</span>The AI Bubble Is Widely Misunderstood. Steve Hou<span class="src-ext">YouTube</span></a></li>
+    <li><a href="https://youtu.be/SrXH0YsSuMk" target="_blank" rel="noopener"><span class="src-date">2026-04-30</span>Central Bank Control Is Breaking. Weekly Roundup<span class="src-ext">YouTube</span></a></li>
+    <li><a href="https://youtu.be/MO9ZTZPUwXY" target="_blank" rel="noopener"><span class="src-date">2026-05-06</span>Passive Easing Is Fueling the Next Inflation Wave. Danny Dayan<span class="src-ext">YouTube</span></a></li>
+    <li><a href="https://youtu.be/K25wV7gF3oY" target="_blank" rel="noopener"><span class="src-date">2026-05-08</span>Oil and AI Are Breaking the Middle Class. Weekly Roundup<span class="src-ext">YouTube</span></a></li>
+    <li><a href="https://youtu.be/EljEGEoEYeI" target="_blank" rel="noopener"><span class="src-date">2026-05-13</span>The Fed Is Losing Its Easing Bias. Neil Dutta<span class="src-ext">YouTube</span></a></li>
+  </ul>
+</section>
+
+<section id="speakers">
+  <h2>Speaker Key</h2>
+  <div class="speaker-key">
+    <div class="speaker-grid">
+      <div class="speaker-entry"><strong>Dutta</strong>Neil Dutta, Renaissance Macro Research</div>
+      <div class="speaker-entry"><strong>Dayan</strong>Danny Dayan, Macro Musings (@DannyDayan5)</div>
+      <div class="speaker-entry"><strong>Hou</strong>Steve Hou, Bloomberg quant researcher</div>
+      <div class="speaker-entry"><strong>Howell</strong>Michael Howell, CrossBorder Capital</div>
+      <div class="speaker-entry"><strong>Felix, Quinn, Tyler</strong>Forward Guidance hosts (Blockworks)</div>
+    </div>
+    <p class="note">Hosts are identified by first names only. The transcripts do not include surnames. Felix is the lead host across all eight episodes; Quinn and Tyler co-host the weekly roundups. Where the transcript is ambiguous about which co-host is speaking, attributions are best-guess from content cues. Verify against the audio if it matters.</p>
+  </div>
+</section>
+
+<footer class="footer">
+  <p>Compiled from Forward Guidance (Blockworks) episodes April 16 – May 13, 2026.</p>
+  <p>Speakers' views are their own. Timestamp links jump to the moment each call was made on YouTube. Dates next to each speaker indicate the episode publication date.</p>
+  <div class="disclaimer">
+    Not financial advice. This document is a synthesis of third-party commentary for personal reference and discussion. Verify all data points independently before any positioning decision.
+  </div>
+</footer>
+
+</article>
+</body>
+</html>
