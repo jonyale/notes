@@ -187,17 +187,34 @@
     border-bottom-color: var(--ink-soft);
   }
 
-  /* ─── abbr tooltips ───────────────────────────────────── */
-  abbr[title] {
+  /* ─── Glossary links (inline acronyms) ────────────────── */
+  a.abbr {
+    color: inherit;
     text-decoration: underline dotted;
     text-decoration-color: var(--muted-soft);
     text-decoration-thickness: 1px;
     text-underline-offset: 3px;
-    cursor: help;
+    border-bottom: none;
+    background: none;
+    cursor: pointer;
+    transition: text-decoration-color 0.12s ease, color 0.12s ease;
   }
-  td.asset abbr[title] {
-    text-decoration-color: var(--muted);
+  a.abbr:hover {
+    color: var(--ink);
+    text-decoration-color: var(--ink-soft);
+    background: none;
+    border-bottom: none;
   }
+  td.asset a.abbr { text-decoration-color: var(--muted); }
+  td.asset a.abbr:hover { text-decoration-color: var(--ink-soft); }
+
+  /* Highlight the targeted glossary row when arrived via fragment link */
+  .g-row:target {
+    background: var(--surface-2);
+    border-radius: 4px;
+    box-shadow: 0 0 0 8px var(--surface-2);
+  }
+  .g-row:target .g-term { color: var(--ink); }
 
   /* ─── Table of contents (3-column, column-major) ──────── */
   .toc {
@@ -699,10 +716,13 @@
     h2::before { font-size: 22pt; color: #666 !important; margin-bottom: 8pt; }
     h3 { font-size: 12pt; }
 
-    abbr[title] {
+    a.abbr {
+      color: #1A1A1A !important;
+      text-decoration: underline dotted !important;
       text-decoration-color: #999 !important;
       cursor: default;
     }
+    .g-row:target { background: none !important; box-shadow: none !important; }
 
     .eyebrow { color: #666 !important; }
     .eyebrow::before { background: #666 !important; }
@@ -844,7 +864,7 @@
         <li>December oil futures</li>
         <li>Long-dated fixed-rate mortgage debt</li>
         <li>US dollar basket</li>
-        <li><abbr title="Liquefied natural gas. Also the ticker for Cheniere Energy.">LNG</abbr> (liquefied natural gas)</li>
+        <li><a class="abbr" href="#g-lng" title="Liquefied natural gas. Also the ticker for Cheniere Energy.">LNG</a> (liquefied natural gas)</li>
         <li>Stablecoin infrastructure</li>
         <li>Brazil and Mexico equities</li>
         <li>Defense</li>
@@ -854,8 +874,8 @@
       <h4>Short / Hedge</h4>
       <ul>
         <li>Yen</li>
-        <li><abbr title="Japanese government bonds.">JGBs</abbr> (Japanese government bonds)</li>
-        <li>Software and <abbr title="Software as a service.">SaaS</abbr> basket</li>
+        <li><a class="abbr" href="#g-jgb" title="Japanese government bonds.">JGBs</a> (Japanese government bonds)</li>
+        <li>Software and <a class="abbr" href="#g-saas" title="Software as a service.">SaaS</a> basket</li>
         <li>Japanese equities</li>
         <li>US long bonds</li>
         <li>Euro</li>
@@ -864,15 +884,15 @@
     <div class="composite-card sell-vol">
       <h4>Sell Vol On</h4>
       <ul>
-        <li><abbr title="Philadelphia Semiconductor Index.">SOX</abbr> (Philadelphia Semiconductor Index)</li>
-        <li><abbr title="United States Oil Fund. The main oil ETF.">USO</abbr> (US Oil Fund ETF) <span class="item-note">96th-percentile premium; sell puts under shares</span></li>
+        <li><a class="abbr" href="#g-sox" title="Philadelphia Semiconductor Index.">SOX</a> (Philadelphia Semiconductor Index)</li>
+        <li><a class="abbr" href="#g-uso" title="United States Oil Fund. The main oil ETF.">USO</a> (US Oil Fund ETF) <span class="item-note">96th-percentile premium; sell puts under shares</span></li>
       </ul>
     </div>
     <div class="composite-card buy-vol">
       <h4>Buy Vol On</h4>
       <ul>
-        <li><abbr title="CBOE Volatility Index. The market's expected 30-day S&amp;P 500 volatility.">VIX</abbr> upside</li>
-        <li><abbr title="US dollar / Japanese yen exchange rate.">USDJPY</abbr> upside breakout convexity</li>
+        <li><a class="abbr" href="#g-vix" title="CBOE Volatility Index. The market's expected 30-day S&amp;P 500 volatility.">VIX</a> upside</li>
+        <li><a class="abbr" href="#g-usdjpy" title="US dollar / Japanese yen exchange rate.">USDJPY</a> upside breakout convexity</li>
       </ul>
     </div>
   </div>
@@ -883,7 +903,7 @@
   <ul class="catalyst-list">
     <li><strong>Oil &gt; $150</strong><span>Demand destruction kicks in.</span></li>
     <li><strong>10y yield &gt; 5.5%</strong><span>Bond market breaks.</span></li>
-    <li><strong><abbr title="US dollar / Japanese yen exchange rate.">USDJPY</abbr> 160 break</strong><span>Dollar wrecking ball / global capital repatriation.</span></li>
+    <li><strong><a class="abbr" href="#g-usdjpy" title="US dollar / Japanese yen exchange rate.">USDJPY</a> 160 break</strong><span>Dollar wrecking ball / global capital repatriation.</span></li>
     <li><strong>Fed turns actually hawkish</strong><span>Not just "no cuts." Active tightening.</span></li>
   </ul>
 </section>
@@ -895,13 +915,13 @@
     <thead><tr><th>Asset</th><th>Position</th><th>Thesis</th><th>Source</th></tr></thead>
     <tbody>
       <tr><td class="asset"><strong>S&amp;P 500</strong></td><td class="position-cell"><span class="pill bull">Bull</span><span class="position-text">Near-term, late-cycle</span></td><td>Melt-up parabolic until oil $150 / 10y &gt;5.5% / Fed turns hawkish. Sell-the-news on Fed meetings now.</td><td class="source"><a href="https://youtu.be/MO9ZTZPUwXY?t=2642" target="_blank" rel="noopener">Dayan</a><span class="ep-date">· May 6</span></td></tr>
-      <tr><td class="asset"><strong><abbr title="Invesco QQQ Trust. Nasdaq-100 ETF.">QQQ</abbr> / NASDAQ</strong></td><td class="position-cell"><span class="pill mixed">Mixed</span><span class="position-text">Tactical bull, structural risk</span></td><td>30% is hyperscalers. <abbr title="Price-to-free-cash-flow ratio.">P/FCF</abbr> &gt;&gt; <abbr title="Price-to-earnings ratio.">P/E</abbr> creates an air pocket if AI productivity disappoints. Hit if <abbr title="US dollar / Japanese yen exchange rate.">USDJPY</abbr> 160 breaks.</td><td class="source"><a href="https://youtu.be/K25wV7gF3oY?t=2044" target="_blank" rel="noopener">Tyler</a><span class="ep-date">· May 8</span>, <a href="https://youtu.be/SrXH0YsSuMk?t=2495" target="_blank" rel="noopener">Quinn</a><span class="ep-date">· Apr 30</span></td></tr>
-      <tr><td class="asset"><strong>Equal-weight S&amp;P (<abbr title="Invesco S&amp;P 500 Equal Weight ETF.">RSP</abbr>)</strong></td><td class="position-cell"><span class="pill bear">Bear</span><span class="position-text">Lagging</span></td><td>Hasn't made a new <abbr title="All-time high.">ATH</abbr>; keeps getting rejected. "Not Main Street's turn."</td><td class="source"><a href="https://youtu.be/K25wV7gF3oY?t=1292" target="_blank" rel="noopener">Quinn</a><span class="ep-date">· May 8</span></td></tr>
-      <tr><td class="asset"><strong><abbr title="The Magnificent 7: Apple, Microsoft, Alphabet, Amazon, Nvidia, Meta, Tesla.">MAG7</abbr> / <abbr title="Roundhill Magnificent Seven ETF.">MAGS</abbr> ETF</strong></td><td class="position-cell"><span class="pill bear">Bear</span><span class="position-text">Lagging</span></td><td>Below yearly open, well off October highs while <abbr title="Philadelphia Semiconductor Index.">SOX</abbr> is +15–20% above prior highs.</td><td class="source"><a href="https://youtu.be/E5TnXygEIy4?t=1134" target="_blank" rel="noopener">Quinn</a><span class="ep-date">· Apr 24</span></td></tr>
-      <tr><td class="asset"><strong>Semis (<abbr title="VanEck Semiconductor ETF.">SMH</abbr> / <abbr title="Philadelphia Semiconductor Index.">SOX</abbr>)</strong></td><td class="position-cell"><span class="pill bull">Bull</span><span class="position-text">Trend / short-term stretched</span></td><td>Up 16 days in a row; implied vol at 96th percentile. Sell vol, don't fade direction.</td><td class="source"><a href="https://youtu.be/E5TnXygEIy4?t=1205" target="_blank" rel="noopener">Tyler</a><span class="ep-date">· Apr 24</span></td></tr>
+      <tr><td class="asset"><strong><a class="abbr" href="#g-qqq" title="Invesco QQQ Trust. Nasdaq-100 ETF.">QQQ</a> / NASDAQ</strong></td><td class="position-cell"><span class="pill mixed">Mixed</span><span class="position-text">Tactical bull, structural risk</span></td><td>30% is hyperscalers. <a class="abbr" href="#g-pfcf" title="Price-to-free-cash-flow ratio.">P/FCF</a> &gt;&gt; <a class="abbr" href="#g-pe" title="Price-to-earnings ratio.">P/E</a> creates an air pocket if AI productivity disappoints. Hit if <a class="abbr" href="#g-usdjpy" title="US dollar / Japanese yen exchange rate.">USDJPY</a> 160 breaks.</td><td class="source"><a href="https://youtu.be/K25wV7gF3oY?t=2044" target="_blank" rel="noopener">Tyler</a><span class="ep-date">· May 8</span>, <a href="https://youtu.be/SrXH0YsSuMk?t=2495" target="_blank" rel="noopener">Quinn</a><span class="ep-date">· Apr 30</span></td></tr>
+      <tr><td class="asset"><strong>Equal-weight S&amp;P (<a class="abbr" href="#g-rsp" title="Invesco S&amp;P 500 Equal Weight ETF.">RSP</a>)</strong></td><td class="position-cell"><span class="pill bear">Bear</span><span class="position-text">Lagging</span></td><td>Hasn't made a new <a class="abbr" href="#g-ath" title="All-time high.">ATH</a>; keeps getting rejected. "Not Main Street's turn."</td><td class="source"><a href="https://youtu.be/K25wV7gF3oY?t=1292" target="_blank" rel="noopener">Quinn</a><span class="ep-date">· May 8</span></td></tr>
+      <tr><td class="asset"><strong><a class="abbr" href="#g-mag7" title="The Magnificent 7: Apple, Microsoft, Alphabet, Amazon, Nvidia, Meta, Tesla.">MAG7</a> / <a class="abbr" href="#g-mags" title="Roundhill Magnificent Seven ETF.">MAGS</a> ETF</strong></td><td class="position-cell"><span class="pill bear">Bear</span><span class="position-text">Lagging</span></td><td>Below yearly open, well off October highs while <a class="abbr" href="#g-sox" title="Philadelphia Semiconductor Index.">SOX</a> is +15–20% above prior highs.</td><td class="source"><a href="https://youtu.be/E5TnXygEIy4?t=1134" target="_blank" rel="noopener">Quinn</a><span class="ep-date">· Apr 24</span></td></tr>
+      <tr><td class="asset"><strong>Semis (<a class="abbr" href="#g-smh" title="VanEck Semiconductor ETF.">SMH</a> / <a class="abbr" href="#g-sox" title="Philadelphia Semiconductor Index.">SOX</a>)</strong></td><td class="position-cell"><span class="pill bull">Bull</span><span class="position-text">Trend / short-term stretched</span></td><td>Up 16 days in a row; implied vol at 96th percentile. Sell vol, don't fade direction.</td><td class="source"><a href="https://youtu.be/E5TnXygEIy4?t=1205" target="_blank" rel="noopener">Tyler</a><span class="ep-date">· Apr 24</span></td></tr>
       <tr><td class="asset"><strong>AI infrastructure</strong></td><td class="position-cell"><span class="pill conviction">High Conviction Bull</span></td><td>Marginal driver of US growth. Many names still cheap.</td><td class="source"><a href="https://youtu.be/E5TnXygEIy4?t=1099" target="_blank" rel="noopener">Tyler</a><span class="ep-date">· Apr 24</span></td></tr>
-      <tr><td class="asset"><strong>Software (<abbr title="iShares Expanded Tech-Software Sector ETF.">IGV</abbr>)</strong></td><td class="position-cell"><span class="pill bear">Bear</span></td><td>Service Now -14% blew up the software bounce. Capital rotating from software to hardware.</td><td class="source"><a href="https://youtu.be/E5TnXygEIy4?t=1294" target="_blank" rel="noopener">Tyler</a><span class="ep-date">· Apr 24</span></td></tr>
-      <tr><td class="asset"><strong>Retail (<abbr title="SPDR S&amp;P Retail ETF.">XRT</abbr>)</strong></td><td class="position-cell"><span class="pill bear">Bear</span></td><td>"Looks horrible" alongside homebuilders and home improvement.</td><td class="source"><a href="https://youtu.be/EljEGEoEYeI?t=1119" target="_blank" rel="noopener">Dutta</a><span class="ep-date">· May 13</span></td></tr>
+      <tr><td class="asset"><strong>Software (<a class="abbr" href="#g-igv" title="iShares Expanded Tech-Software Sector ETF.">IGV</a>)</strong></td><td class="position-cell"><span class="pill bear">Bear</span></td><td>Service Now -14% blew up the software bounce. Capital rotating from software to hardware.</td><td class="source"><a href="https://youtu.be/E5TnXygEIy4?t=1294" target="_blank" rel="noopener">Tyler</a><span class="ep-date">· Apr 24</span></td></tr>
+      <tr><td class="asset"><strong>Retail (<a class="abbr" href="#g-xrt" title="SPDR S&amp;P Retail ETF.">XRT</a>)</strong></td><td class="position-cell"><span class="pill bear">Bear</span></td><td>"Looks horrible" alongside homebuilders and home improvement.</td><td class="source"><a href="https://youtu.be/EljEGEoEYeI?t=1119" target="_blank" rel="noopener">Dutta</a><span class="ep-date">· May 13</span></td></tr>
       <tr><td class="asset"><strong>Homebuilders</strong></td><td class="position-cell"><span class="pill bear">Bear</span></td><td>Chart "looks like horrible."</td><td class="source"><a href="https://youtu.be/EljEGEoEYeI?t=1113" target="_blank" rel="noopener">Dutta</a><span class="ep-date">· May 13</span></td></tr>
     </tbody>
   </table>
@@ -915,9 +935,9 @@
     <thead><tr><th>Asset</th><th>Position</th><th>Thesis</th><th>Source</th></tr></thead>
     <tbody>
       <tr><td class="asset"><strong>NVDA / Nvidia</strong></td><td class="position-cell"><span class="pill bull">Bull</span><span class="position-text">Implicit</span></td><td>Plumbers/electricians = bottleneck quote came from Jensen on Dwarkesh. Capex story intact.</td><td class="source"><a href="https://youtu.be/E5TnXygEIy4?t=1690" target="_blank" rel="noopener">Felix</a><span class="ep-date">· Apr 24</span></td></tr>
-      <tr><td class="asset"><strong>Intel (INTC)</strong></td><td class="position-cell"><span class="pill bull">Bull</span></td><td>+13–16% <abbr title="After-hours trading.">AH</abbr> on blowout. "This has legs."</td><td class="source"><a href="https://youtu.be/E5TnXygEIy4?t=3429" target="_blank" rel="noopener">Felix</a><span class="ep-date">· Apr 24</span></td></tr>
+      <tr><td class="asset"><strong>Intel (INTC)</strong></td><td class="position-cell"><span class="pill bull">Bull</span></td><td>+13–16% <a class="abbr" href="#g-ah" title="After-hours trading.">AH</a> on blowout. "This has legs."</td><td class="source"><a href="https://youtu.be/E5TnXygEIy4?t=3429" target="_blank" rel="noopener">Felix</a><span class="ep-date">· Apr 24</span></td></tr>
       <tr><td class="asset"><strong>Tesla (TSLA)</strong></td><td class="position-cell"><span class="pill watch">Watch</span><span class="position-text">Capex spender</span></td><td>$25B+ capex Q2–Q4. Forced into the AI race.</td><td class="source"><a href="https://youtu.be/E5TnXygEIy4?t=1042" target="_blank" rel="noopener">Tyler</a><span class="ep-date">· Apr 24</span></td></tr>
-      <tr><td class="asset"><strong>Oracle (ORCL)</strong></td><td class="position-cell"><span class="pill watch">Watch</span><span class="position-text">Cautionary tale</span></td><td>Trade horizon discipline. Don't buy 20-day <abbr title="Out-of-the-money options.">OTM</abbr> calls on a multi-year thesis.</td><td class="source"><a href="https://youtu.be/E5TnXygEIy4?t=1342" target="_blank" rel="noopener">Felix</a><span class="ep-date">· Apr 24</span></td></tr>
+      <tr><td class="asset"><strong>Oracle (ORCL)</strong></td><td class="position-cell"><span class="pill watch">Watch</span><span class="position-text">Cautionary tale</span></td><td>Trade horizon discipline. Don't buy 20-day <a class="abbr" href="#g-otm" title="Out-of-the-money options.">OTM</a> calls on a multi-year thesis.</td><td class="source"><a href="https://youtu.be/E5TnXygEIy4?t=1342" target="_blank" rel="noopener">Felix</a><span class="ep-date">· Apr 24</span></td></tr>
       <tr><td class="asset"><strong>Service Now</strong></td><td class="position-cell"><span class="pill bear">Bear</span><span class="position-text">Trigger</span></td><td>-14% on earnings; software ETF spillover.</td><td class="source"><a href="https://youtu.be/E5TnXygEIy4?t=1294" target="_blank" rel="noopener">Tyler</a><span class="ep-date">· Apr 24</span></td></tr>
       <tr><td class="asset"><strong>Allbirds, Warby Parker, Credo</strong></td><td class="position-cell"><span class="pill watch">Meme</span><span class="position-text">Avoid being short</span></td><td>Allbirds AI pivot = Kodak crypto 2019 redux. Pandora's box for short-interest squeezes. Credo whipsaw 220→80→up.</td><td class="source"><a href="https://youtu.be/Weratj-dnOI?t=1015" target="_blank" rel="noopener">Felix</a><span class="ep-date">· Apr 16</span>, <a href="https://youtu.be/Weratj-dnOI?t=973" target="_blank" rel="noopener">Tyler</a><span class="ep-date">· Apr 16</span></td></tr>
       <tr><td class="asset"><strong>Bloom Energy</strong></td><td class="position-cell"><span class="pill bull">Bull</span><span class="position-text">Implicit</span></td><td>Off-grid power for data centers = "21st-century gas stations."</td><td class="source"><a href="https://youtu.be/SrXH0YsSuMk?t=2055" target="_blank" rel="noopener">Tyler</a><span class="ep-date">· Apr 30</span></td></tr>
@@ -939,13 +959,13 @@
       <tr><td class="asset"><strong>2y / front-end</strong></td><td class="position-cell"><span class="pill bear">Hikes pricing</span></td><td>Terminal policy rate up across major bond markets. Curve flattening, not steepening.</td><td class="source"><a href="https://youtu.be/9AAG6dpEgjs?t=2490" target="_blank" rel="noopener">Howell</a><span class="ep-date">· Apr 22</span></td></tr>
       <tr><td class="asset"><strong>Term premium</strong></td><td class="position-cell"><span class="pill bear">Down</span></td><td>Demand for safe assets rising as liquidity tightens. Opposite of the media narrative.</td><td class="source"><a href="https://youtu.be/9AAG6dpEgjs?t=2532" target="_blank" rel="noopener">Howell</a><span class="ep-date">· Apr 22</span></td></tr>
       <tr><td class="asset"><strong>Yield curve</strong></td><td class="position-cell"><span class="pill bear">Bear flatten</span></td><td>Bear-flattening phase confirmed. Was contrarian Jan 1 call.</td><td class="source"><a href="https://youtu.be/9AAG6dpEgjs?t=162" target="_blank" rel="noopener">Howell</a><span class="ep-date">· Apr 22</span></td></tr>
-      <tr><td class="asset"><strong><abbr title="iShares TIPS Bond ETF. Inflation-protected Treasuries.">TIP</abbr> / <abbr title="iShares 7-10 Year Treasury Bond ETF.">IEF</abbr> ratio</strong></td><td class="position-cell"><span class="pill bull">Bull</span><span class="position-text">Inflation regime</span></td><td>Broke out. New regime signal.</td><td class="source"><a href="https://youtu.be/K25wV7gF3oY?t=1990" target="_blank" rel="noopener">Tyler</a><span class="ep-date">· May 8</span></td></tr>
+      <tr><td class="asset"><strong><a class="abbr" href="#g-tip" title="iShares TIPS Bond ETF. Inflation-protected Treasuries.">TIP</a> / <a class="abbr" href="#g-ief" title="iShares 7-10 Year Treasury Bond ETF.">IEF</a> ratio</strong></td><td class="position-cell"><span class="pill bull">Bull</span><span class="position-text">Inflation regime</span></td><td>Broke out. New regime signal.</td><td class="source"><a href="https://youtu.be/K25wV7gF3oY?t=1990" target="_blank" rel="noopener">Tyler</a><span class="ep-date">· May 8</span></td></tr>
       <tr><td class="asset"><strong>5y inflation swap</strong></td><td class="position-cell"><span class="pill bull">Bull</span></td><td>At 3-year highs.</td><td class="source"><a href="https://youtu.be/K25wV7gF3oY?t=2009" target="_blank" rel="noopener">Tyler</a><span class="ep-date">· May 8</span></td></tr>
-      <tr><td class="asset"><strong><abbr title="High-yield (junk) bonds.">High yield (HY)</abbr></strong></td><td class="position-cell"><span class="pill watch">No edge</span></td><td>Spreads 317<abbr title="Basis points. 1 bp = 0.01%.">bp</abbr>, only +2bp despite war. The crappy stuff is hiding in private credit.</td><td class="source"><a href="https://youtu.be/E5TnXygEIy4?t=1892" target="_blank" rel="noopener">Tyler</a><span class="ep-date">· Apr 24</span></td></tr>
+      <tr><td class="asset"><strong><a class="abbr" href="#g-hy" title="High-yield (junk) bonds.">High yield (HY)</a></strong></td><td class="position-cell"><span class="pill watch">No edge</span></td><td>Spreads 317<a class="abbr" href="#g-bp" title="Basis points. 1 bp = 0.01%.">bp</a>, only +2bp despite war. The crappy stuff is hiding in private credit.</td><td class="source"><a href="https://youtu.be/E5TnXygEIy4?t=1892" target="_blank" rel="noopener">Tyler</a><span class="ep-date">· Apr 24</span></td></tr>
       <tr><td class="asset"><strong>Private credit</strong></td><td class="position-cell"><span class="pill watch">Risk hidden</span></td><td>Where the bad deals are warehoused.</td><td class="source"><a href="https://youtu.be/E5TnXygEIy4?t=1929" target="_blank" rel="noopener">Tyler</a><span class="ep-date">· Apr 24</span></td></tr>
-      <tr><td class="asset"><strong><abbr title="ICE BofA MOVE Index. Bond-market implied volatility, the Treasury equivalent of VIX.">MOVE</abbr> index</strong></td><td class="position-cell"><span class="pill watch">Suppressed</span></td><td>Every 10pt rise → ~$28B Treasury buybacks. Targeting vol low for the basis trade.</td><td class="source"><a href="https://youtu.be/9AAG6dpEgjs?t=1533" target="_blank" rel="noopener">Howell</a><span class="ep-date">· Apr 22</span></td></tr>
-      <tr><td class="asset"><strong><abbr title="CBOE Volatility Index. The market's expected 30-day S&amp;P 500 volatility.">VIX</abbr></strong></td><td class="position-cell"><span class="pill bull">Buy upside</span></td><td>At 17 with 1–1.5% daily moves. Don't bet on lower.</td><td class="source"><a href="https://youtu.be/MO9ZTZPUwXY?t=2917" target="_blank" rel="noopener">Dayan</a><span class="ep-date">· May 6</span></td></tr>
-      <tr><td class="asset"><strong>Rate hike bets</strong></td><td class="position-cell"><span class="pill bull">Long</span></td><td>Hedge structure of choice. <abbr title="Reserve Bank of Australia.">RBA</abbr> already hiking; US likely follows.</td><td class="source"><a href="https://youtu.be/MO9ZTZPUwXY?t=2896" target="_blank" rel="noopener">Dayan</a><span class="ep-date">· May 6</span></td></tr>
+      <tr><td class="asset"><strong><a class="abbr" href="#g-move" title="ICE BofA MOVE Index. Bond-market implied volatility, the Treasury equivalent of VIX.">MOVE</a> index</strong></td><td class="position-cell"><span class="pill watch">Suppressed</span></td><td>Every 10pt rise → ~$28B Treasury buybacks. Targeting vol low for the basis trade.</td><td class="source"><a href="https://youtu.be/9AAG6dpEgjs?t=1533" target="_blank" rel="noopener">Howell</a><span class="ep-date">· Apr 22</span></td></tr>
+      <tr><td class="asset"><strong><a class="abbr" href="#g-vix" title="CBOE Volatility Index. The market's expected 30-day S&amp;P 500 volatility.">VIX</a></strong></td><td class="position-cell"><span class="pill bull">Buy upside</span></td><td>At 17 with 1–1.5% daily moves. Don't bet on lower.</td><td class="source"><a href="https://youtu.be/MO9ZTZPUwXY?t=2917" target="_blank" rel="noopener">Dayan</a><span class="ep-date">· May 6</span></td></tr>
+      <tr><td class="asset"><strong>Rate hike bets</strong></td><td class="position-cell"><span class="pill bull">Long</span></td><td>Hedge structure of choice. <a class="abbr" href="#g-rba" title="Reserve Bank of Australia.">RBA</a> already hiking; US likely follows.</td><td class="source"><a href="https://youtu.be/MO9ZTZPUwXY?t=2896" target="_blank" rel="noopener">Dayan</a><span class="ep-date">· May 6</span></td></tr>
     </tbody>
   </table>
   </div>
@@ -957,10 +977,10 @@
   <table>
     <thead><tr><th>Asset</th><th>Position</th><th>Thesis</th><th>Source</th></tr></thead>
     <tbody>
-      <tr><td class="asset"><strong>USD (<abbr title="US Dollar Index. USD vs basket of major currencies.">DXY</abbr>)</strong></td><td class="position-cell"><span class="pill bull">Bull</span><span class="position-text">Base forming</span></td><td>Massive base. SWIFT usage surging. Stablecoins are the next leg. Short bias ending.</td><td class="source"><a href="https://youtu.be/E5TnXygEIy4?t=3030" target="_blank" rel="noopener">Quinn</a><span class="ep-date">· Apr 24</span>, <a href="https://youtu.be/Weratj-dnOI?t=459" target="_blank" rel="noopener">Tyler</a><span class="ep-date">· Apr 16</span>, <a href="https://youtu.be/MO9ZTZPUwXY?t=2781" target="_blank" rel="noopener">Dayan</a><span class="ep-date">· May 6</span></td></tr>
-      <tr><td class="asset"><strong><abbr title="US dollar / Japanese yen exchange rate.">USDJPY</abbr></strong></td><td class="position-cell"><span class="pill conviction">Highest conviction long</span></td><td>230% debt/GDP, <abbr title="Bank of Japan.">BOJ</abbr> 100% balance sheet, vol at 2y lows. 160 break = wrecking ball. Jan 2027 expiry trade.</td><td class="source"><a href="https://youtu.be/SrXH0YsSuMk?t=2345" target="_blank" rel="noopener">Quinn</a><span class="ep-date">· Apr 30</span></td></tr>
-      <tr><td class="asset"><strong>EUR</strong></td><td class="position-cell"><span class="pill bear">Bear</span></td><td>Pricing <abbr title="European Central Bank.">ECB</abbr> hikes already. Limited upside.</td><td class="source"><a href="https://youtu.be/MO9ZTZPUwXY?t=2801" target="_blank" rel="noopener">Dayan</a><span class="ep-date">· May 6</span></td></tr>
-      <tr><td class="asset"><strong>GBP / AUD / NZD</strong></td><td class="position-cell"><span class="pill bear">Bear</span></td><td><abbr title="Bank of England.">BoE</abbr> / <abbr title="Reserve Bank of Australia.">RBA</abbr> / <abbr title="Reserve Bank of New Zealand.">RBNZ</abbr> priced. US rates have more room.</td><td class="source"><a href="https://youtu.be/MO9ZTZPUwXY?t=2796" target="_blank" rel="noopener">Dayan</a><span class="ep-date">· May 6</span></td></tr>
+      <tr><td class="asset"><strong>USD (<a class="abbr" href="#g-dxy" title="US Dollar Index. USD vs basket of major currencies.">DXY</a>)</strong></td><td class="position-cell"><span class="pill bull">Bull</span><span class="position-text">Base forming</span></td><td>Massive base. SWIFT usage surging. Stablecoins are the next leg. Short bias ending.</td><td class="source"><a href="https://youtu.be/E5TnXygEIy4?t=3030" target="_blank" rel="noopener">Quinn</a><span class="ep-date">· Apr 24</span>, <a href="https://youtu.be/Weratj-dnOI?t=459" target="_blank" rel="noopener">Tyler</a><span class="ep-date">· Apr 16</span>, <a href="https://youtu.be/MO9ZTZPUwXY?t=2781" target="_blank" rel="noopener">Dayan</a><span class="ep-date">· May 6</span></td></tr>
+      <tr><td class="asset"><strong><a class="abbr" href="#g-usdjpy" title="US dollar / Japanese yen exchange rate.">USDJPY</a></strong></td><td class="position-cell"><span class="pill conviction">Highest conviction long</span></td><td>230% debt/GDP, <a class="abbr" href="#g-boj" title="Bank of Japan.">BOJ</a> 100% balance sheet, vol at 2y lows. 160 break = wrecking ball. Jan 2027 expiry trade.</td><td class="source"><a href="https://youtu.be/SrXH0YsSuMk?t=2345" target="_blank" rel="noopener">Quinn</a><span class="ep-date">· Apr 30</span></td></tr>
+      <tr><td class="asset"><strong>EUR</strong></td><td class="position-cell"><span class="pill bear">Bear</span></td><td>Pricing <a class="abbr" href="#g-ecb" title="European Central Bank.">ECB</a> hikes already. Limited upside.</td><td class="source"><a href="https://youtu.be/MO9ZTZPUwXY?t=2801" target="_blank" rel="noopener">Dayan</a><span class="ep-date">· May 6</span></td></tr>
+      <tr><td class="asset"><strong>GBP / AUD / NZD</strong></td><td class="position-cell"><span class="pill bear">Bear</span></td><td><a class="abbr" href="#g-boe" title="Bank of England.">BoE</a> / <a class="abbr" href="#g-rba" title="Reserve Bank of Australia.">RBA</a> / <a class="abbr" href="#g-rbnz" title="Reserve Bank of New Zealand.">RBNZ</a> priced. US rates have more room.</td><td class="source"><a href="https://youtu.be/MO9ZTZPUwXY?t=2796" target="_blank" rel="noopener">Dayan</a><span class="ep-date">· May 6</span></td></tr>
     </tbody>
   </table>
   </div>
@@ -972,7 +992,7 @@
   <table>
     <thead><tr><th>Asset</th><th>Position</th><th>Thesis</th><th>Source</th></tr></thead>
     <tbody>
-      <tr><td class="asset"><strong>Oil (<abbr title="West Texas Intermediate. US oil benchmark.">WTI</abbr> / <abbr title="North Sea oil benchmark.">Brent</abbr> / <abbr title="United States Oil Fund. The main oil ETF.">USO</abbr>)</strong></td><td class="position-cell"><span class="pill conviction">High Conviction Long</span><span class="position-text">Dec futures + sell long-dated puts</span></td><td>50–60% annualized carry. Restocking demand underappreciated. Gold/oil 20× ratio → oil up is the cycle ender.</td><td class="source"><a href="https://youtu.be/K25wV7gF3oY?t=249" target="_blank" rel="noopener">Quinn</a><span class="ep-date">· May 8</span>, <a href="https://youtu.be/K25wV7gF3oY?t=478" target="_blank" rel="noopener">Tyler</a><span class="ep-date">· May 8</span>, <a href="https://youtu.be/9AAG6dpEgjs?t=3187" target="_blank" rel="noopener">Howell</a><span class="ep-date">· Apr 22</span></td></tr>
+      <tr><td class="asset"><strong>Oil (<a class="abbr" href="#g-wti" title="West Texas Intermediate. US oil benchmark.">WTI</a> / <a class="abbr" href="#g-brent" title="North Sea oil benchmark.">Brent</a> / <a class="abbr" href="#g-uso" title="United States Oil Fund. The main oil ETF.">USO</a>)</strong></td><td class="position-cell"><span class="pill conviction">High Conviction Long</span><span class="position-text">Dec futures + sell long-dated puts</span></td><td>50–60% annualized carry. Restocking demand underappreciated. Gold/oil 20× ratio → oil up is the cycle ender.</td><td class="source"><a href="https://youtu.be/K25wV7gF3oY?t=249" target="_blank" rel="noopener">Quinn</a><span class="ep-date">· May 8</span>, <a href="https://youtu.be/K25wV7gF3oY?t=478" target="_blank" rel="noopener">Tyler</a><span class="ep-date">· May 8</span>, <a href="https://youtu.be/9AAG6dpEgjs?t=3187" target="_blank" rel="noopener">Howell</a><span class="ep-date">· Apr 22</span></td></tr>
       <tr><td class="asset"><strong>WTI vs Brent spread</strong></td><td class="position-cell"><span class="pill bull">Long Brent / Short WTI</span></td><td>Export-ban scenario spikes Brent, tanks WTI.</td><td class="source"><a href="https://youtu.be/SrXH0YsSuMk?t=1401" target="_blank" rel="noopener">Quinn</a><span class="ep-date">· Apr 30</span></td></tr>
       <tr><td class="asset"><strong>Gold</strong></td><td class="position-cell"><span class="pill mixed">Split call</span></td><td>Bullish: China bid back, Fed sidelined, inflation up (Quinn, Tyler). Bearish: dollar substitute, story not intact (Dayan). Net: still bullish through midterms.</td><td class="source"><a href="https://youtu.be/K25wV7gF3oY?t=1821" target="_blank" rel="noopener">Quinn</a><span class="ep-date">· May 8</span>, <a href="https://youtu.be/MO9ZTZPUwXY?t=2855" target="_blank" rel="noopener">Dayan</a><span class="ep-date">· May 6</span></td></tr>
       <tr><td class="asset"><strong>Silver</strong></td><td class="position-cell"><span class="pill bear">Skip</span></td><td>"Same story as gold, don't need it."</td><td class="source"><a href="https://youtu.be/MO9ZTZPUwXY?t=2871" target="_blank" rel="noopener">Dayan</a><span class="ep-date">· May 6</span></td></tr>
@@ -1007,7 +1027,7 @@
     <tbody>
       <tr><td class="asset"><strong>Residential (coveted areas) with 30y fixed debt</strong></td><td class="position-cell"><span class="pill conviction">High Conviction Long</span></td><td>1970–80 analog: mortgage rates 2×, home values 3×. Get long-term fixed debt now.</td><td class="source"><a href="https://youtu.be/K25wV7gF3oY?t=2775" target="_blank" rel="noopener">Quinn</a><span class="ep-date">· May 8</span></td></tr>
       <tr><td class="asset"><strong>General US housing / building permits</strong></td><td class="position-cell"><span class="pill bear">Bear</span><span class="position-text">Near-term</span></td><td>Permits at multi-month lows; residential investment sluggish.</td><td class="source"><a href="https://youtu.be/EljEGEoEYeI?t=2010" target="_blank" rel="noopener">Dutta</a><span class="ep-date">· May 13</span></td></tr>
-      <tr><td class="asset"><strong><abbr title="Commercial real estate.">Commercial real estate (CRE)</abbr> offices</strong></td><td class="position-cell"><span class="pill bear">Bear</span><span class="position-text">Long-term</span></td><td>Empty offices, no return-to-office. Citadel canceling $6B NYC tower.</td><td class="source"><a href="https://youtu.be/E5TnXygEIy4?t=1534" target="_blank" rel="noopener">Tyler</a><span class="ep-date">· Apr 24</span></td></tr>
+      <tr><td class="asset"><strong><a class="abbr" href="#g-cre" title="Commercial real estate.">Commercial real estate (CRE)</a> offices</strong></td><td class="position-cell"><span class="pill bear">Bear</span><span class="position-text">Long-term</span></td><td>Empty offices, no return-to-office. Citadel canceling $6B NYC tower.</td><td class="source"><a href="https://youtu.be/E5TnXygEIy4?t=1534" target="_blank" rel="noopener">Tyler</a><span class="ep-date">· Apr 24</span></td></tr>
       <tr><td class="asset"><strong>Austin / Miami / TX / FL CRE</strong></td><td class="position-cell"><span class="pill bull">Bull</span></td><td>Permissive states pull data center jobs + young workers.</td><td class="source"><a href="https://youtu.be/E5TnXygEIy4?t=2522" target="_blank" rel="noopener">Tyler &amp; Quinn</a><span class="ep-date">· Apr 24</span></td></tr>
       <tr><td class="asset"><strong>SF / NYC / CA / NY / WA / GA CRE</strong></td><td class="position-cell"><span class="pill bear">Bear</span></td><td>Restrictive policy, banning data centers, losing the build.</td><td class="source"><a href="https://youtu.be/Weratj-dnOI?t=1788" target="_blank" rel="noopener">Quinn</a><span class="ep-date">· Apr 16</span></td></tr>
     </tbody>
@@ -1029,13 +1049,13 @@
       <tr><td class="asset"><strong>Long ag producers / fertilizer</strong><br><span class="position-text">DE, AGCO, CTVA, NTR, MOS, ADM</span></td><td>Quinn</td><td>"Every ag commodity ripping." Direct way to express the broad commodity thesis.</td></tr>
       <tr><td class="asset"><strong>Long Korean / Taiwanese export proxies</strong><br><span class="position-text">TSM, EWY, EWT, SMSN</span></td><td>Hou</td><td>"Korean/Taiwanese economies on fire from chip/memory exports." Mirror side of US AI imports.</td></tr>
       <tr><td class="asset"><strong>Long mid / small-cap industrials</strong><br><span class="position-text">IWM cyclical sleeve</span></td><td>Quinn</td><td>"S&amp;P 600 / midcap EPS revisions higher." Earnings broadening beyond AI.</td></tr>
-      <tr><td class="asset"><strong>Short long-duration consumer discretionary</strong><br><span class="position-text">e.g. Carvana, RH, beaten-down <abbr title="Direct-to-consumer.">DTC</abbr></span></td><td>Dutta + Tyler</td><td>Real-income squeeze (XRT, homebuilders) + DTC vintage rot (Allbirds analog).</td></tr>
+      <tr><td class="asset"><strong>Short long-duration consumer discretionary</strong><br><span class="position-text">e.g. Carvana, RH, beaten-down <a class="abbr" href="#g-dtc" title="Direct-to-consumer.">DTC</a></span></td><td>Dutta + Tyler</td><td>Real-income squeeze (XRT, homebuilders) + DTC vintage rot (Allbirds analog).</td></tr>
       <tr><td class="asset"><strong>Long Berkshire / cash-rich value</strong></td><td>Howell</td><td>Cash wins in turbulence phase per the 4-season framework.</td></tr>
-      <tr><td class="asset"><strong>Short Japanese equities (EWJ)</strong> or hedge the yen leg</td><td>Quinn</td><td><abbr title="Japanese government bonds.">JGB</abbr> Ponzi call extends to Japanese stocks if the currency breaks.</td></tr>
+      <tr><td class="asset"><strong>Short Japanese equities (EWJ)</strong> or hedge the yen leg</td><td>Quinn</td><td><a class="abbr" href="#g-jgb" title="Japanese government bonds.">JGB</a> Ponzi call extends to Japanese stocks if the currency breaks.</td></tr>
       <tr><td class="asset"><strong>Short emerging Asia ex-energy producers</strong></td><td>Hou + Dutta</td><td>Split EM Asia: long chip exporters (Korea, Taiwan), short energy importers (India, broader South Asia).</td></tr>
       <tr><td class="asset"><strong>Long platinum / palladium</strong><br><span class="position-text">PPLT, PALL</span></td><td>Dayan</td><td>Per Dayan's "commodities you need" framing over gold/silver. Auto + industrial demand, tight supply.</td></tr>
       <tr><td class="asset"><strong>Buy long-dated VIX / SPX vol</strong></td><td>Tyler, Dayan</td><td>Vol at 17 floor; convexity into Sep / Oct.</td></tr>
-      <tr><td class="asset"><strong>Short <abbr title="Software as a service.">SaaS</abbr> basket</strong><br><span class="position-text">IGV, <abbr title="WisdomTree Cloud Computing ETF.">WCLD</abbr></span></td><td>Tyler</td><td>"Software bouncing then rolling over." Capex spread + price-isn't-right on AI tokens.</td></tr>
+      <tr><td class="asset"><strong>Short <a class="abbr" href="#g-saas" title="Software as a service.">SaaS</a> basket</strong><br><span class="position-text">IGV, <a class="abbr" href="#g-wcld" title="WisdomTree Cloud Computing ETF.">WCLD</a></span></td><td>Tyler</td><td>"Software bouncing then rolling over." Capex spread + price-isn't-right on AI tokens.</td></tr>
       <tr><td class="asset"><strong>Long ag REITs / farmland</strong><br><span class="position-text">LAND, FPI</span></td><td>Quinn</td><td>Food / ag inflation. Real assets with cash yield.</td></tr>
       <tr><td class="asset"><strong>Long Mexico / Latam</strong><br><span class="position-text">EWW, EWZ</span></td><td>Tyler aside</td><td>"Western hemisphere strongholds, Greenland / Venezuela." Hemisphere dominance frame.</td></tr>
     </tbody>
@@ -1046,43 +1066,43 @@
 <section id="glossary">
   <h2>Glossary</h2>
   <div class="glossary">
-    <div class="g-row"><span class="g-term">10y / 2y</span><span class="g-def">10-year / 2-year US Treasury yield.</span></div>
-    <div class="g-row"><span class="g-term">AH</span><span class="g-def">After-hours trading.</span></div>
-    <div class="g-row"><span class="g-term">ATH</span><span class="g-def">All-time high.</span></div>
-    <div class="g-row"><span class="g-term">BoE</span><span class="g-def">Bank of England.</span></div>
-    <div class="g-row"><span class="g-term">BOJ</span><span class="g-def">Bank of Japan.</span></div>
-    <div class="g-row"><span class="g-term">bp / bps</span><span class="g-def">Basis points. 1 bp = 0.01%.</span></div>
-    <div class="g-row"><span class="g-term">Brent</span><span class="g-def">North Sea oil benchmark.</span></div>
-    <div class="g-row"><span class="g-term">CRE</span><span class="g-def">Commercial real estate.</span></div>
-    <div class="g-row"><span class="g-term">DTC</span><span class="g-def">Direct-to-consumer.</span></div>
-    <div class="g-row"><span class="g-term">DXY</span><span class="g-def">US Dollar Index. USD vs basket of major currencies.</span></div>
-    <div class="g-row"><span class="g-term">ECB</span><span class="g-def">European Central Bank.</span></div>
-    <div class="g-row"><span class="g-term">FCF</span><span class="g-def">Free cash flow.</span></div>
-    <div class="g-row"><span class="g-term">HY</span><span class="g-def">High-yield (junk) bonds.</span></div>
-    <div class="g-row"><span class="g-term">IEF</span><span class="g-def">iShares 7-10 Year Treasury Bond ETF.</span></div>
-    <div class="g-row"><span class="g-term">IGV</span><span class="g-def">iShares Expanded Tech-Software Sector ETF.</span></div>
-    <div class="g-row"><span class="g-term">JGB</span><span class="g-def">Japanese government bonds.</span></div>
-    <div class="g-row"><span class="g-term">LNG</span><span class="g-def">Liquefied natural gas. Also the ticker for Cheniere Energy.</span></div>
-    <div class="g-row"><span class="g-term">MAG7</span><span class="g-def">The Magnificent 7: Apple, Microsoft, Alphabet, Amazon, Nvidia, Meta, Tesla.</span></div>
-    <div class="g-row"><span class="g-term">MAGS</span><span class="g-def">Roundhill Magnificent Seven ETF.</span></div>
-    <div class="g-row"><span class="g-term">MOVE</span><span class="g-def">ICE BofA MOVE Index. Bond-market implied volatility, the Treasury equivalent of VIX.</span></div>
-    <div class="g-row"><span class="g-term">OTM</span><span class="g-def">Out-of-the-money options.</span></div>
-    <div class="g-row"><span class="g-term">P/E</span><span class="g-def">Price-to-earnings ratio.</span></div>
-    <div class="g-row"><span class="g-term">P/FCF</span><span class="g-def">Price-to-free-cash-flow ratio.</span></div>
-    <div class="g-row"><span class="g-term">QQQ</span><span class="g-def">Invesco QQQ Trust. Nasdaq-100 ETF.</span></div>
-    <div class="g-row"><span class="g-term">RBA</span><span class="g-def">Reserve Bank of Australia.</span></div>
-    <div class="g-row"><span class="g-term">RBNZ</span><span class="g-def">Reserve Bank of New Zealand.</span></div>
-    <div class="g-row"><span class="g-term">RSP</span><span class="g-def">Invesco S&amp;P 500 Equal Weight ETF.</span></div>
-    <div class="g-row"><span class="g-term">SaaS</span><span class="g-def">Software as a service.</span></div>
-    <div class="g-row"><span class="g-term">SMH</span><span class="g-def">VanEck Semiconductor ETF.</span></div>
-    <div class="g-row"><span class="g-term">SOX</span><span class="g-def">Philadelphia Semiconductor Index.</span></div>
-    <div class="g-row"><span class="g-term">TIP</span><span class="g-def">iShares TIPS Bond ETF. Inflation-protected Treasuries.</span></div>
-    <div class="g-row"><span class="g-term">USDJPY</span><span class="g-def">US dollar / Japanese yen exchange rate.</span></div>
-    <div class="g-row"><span class="g-term">USO</span><span class="g-def">United States Oil Fund. The main oil ETF.</span></div>
-    <div class="g-row"><span class="g-term">VIX</span><span class="g-def">CBOE Volatility Index. The market's expected 30-day S&amp;P 500 volatility.</span></div>
-    <div class="g-row"><span class="g-term">WCLD</span><span class="g-def">WisdomTree Cloud Computing ETF.</span></div>
-    <div class="g-row"><span class="g-term">WTI</span><span class="g-def">West Texas Intermediate. US oil benchmark.</span></div>
-    <div class="g-row"><span class="g-term">XRT</span><span class="g-def">SPDR S&amp;P Retail ETF.</span></div>
+    <div class="g-row" id="g-10y-2y"><span class="g-term">10y / 2y</span><span class="g-def">10-year / 2-year US Treasury yield.</span></div>
+    <div class="g-row" id="g-ah"><span class="g-term">AH</span><span class="g-def">After-hours trading.</span></div>
+    <div class="g-row" id="g-ath"><span class="g-term">ATH</span><span class="g-def">All-time high.</span></div>
+    <div class="g-row" id="g-boe"><span class="g-term">BoE</span><span class="g-def">Bank of England.</span></div>
+    <div class="g-row" id="g-boj"><span class="g-term">BOJ</span><span class="g-def">Bank of Japan.</span></div>
+    <div class="g-row" id="g-bp"><span class="g-term">bp / bps</span><span class="g-def">Basis points. 1 bp = 0.01%.</span></div>
+    <div class="g-row" id="g-brent"><span class="g-term">Brent</span><span class="g-def">North Sea oil benchmark.</span></div>
+    <div class="g-row" id="g-cre"><span class="g-term">CRE</span><span class="g-def">Commercial real estate.</span></div>
+    <div class="g-row" id="g-dtc"><span class="g-term">DTC</span><span class="g-def">Direct-to-consumer.</span></div>
+    <div class="g-row" id="g-dxy"><span class="g-term">DXY</span><span class="g-def">US Dollar Index. USD vs basket of major currencies.</span></div>
+    <div class="g-row" id="g-ecb"><span class="g-term">ECB</span><span class="g-def">European Central Bank.</span></div>
+    <div class="g-row" id="g-fcf"><span class="g-term">FCF</span><span class="g-def">Free cash flow.</span></div>
+    <div class="g-row" id="g-hy"><span class="g-term">HY</span><span class="g-def">High-yield (junk) bonds.</span></div>
+    <div class="g-row" id="g-ief"><span class="g-term">IEF</span><span class="g-def">iShares 7-10 Year Treasury Bond ETF.</span></div>
+    <div class="g-row" id="g-igv"><span class="g-term">IGV</span><span class="g-def">iShares Expanded Tech-Software Sector ETF.</span></div>
+    <div class="g-row" id="g-jgb"><span class="g-term">JGB</span><span class="g-def">Japanese government bonds.</span></div>
+    <div class="g-row" id="g-lng"><span class="g-term">LNG</span><span class="g-def">Liquefied natural gas. Also the ticker for Cheniere Energy.</span></div>
+    <div class="g-row" id="g-mag7"><span class="g-term">MAG7</span><span class="g-def">The Magnificent 7: Apple, Microsoft, Alphabet, Amazon, Nvidia, Meta, Tesla.</span></div>
+    <div class="g-row" id="g-mags"><span class="g-term">MAGS</span><span class="g-def">Roundhill Magnificent Seven ETF.</span></div>
+    <div class="g-row" id="g-move"><span class="g-term">MOVE</span><span class="g-def">ICE BofA MOVE Index. Bond-market implied volatility, the Treasury equivalent of VIX.</span></div>
+    <div class="g-row" id="g-otm"><span class="g-term">OTM</span><span class="g-def">Out-of-the-money options.</span></div>
+    <div class="g-row" id="g-pe"><span class="g-term">P/E</span><span class="g-def">Price-to-earnings ratio.</span></div>
+    <div class="g-row" id="g-pfcf"><span class="g-term">P/FCF</span><span class="g-def">Price-to-free-cash-flow ratio.</span></div>
+    <div class="g-row" id="g-qqq"><span class="g-term">QQQ</span><span class="g-def">Invesco QQQ Trust. Nasdaq-100 ETF.</span></div>
+    <div class="g-row" id="g-rba"><span class="g-term">RBA</span><span class="g-def">Reserve Bank of Australia.</span></div>
+    <div class="g-row" id="g-rbnz"><span class="g-term">RBNZ</span><span class="g-def">Reserve Bank of New Zealand.</span></div>
+    <div class="g-row" id="g-rsp"><span class="g-term">RSP</span><span class="g-def">Invesco S&amp;P 500 Equal Weight ETF.</span></div>
+    <div class="g-row" id="g-saas"><span class="g-term">SaaS</span><span class="g-def">Software as a service.</span></div>
+    <div class="g-row" id="g-smh"><span class="g-term">SMH</span><span class="g-def">VanEck Semiconductor ETF.</span></div>
+    <div class="g-row" id="g-sox"><span class="g-term">SOX</span><span class="g-def">Philadelphia Semiconductor Index.</span></div>
+    <div class="g-row" id="g-tip"><span class="g-term">TIP</span><span class="g-def">iShares TIPS Bond ETF. Inflation-protected Treasuries.</span></div>
+    <div class="g-row" id="g-usdjpy"><span class="g-term">USDJPY</span><span class="g-def">US dollar / Japanese yen exchange rate.</span></div>
+    <div class="g-row" id="g-uso"><span class="g-term">USO</span><span class="g-def">United States Oil Fund. The main oil ETF.</span></div>
+    <div class="g-row" id="g-vix"><span class="g-term">VIX</span><span class="g-def">CBOE Volatility Index. The market's expected 30-day S&amp;P 500 volatility.</span></div>
+    <div class="g-row" id="g-wcld"><span class="g-term">WCLD</span><span class="g-def">WisdomTree Cloud Computing ETF.</span></div>
+    <div class="g-row" id="g-wti"><span class="g-term">WTI</span><span class="g-def">West Texas Intermediate. US oil benchmark.</span></div>
+    <div class="g-row" id="g-xrt"><span class="g-term">XRT</span><span class="g-def">SPDR S&amp;P Retail ETF.</span></div>
   </div>
 </section>
 
