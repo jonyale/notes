@@ -610,18 +610,33 @@
   .port-block.port-short h4 { color: var(--bear); }
   .port-block.port-sell-vol h4 { color: var(--mixed); }
   .port-block.port-buy-vol h4 { color: var(--ink-soft); }
+  .port-block .port-note {
+    margin: 0 0 16px;
+    font-style: italic;
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.45;
+  }
   .port-block ul {
     list-style: none;
     padding: 0;
     margin: 0;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-    gap: 6px 28px;
   }
   .port-block li {
     font-size: 15px;
     line-height: 1.5;
     color: var(--ink-soft);
+    padding: 5px 0 5px 20px;
+    position: relative;
+  }
+  .port-block li::before {
+    content: "·";
+    position: absolute;
+    left: 4px;
+    top: 1px;
+    color: var(--muted);
+    font-size: 18px;
+    line-height: 1.4;
   }
   .port-block li .item-note {
     display: block;
@@ -750,7 +765,9 @@
     }
     .port-block { border-top-color: #DDD !important; }
     .port-block li { color: #333 !important; }
+    .port-block li::before { color: #777 !important; }
     .port-block li .item-note { color: #666 !important; }
+    .port-block .port-note { color: #666 !important; }
     .port-block h4 { color: #555 !important; }
     .port-block.port-long h4 { color: #1F6E45 !important; }
     .port-block.port-short h4 { color: #8C342A !important; }
@@ -889,6 +906,7 @@
     </section>
     <section class="port-block port-sell-vol">
       <h4>Sell Vol On</h4>
+      <p class="port-note">Options are expensive here. Harvest premium by selling.</p>
       <ul>
         <li><a class="abbr" href="#g-sox" title="Philadelphia Semiconductor Index.">SOX</a> (Philadelphia Semiconductor Index)</li>
         <li><a class="abbr" href="#g-uso" title="United States Oil Fund. The main oil ETF.">USO</a> (US Oil Fund ETF) <span class="item-note">96th-percentile premium; sell puts under shares</span></li>
@@ -896,6 +914,7 @@
     </section>
     <section class="port-block port-buy-vol">
       <h4>Buy Vol On</h4>
+      <p class="port-note">Options are cheap here. Pay premium for convex upside.</p>
       <ul>
         <li><a class="abbr" href="#g-vix" title="CBOE Volatility Index. The market's expected 30-day S&amp;P 500 volatility.">VIX</a> upside</li>
         <li><a class="abbr" href="#g-usdjpy" title="US dollar / Japanese yen exchange rate.">USDJPY</a> upside breakout convexity</li>
@@ -918,11 +937,11 @@
   <h2>Speaker Key</h2>
   <div class="speaker-key">
     <div class="speaker-grid">
+      <div class="speaker-entry"><strong>Felix, Quinn, Tyler</strong>Forward Guidance hosts (Blockworks)</div>
       <div class="speaker-entry"><strong>Dutta</strong>Neil Dutta, Renaissance Macro Research</div>
       <div class="speaker-entry"><strong>Dayan</strong>Danny Dayan, Macro Musings (@DannyDayan5)</div>
       <div class="speaker-entry"><strong>Hou</strong>Steve Hou, Bloomberg quant researcher</div>
       <div class="speaker-entry"><strong>Howell</strong>Michael Howell, CrossBorder Capital</div>
-      <div class="speaker-entry"><strong>Felix, Quinn, Tyler</strong>Forward Guidance hosts (Blockworks)</div>
     </div>
     <p class="note">Hosts are identified by first names only. The transcripts do not include surnames. Felix is the lead host across all eight episodes; Quinn and Tyler co-host the weekly roundups. Where the transcript is ambiguous about which co-host is speaking, attributions are best-guess from content cues. Verify against the audio if it matters.</p>
   </div>
