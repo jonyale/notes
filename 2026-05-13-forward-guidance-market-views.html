@@ -583,20 +583,20 @@
     line-height: 1.45;
   }
 
-  /* ─── Portfolio panel (single unified card) ───────────── */
+  /* ─── Portfolio (2×2 quadrant of cards) ──────────────── */
   .portfolio-panel {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+    margin: 28px 0 36px;
+    align-items: start;
+  }
+  .port-block {
     background: var(--surface);
     border: 1px solid var(--rule);
     border-radius: 8px;
-    padding: 28px 32px;
-    margin: 28px 0 36px;
+    padding: 22px 24px 24px;
   }
-  .port-block {
-    padding: 24px 0;
-    border-top: 1px solid var(--rule);
-  }
-  .port-block:first-child { padding-top: 0; border-top: none; }
-  .port-block:last-child { padding-bottom: 0; }
   .port-block h4 {
     font-family: var(--mono);
     font-size: 13px;
@@ -645,8 +645,8 @@
     margin-top: 2px;
   }
   @media (max-width: 720px) {
-    .portfolio-panel { padding: 22px 22px; }
-    .port-block { padding: 20px 0; }
+    .portfolio-panel { grid-template-columns: 1fr; gap: 12px; }
+    .port-block { padding: 20px 22px; }
   }
 
   /* ─── Invalidation (catalysts) ────────────────────────── */
@@ -758,12 +758,11 @@
       border-bottom: none !important;
     }
 
-    .toc, .source-list li, .speaker-key, .glossary, .portfolio-panel, .catalyst-list li, .disclaimer, table {
+    .toc, .source-list li, .speaker-key, .glossary, .port-block, .catalyst-list li, .disclaimer, table {
       background: white !important;
       border-color: #DDD !important;
       box-shadow: none !important;
     }
-    .port-block { border-top-color: #DDD !important; }
     .port-block li { color: #333 !important; }
     .port-block li::before { color: #777 !important; }
     .port-block li .item-note { color: #666 !important; }
