@@ -583,50 +583,55 @@
     line-height: 1.45;
   }
 
-  /* ─── Portfolio cards ─────────────────────────────────── */
-  .composite-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 16px;
-    margin: 28px 0 36px;
-    align-items: start;
-  }
-  .composite-card {
+  /* ─── Portfolio panel (single unified card) ───────────── */
+  .portfolio-panel {
     background: var(--surface);
     border: 1px solid var(--rule);
     border-radius: 8px;
-    padding: 22px 24px 22px;
+    padding: 28px 32px;
+    margin: 28px 0 36px;
   }
-  .composite-card h4 {
+  .port-block {
+    padding: 24px 0;
+    border-top: 1px solid var(--rule);
+  }
+  .port-block:first-child { padding-top: 0; border-top: none; }
+  .port-block:last-child { padding-bottom: 0; }
+  .port-block h4 {
     font-family: var(--mono);
-    font-size: 10.5px;
-    margin: 0 0 14px;
+    font-size: 13px;
+    margin: 0 0 16px;
     text-transform: uppercase;
-    letter-spacing: 0.26em;
-    font-weight: 500;
+    letter-spacing: 0.22em;
+    font-weight: 600;
     color: var(--muted);
   }
-  .composite-card.long h4 { color: var(--bull); }
-  .composite-card.short h4 { color: var(--bear); }
-  .composite-card.sell-vol h4 { color: var(--mixed); }
-  .composite-card.buy-vol h4 { color: var(--ink-soft); }
-  .composite-card ul {
+  .port-block.port-long h4 { color: var(--bull); }
+  .port-block.port-short h4 { color: var(--bear); }
+  .port-block.port-sell-vol h4 { color: var(--mixed); }
+  .port-block.port-buy-vol h4 { color: var(--ink-soft); }
+  .port-block ul {
     list-style: none;
     padding: 0;
     margin: 0;
     display: grid;
-    gap: 6px;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 6px 28px;
   }
-  .composite-card li {
-    font-size: 14px;
+  .port-block li {
+    font-size: 15px;
     line-height: 1.5;
     color: var(--ink-soft);
   }
-  .composite-card li .item-note {
+  .port-block li .item-note {
     display: block;
-    font-size: 12.5px;
+    font-size: 13px;
     color: var(--muted);
     margin-top: 2px;
+  }
+  @media (max-width: 720px) {
+    .portfolio-panel { padding: 22px 22px; }
+    .port-block { padding: 20px 0; }
   }
 
   /* ─── Invalidation (catalysts) ────────────────────────── */
@@ -738,11 +743,19 @@
       border-bottom: none !important;
     }
 
-    .toc, .source-list li, .speaker-key, .glossary, .composite-card, .catalyst-list li, .disclaimer, table {
+    .toc, .source-list li, .speaker-key, .glossary, .portfolio-panel, .catalyst-list li, .disclaimer, table {
       background: white !important;
       border-color: #DDD !important;
       box-shadow: none !important;
     }
+    .port-block { border-top-color: #DDD !important; }
+    .port-block li { color: #333 !important; }
+    .port-block li .item-note { color: #666 !important; }
+    .port-block h4 { color: #555 !important; }
+    .port-block.port-long h4 { color: #1F6E45 !important; }
+    .port-block.port-short h4 { color: #8C342A !important; }
+    .port-block.port-sell-vol h4 { color: #7A5510 !important; }
+    .port-block.port-buy-vol h4 { color: #555 !important; }
     .toc-title { color: #666 !important; border-color: #DDD !important; }
     .toc a { color: #1A1A1A !important; }
     .toc a::before { color: #777 !important; }
@@ -791,13 +804,6 @@
     .pill.conviction::before { color: white !important; }
     .position-text { color: #555 !important; }
 
-    .composite-card h4 { color: #555 !important; }
-    .composite-card.long h4 { color: #1F6E45 !important; }
-    .composite-card.short h4 { color: #8C342A !important; }
-    .composite-card.sell-vol h4 { color: #7A5510 !important; }
-    .composite-card.buy-vol h4 { color: #555 !important; }
-    .composite-card li { color: #333 !important; }
-    .composite-card li .item-note { color: #666 !important; }
 
     .catalyst-list li { border-left-color: #8C342A !important; }
     .catalyst-list li strong { color: #0A0A0A !important; }
@@ -809,7 +815,7 @@
       border-color: #DDD !important;
     }
 
-    table, .composite-card, .catalyst-list li, .source-list li, .speaker-key, .glossary, .disclaimer {
+    table, .port-block, .catalyst-list li, .source-list li, .speaker-key, .glossary, .disclaimer {
       page-break-inside: avoid;
     }
     tr { page-break-inside: avoid; }
@@ -823,7 +829,7 @@
 <header>
   <div class="eyebrow">Macro Research</div>
   <h1>Forward Guidance Market Views</h1>
-  <p class="lede">A synthesis of every specific asset mentioned across eight Forward Guidance episodes, with bull/bear theses by speaker, plus adjacent trades the theses imply and a view of what holding all of them simultaneously would look like. Every source attribution links to the moment in the video where the call was made. Dates next to each speaker indicate the episode publication date.</p>
+  <p class="lede">A synthesis of every specific asset mentioned across eight Forward Guidance episodes, with bull/bear theses by speaker.</p>
   <div class="meta">
     <span><strong>Window</strong> April 16 – May 13, 2026</span>
     <span><strong>Episodes</strong> 8</span>
@@ -835,7 +841,8 @@
   <div class="toc-title">Contents</div>
   <ul>
     <li><a href="#composite">Portfolio</a></li>
-    <li><a href="#catalysts">Invalidation</a></li>
+    <li><a href="#catalysts">Invalidations</a></li>
+    <li><a href="#speakers">Speaker Key</a></li>
     <li><a href="#equities">Equity Indices &amp; Themes</a></li>
     <li><a href="#stocks">Single Stocks</a></li>
     <li><a href="#bonds">Bonds &amp; Rates</a></li>
@@ -844,17 +851,16 @@
     <li><a href="#crypto">Crypto</a></li>
     <li><a href="#realestate">Real Estate</a></li>
     <li><a href="#inferences">Inferences (Extrapolations)</a></li>
-    <li><a href="#glossary">Glossary</a></li>
     <li><a href="#sources">Sources</a></li>
-    <li><a href="#speakers">Speaker Key</a></li>
+    <li><a href="#glossary">Glossary</a></li>
   </ul>
 </nav>
 
 <section id="composite">
   <h2>Portfolio</h2>
   <p>What it would look like to hold these speakers' views simultaneously. Illustrative, not recommended.</p>
-  <div class="composite-grid">
-    <div class="composite-card long">
+  <div class="portfolio-panel">
+    <section class="port-block port-long">
       <h4>Long</h4>
       <ul>
         <li>AI infrastructure (including utilities and power)</li>
@@ -869,8 +875,8 @@
         <li>Brazil and Mexico equities</li>
         <li>Defense</li>
       </ul>
-    </div>
-    <div class="composite-card short">
+    </section>
+    <section class="port-block port-short">
       <h4>Short / Hedge</h4>
       <ul>
         <li>Yen</li>
@@ -880,32 +886,46 @@
         <li>US long bonds</li>
         <li>Euro</li>
       </ul>
-    </div>
-    <div class="composite-card sell-vol">
+    </section>
+    <section class="port-block port-sell-vol">
       <h4>Sell Vol On</h4>
       <ul>
         <li><a class="abbr" href="#g-sox" title="Philadelphia Semiconductor Index.">SOX</a> (Philadelphia Semiconductor Index)</li>
         <li><a class="abbr" href="#g-uso" title="United States Oil Fund. The main oil ETF.">USO</a> (US Oil Fund ETF) <span class="item-note">96th-percentile premium; sell puts under shares</span></li>
       </ul>
-    </div>
-    <div class="composite-card buy-vol">
+    </section>
+    <section class="port-block port-buy-vol">
       <h4>Buy Vol On</h4>
       <ul>
         <li><a class="abbr" href="#g-vix" title="CBOE Volatility Index. The market's expected 30-day S&amp;P 500 volatility.">VIX</a> upside</li>
         <li><a class="abbr" href="#g-usdjpy" title="US dollar / Japanese yen exchange rate.">USDJPY</a> upside breakout convexity</li>
       </ul>
-    </div>
+    </section>
   </div>
 </section>
 
 <section id="catalysts">
-  <h2>Invalidation</h2>
+  <h2>Invalidations</h2>
   <ul class="catalyst-list">
     <li><strong>Oil &gt; $150</strong><span>Demand destruction kicks in.</span></li>
     <li><strong>10y yield &gt; 5.5%</strong><span>Bond market breaks.</span></li>
     <li><strong><a class="abbr" href="#g-usdjpy" title="US dollar / Japanese yen exchange rate.">USDJPY</a> 160 break</strong><span>Dollar wrecking ball / global capital repatriation.</span></li>
     <li><strong>Fed turns actually hawkish</strong><span>Not just "no cuts." Active tightening.</span></li>
   </ul>
+</section>
+
+<section id="speakers">
+  <h2>Speaker Key</h2>
+  <div class="speaker-key">
+    <div class="speaker-grid">
+      <div class="speaker-entry"><strong>Dutta</strong>Neil Dutta, Renaissance Macro Research</div>
+      <div class="speaker-entry"><strong>Dayan</strong>Danny Dayan, Macro Musings (@DannyDayan5)</div>
+      <div class="speaker-entry"><strong>Hou</strong>Steve Hou, Bloomberg quant researcher</div>
+      <div class="speaker-entry"><strong>Howell</strong>Michael Howell, CrossBorder Capital</div>
+      <div class="speaker-entry"><strong>Felix, Quinn, Tyler</strong>Forward Guidance hosts (Blockworks)</div>
+    </div>
+    <p class="note">Hosts are identified by first names only. The transcripts do not include surnames. Felix is the lead host across all eight episodes; Quinn and Tyler co-host the weekly roundups. Where the transcript is ambiguous about which co-host is speaking, attributions are best-guess from content cues. Verify against the audio if it matters.</p>
+  </div>
 </section>
 
 <section id="equities">
@@ -1063,6 +1083,20 @@
   </div>
 </section>
 
+<section id="sources">
+  <h2>Sources</h2>
+  <ul class="source-list">
+    <li><a href="https://youtu.be/Weratj-dnOI" target="_blank" rel="noopener"><span class="src-date">2026-04-16</span>Market Structure Is Fueling an Inflation Trap. Weekly Roundup<span class="src-ext">YouTube</span></a></li>
+    <li><a href="https://youtu.be/9AAG6dpEgjs" target="_blank" rel="noopener"><span class="src-date">2026-04-22</span>Markets Are Misreading a Late-Cycle Liquidity Crunch. Michael Howell<span class="src-ext">YouTube</span></a></li>
+    <li><a href="https://youtu.be/E5TnXygEIy4" target="_blank" rel="noopener"><span class="src-date">2026-04-24</span>The Fed Is Irrelevant While CapEx Runs the Economy. Weekly Roundup<span class="src-ext">YouTube</span></a></li>
+    <li><a href="https://youtu.be/kqdeBukSvho" target="_blank" rel="noopener"><span class="src-date">2026-04-29</span>The AI Bubble Is Widely Misunderstood. Steve Hou<span class="src-ext">YouTube</span></a></li>
+    <li><a href="https://youtu.be/SrXH0YsSuMk" target="_blank" rel="noopener"><span class="src-date">2026-04-30</span>Central Bank Control Is Breaking. Weekly Roundup<span class="src-ext">YouTube</span></a></li>
+    <li><a href="https://youtu.be/MO9ZTZPUwXY" target="_blank" rel="noopener"><span class="src-date">2026-05-06</span>Passive Easing Is Fueling the Next Inflation Wave. Danny Dayan<span class="src-ext">YouTube</span></a></li>
+    <li><a href="https://youtu.be/K25wV7gF3oY" target="_blank" rel="noopener"><span class="src-date">2026-05-08</span>Oil and AI Are Breaking the Middle Class. Weekly Roundup<span class="src-ext">YouTube</span></a></li>
+    <li><a href="https://youtu.be/EljEGEoEYeI" target="_blank" rel="noopener"><span class="src-date">2026-05-13</span>The Fed Is Losing Its Easing Bias. Neil Dutta<span class="src-ext">YouTube</span></a></li>
+  </ul>
+</section>
+
 <section id="glossary">
   <h2>Glossary</h2>
   <div class="glossary">
@@ -1103,34 +1137,6 @@
     <div class="g-row" id="g-wcld"><span class="g-term">WCLD</span><span class="g-def">WisdomTree Cloud Computing ETF.</span></div>
     <div class="g-row" id="g-wti"><span class="g-term">WTI</span><span class="g-def">West Texas Intermediate. US oil benchmark.</span></div>
     <div class="g-row" id="g-xrt"><span class="g-term">XRT</span><span class="g-def">SPDR S&amp;P Retail ETF.</span></div>
-  </div>
-</section>
-
-<section id="sources">
-  <h2>Sources</h2>
-  <ul class="source-list">
-    <li><a href="https://youtu.be/Weratj-dnOI" target="_blank" rel="noopener"><span class="src-date">2026-04-16</span>Market Structure Is Fueling an Inflation Trap. Weekly Roundup<span class="src-ext">YouTube</span></a></li>
-    <li><a href="https://youtu.be/9AAG6dpEgjs" target="_blank" rel="noopener"><span class="src-date">2026-04-22</span>Markets Are Misreading a Late-Cycle Liquidity Crunch. Michael Howell<span class="src-ext">YouTube</span></a></li>
-    <li><a href="https://youtu.be/E5TnXygEIy4" target="_blank" rel="noopener"><span class="src-date">2026-04-24</span>The Fed Is Irrelevant While CapEx Runs the Economy. Weekly Roundup<span class="src-ext">YouTube</span></a></li>
-    <li><a href="https://youtu.be/kqdeBukSvho" target="_blank" rel="noopener"><span class="src-date">2026-04-29</span>The AI Bubble Is Widely Misunderstood. Steve Hou<span class="src-ext">YouTube</span></a></li>
-    <li><a href="https://youtu.be/SrXH0YsSuMk" target="_blank" rel="noopener"><span class="src-date">2026-04-30</span>Central Bank Control Is Breaking. Weekly Roundup<span class="src-ext">YouTube</span></a></li>
-    <li><a href="https://youtu.be/MO9ZTZPUwXY" target="_blank" rel="noopener"><span class="src-date">2026-05-06</span>Passive Easing Is Fueling the Next Inflation Wave. Danny Dayan<span class="src-ext">YouTube</span></a></li>
-    <li><a href="https://youtu.be/K25wV7gF3oY" target="_blank" rel="noopener"><span class="src-date">2026-05-08</span>Oil and AI Are Breaking the Middle Class. Weekly Roundup<span class="src-ext">YouTube</span></a></li>
-    <li><a href="https://youtu.be/EljEGEoEYeI" target="_blank" rel="noopener"><span class="src-date">2026-05-13</span>The Fed Is Losing Its Easing Bias. Neil Dutta<span class="src-ext">YouTube</span></a></li>
-  </ul>
-</section>
-
-<section id="speakers">
-  <h2>Speaker Key</h2>
-  <div class="speaker-key">
-    <div class="speaker-grid">
-      <div class="speaker-entry"><strong>Dutta</strong>Neil Dutta, Renaissance Macro Research</div>
-      <div class="speaker-entry"><strong>Dayan</strong>Danny Dayan, Macro Musings (@DannyDayan5)</div>
-      <div class="speaker-entry"><strong>Hou</strong>Steve Hou, Bloomberg quant researcher</div>
-      <div class="speaker-entry"><strong>Howell</strong>Michael Howell, CrossBorder Capital</div>
-      <div class="speaker-entry"><strong>Felix, Quinn, Tyler</strong>Forward Guidance hosts (Blockworks)</div>
-    </div>
-    <p class="note">Hosts are identified by first names only. The transcripts do not include surnames. Felix is the lead host across all eight episodes; Quinn and Tyler co-host the weekly roundups. Where the transcript is ambiguous about which co-host is speaking, attributions are best-guess from content cues. Verify against the audio if it matters.</p>
   </div>
 </section>
 
