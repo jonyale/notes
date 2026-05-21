@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>DocXBT — Paragon Livestream, May 20 2026</title>
+<style>
+  :root {
+    --bg: #0E1117;
+    --bg-deep: #090C12;
+    --surface: #161B22;
+    --surface-2: #1C232E;
+    --rule: #262F3E;
+    --rule-soft: #1E2532;
+    --ink: #E8EAF0;
+    --ink-soft: #B6BCCC;
+    --muted: #7C8395;
+    --muted-soft: #4F5666;
+    --bull: #5BCA89;
+    --bull-bg: rgba(91, 202, 137, 0.11);
+    --bull-line: rgba(91, 202, 137, 0.32);
+    --bear: #F26B5B;
+    --bear-bg: rgba(242, 107, 91, 0.10);
+    --bear-line: rgba(242, 107, 91, 0.32);
+    --mixed: #E6B450;
+    --mixed-bg: rgba(230, 180, 80, 0.10);
+    --mixed-line: rgba(230, 180, 80, 0.32);
+    --sans: -apple-system, BlinkMacSystemFont, "Helvetica Neue", "Segoe UI", Helvetica, Arial, system-ui, sans-serif;
+    --mono: "SF Mono", "JetBrains Mono", "Fira Code", Menlo, Consolas, monospace;
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    background-image: radial-gradient(ellipse 90% 60% at 50% -10%, rgba(255,255,255,0.025) 0%, transparent 60%);
+    background-attachment: fixed;
+    color: var(--ink);
+    font-family: var(--sans);
+    font-size: 16px;
+    line-height: 1.62;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 72px 36px 112px; }
+  @media (max-width: 720px) { .wrap { padding: 40px 20px 72px; } body { font-size: 15.5px; line-height: 1.58; } }
+  header { margin-bottom: 56px; }
+  .eyebrow {
+    display: flex; align-items: center; gap: 14px;
+    font-family: var(--mono); font-size: 11px;
+    letter-spacing: 0.26em; text-transform: uppercase;
+    color: var(--muted); font-weight: 500; margin-bottom: 28px;
+  }
+  .eyebrow::before { content: ""; display: inline-block; width: 32px; height: 1px; background: var(--muted); }
+  h1, h2, h3 { font-family: var(--sans); color: var(--ink); }
+  h1 { font-size: clamp(2rem, 4.8vw, 2.75rem); line-height: 1.06; letter-spacing: -0.028em; font-weight: 600; margin: 0 0 24px; }
+  .lede { font-size: clamp(1.02rem, 1.4vw, 1.14rem); line-height: 1.55; color: var(--ink-soft); margin: 0 0 36px; max-width: 66ch; }
+  .meta {
+    display: grid; grid-template-columns: repeat(3, minmax(0, 1fr));
+    padding: 22px 0; border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule);
+    margin-bottom: 64px;
+  }
+  .meta span {
+    display: flex; flex-direction: column; gap: 6px; padding: 0 26px;
+    border-left: 1px solid var(--rule); font-size: 15px; color: var(--ink); font-variant-numeric: tabular-nums;
+  }
+  .meta span:first-child { padding-left: 0; border-left: none; }
+  .meta span strong { font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.24em; text-transform: uppercase; color: var(--muted); font-weight: 500; }
+  @media (max-width: 720px) { .meta { grid-template-columns: 1fr; gap: 16px; } .meta span { padding: 0; border-left: none; } }
+  article { counter-reset: section; }
+  h2 {
+    font-size: clamp(1.55rem, 3vw, 1.85rem); line-height: 1.18; letter-spacing: -0.018em;
+    font-weight: 600; margin: 96px 0 32px; padding-top: 36px; border-top: 1px solid var(--rule); position: relative;
+  }
+  h2::before {
+    counter-increment: section; content: counter(section, decimal-leading-zero);
+    display: block; font-family: var(--mono); font-size: clamp(2.2rem, 4vw, 2.8rem);
+    font-weight: 400; line-height: 1; color: var(--muted); margin-bottom: 14px;
+  }
+  article > section:first-of-type h2 { margin-top: 0; }
+  h3 { font-size: 1.16rem; font-weight: 600; letter-spacing: -0.01em; margin: 40px 0 14px; }
+  p { margin: 0 0 18px; }
+  a { color: var(--ink); text-decoration: none; border-bottom: 1px solid var(--muted-soft); transition: color .12s, border-color .12s; }
+  a:hover { color: var(--ink); border-bottom-color: var(--ink-soft); }
+
+  .toc { background: var(--surface); border: 1px solid var(--rule); border-radius: 10px; padding: 10px; margin-bottom: 72px; }
+  .toc-title { font-family: var(--mono); font-size: 11px; letter-spacing: 0.26em; text-transform: uppercase; color: var(--muted); padding: 14px 18px 12px; border-bottom: 1px solid var(--rule); margin-bottom: 6px; font-weight: 500; }
+  .toc ul { list-style: none; counter-reset: tocs; padding: 0; margin: 0; display: grid; grid-auto-flow: column; grid-template-columns: repeat(3, 1fr); grid-template-rows: repeat(3, auto); gap: 2px 8px; }
+  @media (max-width: 900px) { .toc ul { grid-template-columns: repeat(2, 1fr); grid-template-rows: repeat(4, auto); } }
+  @media (max-width: 560px) { .toc ul { grid-auto-flow: row; grid-template-columns: 1fr; grid-template-rows: auto; } }
+  .toc ul li { counter-increment: tocs; }
+  .toc a { display: flex; align-items: center; gap: 16px; padding: 12px 16px; border-radius: 6px; font-size: 15px; color: var(--ink-soft); border: none; }
+  .toc a::before { content: counter(tocs, decimal-leading-zero); font-family: var(--mono); font-size: 11px; color: var(--muted); letter-spacing: 0.1em; min-width: 20px; }
+  .toc a::after { content: "→"; margin-left: auto; font-family: var(--mono); color: var(--muted); font-size: 14px; transition: transform .15s, color .15s; }
+  .toc a:hover { background: var(--surface-2); color: var(--ink); }
+  .toc a:hover::after { color: var(--ink); transform: translateX(3px); }
+
+  /* At-a-glance hero */
+  .glance-grid { display: grid; grid-template-columns: 1.2fr 2fr; gap: 16px; margin-bottom: 32px; }
+  @media (max-width: 720px) { .glance-grid { grid-template-columns: 1fr; } }
+  .glance-card { background: var(--surface); border: 1px solid var(--rule); border-radius: 8px; padding: 22px 26px; }
+  .glance-card h4 { font-family: var(--mono); font-size: 11px; margin: 0 0 16px; text-transform: uppercase; letter-spacing: 0.22em; color: var(--muted); font-weight: 500; }
+  .level-row { display: grid; grid-template-columns: auto auto 1fr; gap: 14px; align-items: baseline; padding: 8px 0; border-bottom: 1px solid var(--rule-soft); font-size: 14.5px; }
+  .level-row:last-child { border-bottom: none; }
+  .level-row .price { font-family: var(--mono); font-variant-numeric: tabular-nums; font-size: 17px; color: var(--ink); font-weight: 500; }
+  .level-row .label { font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); min-width: 110px; }
+  .level-row .note { color: var(--ink-soft); }
+
+  /* Pills */
+  .pill { display: inline-flex; align-items: center; gap: 6px; font-family: var(--mono); font-size: 10.5px; font-weight: 500; padding: 5px 10px; border: 1px solid transparent; border-radius: 4px; letter-spacing: 0.14em; text-transform: uppercase; margin-right: 5px; }
+  .pill.bull { background: var(--bull-bg); color: var(--bull); border-color: var(--bull-line); }
+  .pill.bull::before { content: "▲"; font-size: 9px; }
+  .pill.bear { background: var(--bear-bg); color: var(--bear); border-color: var(--bear-line); }
+  .pill.bear::before { content: "▼"; font-size: 9px; }
+  .pill.mixed { background: var(--mixed-bg); color: var(--mixed); border-color: var(--mixed-line); }
+  .pill.mixed::before { content: "◆"; font-size: 9px; }
+
+  /* Trade cards */
+  .trades { display: grid; gap: 18px; margin: 24px 0 32px; }
+  .trade-card { background: var(--surface); border: 1px solid var(--rule); border-radius: 10px; padding: 24px 28px; }
+  .trade-head { display: flex; align-items: baseline; gap: 14px; flex-wrap: wrap; margin-bottom: 14px; padding-bottom: 14px; border-bottom: 1px solid var(--rule-soft); }
+  .trade-num { font-family: var(--mono); font-size: 11px; letter-spacing: 0.2em; color: var(--muted); text-transform: uppercase; }
+  .trade-title { font-size: 1.1rem; font-weight: 600; letter-spacing: -0.01em; color: var(--ink); }
+  .trade-result { margin-left: auto; font-family: var(--mono); font-size: 13px; color: var(--bull); font-weight: 600; }
+  .trade-result.scratch { color: var(--muted); }
+  .trade-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px 28px; }
+  @media (max-width: 640px) { .trade-grid { grid-template-columns: 1fr; } }
+  .trade-grid dt { font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; }
+  .trade-grid dd { margin: 0 0 12px; font-size: 14.5px; color: var(--ink-soft); line-height: 1.55; }
+
+  /* Compare table */
+  table { width: 100%; border-collapse: separate; border-spacing: 0; font-size: 14.5px; background: var(--surface); border: 1px solid var(--rule); border-radius: 8px; overflow: hidden; }
+  th, td { text-align: left; padding: 14px 18px; vertical-align: top; border-bottom: 1px solid var(--rule-soft); }
+  th { background: var(--bg-deep); font-family: var(--mono); font-size: 10px; letter-spacing: 0.24em; text-transform: uppercase; color: var(--muted); font-weight: 500; }
+  tbody tr:last-child td { border-bottom: none; }
+
+  /* Playbook list */
+  .playbook { display: grid; gap: 14px; }
+  .playbook-item { background: var(--surface); border: 1px solid var(--rule); border-left: 2px solid var(--mixed); border-radius: 6px; padding: 16px 22px; }
+  .playbook-item strong { display: block; font-size: 0.98rem; font-weight: 600; margin-bottom: 6px; color: var(--ink); }
+  .playbook-item span { font-size: 14px; color: var(--ink-soft); line-height: 1.55; }
+
+  /* Pull quote */
+  .quote { background: var(--surface); border: 1px solid var(--rule); border-left: 3px solid var(--muted); border-radius: 0 6px 6px 0; padding: 18px 24px; margin: 22px 0; font-style: italic; color: var(--ink-soft); font-size: 15px; line-height: 1.55; }
+  .quote cite { display: block; font-style: normal; font-family: var(--mono); font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); margin-top: 10px; }
+
+  .footer { margin-top: 112px; padding-top: 32px; border-top: 1px solid var(--rule); font-size: 13.5px; color: var(--muted); line-height: 1.65; }
+  .footer p { margin: 0 0 10px; }
+  .disclaimer { background: var(--surface); border: 1px solid var(--rule); border-radius: 6px; padding: 16px 22px; font-size: 13px; color: var(--ink-soft); margin-top: 24px; line-height: 1.55; }
+</style>
+</head>
+<body>
+<article class="wrap">
+<header>
+  <div class="eyebrow">Trading Notes · Crypto · May 2026</div>
+  <h1>DocXBT — Paragon Livestream</h1>
+  <p class="lede">A note from Doc's May 20 livestream — BTC trend loss and where the line sits, three trades from the session, the alt rotation thesis, and the playbook he's been drilling.</p>
+  <div class="meta">
+    <span><strong>Date</strong>May 20, 2026</span>
+    <span><strong>Source</strong><a href="https://www.youtube.com/live/5x7Ivt_VWHM" target="_blank" rel="noopener">YouTube livestream</a></span>
+    <span><strong>Duration</strong>2h 50m</span>
+  </div>
+</header>
+
+<nav class="toc" aria-label="Table of contents">
+  <div class="toc-title">Contents</div>
+  <ul>
+    <li><a href="#glance">At a Glance</a></li>
+    <li><a href="#btc">BTC Thesis</a></li>
+    <li><a href="#trades">Trade Reviews</a></li>
+    <li><a href="#spot">Spot Positioning</a></li>
+    <li><a href="#alts">Alts</a></li>
+    <li><a href="#bear">Bear Market Comparison</a></li>
+    <li><a href="#playbook">Playbook &amp; Process</a></li>
+  </ul>
+</nav>
+
+<section id="glance">
+  <h2>At a Glance</h2>
+  <p>BTC lost the 12-hour trend on Friday around 79K. Doc put on a <em>partial</em> hedge (not full one-to-one). Daily VWAP rejecting overhead. The session's inflection sits at the monthly value area low at <strong>77.9K</strong> — reclaim opens a rotation higher, fail rolls back toward the 73–74K confluence.</p>
+  <div class="glance-grid">
+    <div class="glance-card">
+      <h4>Bias</h4>
+      <div style="margin-bottom: 14px;">
+        <span class="pill bear">BTC bearish</span>
+      </div>
+      <p style="margin: 0; font-size: 14px; color: var(--ink-soft); line-height: 1.55;">12H trend lost. Net long spot, partially hedged. Wants to add to the hedge on any squeeze back to 78–79K.</p>
+    </div>
+    <div class="glance-card">
+      <h4>Key Levels</h4>
+      <div class="level-row"><span class="price">79,000</span><span class="label">Hedge add</span><span class="note">Squeeze zone where Doc adds to the hedge.</span></div>
+      <div class="level-row"><span class="price">77,900</span><span class="label">Inflection</span><span class="note">Monthly value area low — bull / bear decision point.</span></div>
+      <div class="level-row"><span class="price">73,500</span><span class="label">Downside</span><span class="note">Yearly + prev quarterly + prev monthly VWAP confluence.</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="btc">
+  <h2>BTC Thesis</h2>
+  <p>Friday's 12-hour trend loss was the trigger. Doc resisted on the first drop ("how ugly the last bottom was") and the next close-below confirmed it. The "Hindsight Harry" admission: he should have hedged on last week's squeeze instead of waiting — the double trade above/below the trend was confirmation enough.</p>
+
+  <h3>The trend-loss framework</h3>
+  <p>This is the muscle-memory rule he repeats every stream:</p>
+  <ol style="color: var(--ink-soft); margin-bottom: 24px;">
+    <li><strong>Range</strong> — the default first outcome</li>
+    <li><strong>Reversal</strong> — the second</li>
+    <li><strong>Reclaim &amp; continuation</strong> — the third</li>
+  </ol>
+  <p>Don't bet downside immediately on trend loss. Most plays chop first.</p>
+
+  <h3>The inflection: 77.9K monthly value area low</h3>
+  <p><strong>Bull case:</strong> Reclaim monthly VAL → rotation higher into the 79s. That's the bonk zone for bears looking to short the relief.</p>
+  <p><strong>Bear case:</strong> Fail back below previous month's values → grind down to <strong>73–74K</strong> where yearly VWAP, previous quarterly VWAP, and previous monthly VWAP all sit on top of each other.</p>
+
+  <h3>Today's hourly trigger</h3>
+  <p>H1 trend break was Doc's read going into NY open — look to long any dip. Played out cleanly. The bias rule: pump into NY open, look for reversal; dump into NY open, look for pump.</p>
+</section>
+
+<section id="trades">
+  <h2>Trade Reviews</h2>
+  <p style="margin-bottom: 32px;">Net session: <strong>~3% on the account.</strong> Two clean wins plus one scratch.</p>
+  <div class="trades">
+
+    <div class="trade-card">
+      <div class="trade-head">
+        <span class="trade-num">Trade 01</span>
+        <span class="trade-title">Speculative short — 30 min pre-NY open</span>
+        <span class="trade-result">+~700 pts</span>
+      </div>
+      <dl class="trade-grid">
+        <div>
+          <dt>Setup</dt>
+          <dd>Up ~1.5% in Asia, trading at premium into massive ask walls. Expansive Trump-news candle fully retraced (high-effort move into thick supply, absorbed).</dd>
+        </div>
+        <div>
+          <dt>Read</dt>
+          <dd>"Pump into NY open → look for reversal." Premium + ask walls + retraced effort candle = momentum loss signal.</dd>
+        </div>
+        <div>
+          <dt>Exit</dt>
+          <dd>TP near daily VWAP. Could have held longer but the single-sided 30-min bleed gave no reason to take it earlier.</dd>
+        </div>
+        <div>
+          <dt>Sizing note</dt>
+          <dd>Single-sided drift in his favor justified holding. If the tape had given a pause read, he'd have closed faster.</dd>
+        </div>
+      </dl>
+    </div>
+
+    <div class="trade-card">
+      <div class="trade-head">
+        <span class="trade-num">Trade 02</span>
+        <span class="trade-title">Long the picobottom into daily VWAP retest</span>
+        <span class="trade-result">+~700 pts (cut early)</span>
+      </div>
+      <dl class="trade-grid">
+        <div>
+          <dt>Entry</dt>
+          <dd>Caught near the bottom tick. Targeted return to weekly VAH / monthly VAL ~77.9K.</dd>
+        </div>
+        <div>
+          <dt>Exit decision</dt>
+          <dd>Cut on rounding action under the weekly value area high — feared a value-to-value rotation back to weekly VAL.</dd>
+        </div>
+        <div>
+          <dt>Self-critique</dt>
+          <dd>"Maybe overthinking" the rounding. But the rule held: don't sit long under a high you're rejecting and end up adding into no-man's-land.</dd>
+        </div>
+        <div>
+          <dt>Setup pre-condition</dt>
+          <dd>Elite entry gave him room to manage. A worse entry would have made the same cut decision much more stressful.</dd>
+        </div>
+      </dl>
+    </div>
+
+    <div class="trade-card">
+      <div class="trade-head">
+        <span class="trade-num">Trade 03</span>
+        <span class="trade-title">Long re-add — effort absorbed at the lows</span>
+        <span class="trade-result">+~700 pts</span>
+      </div>
+      <dl class="trade-grid">
+        <div>
+          <dt>Trigger</dt>
+          <dd>High-effort dump candle into the lows, immediately traded back through the breakdown candle.</dd>
+        </div>
+        <div>
+          <dt>Read</dt>
+          <dd>"Effort absorbed at this region → take the reversal." Market long right back into the candle that broke down.</dd>
+        </div>
+        <div>
+          <dt>Invalidation</dt>
+          <dd>Below the weekly value area low. Clean line, easy to define.</dd>
+        </div>
+        <div>
+          <dt>Management</dt>
+          <dd>Half off first candle, held through chop, took the rest into the next push.</dd>
+        </div>
+      </dl>
+    </div>
+
+  </div>
+</section>
+
+<section id="spot">
+  <h2>Spot Positioning</h2>
+  <p>Doc cashed out near the highs in 2024–2025 and has been holding chips. Recent re-entry has been measured. He's still net long spot.</p>
+
+  <h3>The numbers</h3>
+  <ul style="color: var(--ink-soft);">
+    <li><strong>Spot avg:</strong> ~63–65K from the original re-accumulation. Added a tranche at 76K.</li>
+    <li><strong>Plan:</strong> spot-slam more BTC over the next week, <em>price-agnostic</em>. "I want to own the asset."</li>
+    <li><strong>Target math:</strong> 70K avg → 120K target = conservative 2x. Hedging on trend losses + intraday trading amplifies the gain.</li>
+  </ul>
+
+  <p>Doc described it: Pepe was a 100x trade on paper last cycle, but capital-growth-wise it was closer to 500x or more. He did the thing the entire cycle — sold spot on trend loss, re-accumulated, sold spot on trend loss, re-accumulated. Worked until it didn't.</p>
+</section>
+
+<section id="alts">
+  <h2>Alts</h2>
+  <p>Three coins Doc named as the clean structural winners right now — and one regret.</p>
+
+  <div style="margin: 18px 0 28px;">
+    <span class="pill bull">VVV</span>
+    <span class="pill bull">HYPE</span>
+    <span class="pill bull">ZEC</span>
+  </div>
+  <p>HYPE is the standing regret. He kept fading conviction longs from the community for months while it ran. Thesis was "above 43 → all-time highs probably" — which played out.</p>
+
+  <div class="quote">
+    If you really wanted a HYPE stack and you faded it the whole way — just say fuck it. Buy 35 of the 100 coins you wanted here, and if it rolls over to 30 buy the other 65. Now you have a position.
+    <cite>— Doc, on positioning when you're behind</cite>
+  </div>
+
+  <h3>Broader alts (Solana as the example)</h3>
+  <p>Doc's structural read — not a specific SOL price call:</p>
+  <div class="quote">
+    Like we did have FTX last cycle, right? You look at Bitcoin — Bitcoin had FTX and went lower. It's very hard for me to look at this and go, we're not in an accumulation range already. The fact that Bitcoin already drove up this high is not something I was expecting — 38% bounce from the lows, higher than I initially expected.
+    <cite>— Doc, on the alt board</cite>
+  </div>
+  <p>The take: market is "not as bearish as it once seemed to me." Dip toes back into coins you like, get <em>some</em> allocation, knowing it can still go lower. The discomfort of "I'm not buying the lows" is probably the right discomfort. People bidding VVV / HYPE / ZEC are just exiting the wait — they don't care anymore, they just want exposure.</p>
+</section>
+
+<section id="bear">
+  <h2>Bear Market Comparison</h2>
+  <p>The thesis Doc closed the educational portion with — why this drawdown may be structurally different from the last one.</p>
+
+  <div style="overflow-x: auto;">
+  <table>
+    <thead>
+      <tr><th>Dimension</th><th>Last cycle (2022)</th><th>This cycle</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><strong>FUD type</strong></td><td>Crypto-native, weekly. Luna/UST peg, 3AC, Celsius, BlockFi, FTX, on-chain liquidation hunts, DeFi hacks, rehypothecation cascade.</td><td><strong>Zero crypto-native FUD.</strong> Only macro event was Israel/Iran headline — BTC was already washed and went up on the news.</td></tr>
+      <tr><td><strong>Driver</strong></td><td>Leverage unwinds + insolvencies. Coins re-hypothecated across multiple lenders.</td><td>OG whales (50K, 100K BTC dormant wallets) distributing into Saylor as price-agnostic bidder. Saylor ran out of dry powder. Leverage longs caught.</td></tr>
+      <tr><td><strong>Drawdown shape</strong></td><td>Multi-month accumulation range after the deleveraging event. Then bull market.</td><td>Drawdown z-score matches 3AC / Luna severity. Plausibly the same template — multi-month range, then up.</td></tr>
+      <tr><td><strong>Bid character</strong></td><td>Crypto natives + early ETFs.</td><td>"Boomer" institutional bidders at multi-month consolidation + clean S/R flip. BTC is institutional now.</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <div class="quote" style="margin-top: 24px;">
+    Could this be the easiest bear market of all time? Time will tell — way too early to say. But the longer we go sideways and the more we approach the prophesied four-year cycle bottom, the more it becomes self-fulfilling.
+    <cite>— Doc, on cycle structure</cite>
+  </div>
+</section>
+
+<section id="playbook">
+  <h2>Playbook &amp; Process</h2>
+  <p>The recurring rules Doc repeats — pulled out of the Q&amp;A segments.</p>
+
+  <div class="playbook">
+    <div class="playbook-item">
+      <strong>Don't diddle in the middle</strong>
+      <span>Trade the extremities, not the mean. No-man's-land is negative EV. If you do trade the daily VWAP / mid-value, you get one strike — one trade. If it fails, you're done with that zone for the day.</span>
+    </div>
+    <div class="playbook-item">
+      <strong>Take profits early</strong>
+      <span>"It doesn't matter, take profits early." If you're slow-bleeding with a high win rate, the math is on the losses, not the exits. Pre-define your partials at levels you respect.</span>
+    </div>
+    <div class="playbook-item">
+      <strong>Time-based invalidation</strong>
+      <span>If your session-thesis squeeze doesn't materialize by session close, fully close. The fact that it plays out the next day isn't vindication — that's a different setup on a different day.</span>
+    </div>
+    <div class="playbook-item">
+      <strong>Start minimal, add one tool at a time</strong>
+      <span>Doc started with volume + daily VWAP + open interest. No order book, no footprints, no liquidity. Add complexity in isolation, learn its behavior, combine after. Trying to learn five tools at once = conflicting signals.</span>
+    </div>
+    <div class="playbook-item">
+      <strong>Magus is an exception — don't copy from day one</strong>
+      <span>Magus trades momentum and VWAP-area setups beginners shouldn't. He has 10 years of intraday discretion built up. You earn the right to take those trades; you don't start there.</span>
+    </div>
+    <div class="playbook-item">
+      <strong>Binance spot is the clean flow read right now</strong>
+      <span>Doc's been ignoring Coinbase on AGGR for ~2 months. Coinbase has been giving false absorption/exhaustion reads — net seller during uptrend, V-reverses. Not saying it's lying; saying it's not giving repeatable signals right now.</span>
+    </div>
+    <div class="playbook-item">
+      <strong>Patience is built through repeated mistakes</strong>
+      <span>Can't be taught. You have to click the wrong button enough times that future-you triggers the brake before the action. The discipline issue is "I need to be in this trade <em>now</em>" with no actual trigger.</span>
+    </div>
+  </div>
+</section>
+
+<div class="footer">
+  <p><strong>Source:</strong> <a href="https://www.youtube.com/live/5x7Ivt_VWHM" target="_blank" rel="noopener">DocXBT — Paragon Livestream, May 20 2026</a></p>
+  <p><strong>Channel:</strong> <a href="https://www.youtube.com/@DocXBT" target="_blank" rel="noopener">@DocXBT</a></p>
+  <div class="disclaimer">
+    Personal notes from a public YouTube livestream. Paraphrased throughout — direct quotes are marked with quotation marks. Trading views are DocXBT's, not the author's, and are summarized in good faith but may miss nuance from the live discussion. Not financial advice. Do not trade off this document.
+  </div>
+</div>
+
+</article>
+</body>
+</html>
