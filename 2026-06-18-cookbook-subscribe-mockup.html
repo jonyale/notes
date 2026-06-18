@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Cookbook — Founding Member Special (mockup)</title>
+<!--
+  DRAFT MOCKUP for the Magus conversation. Black/white + blue accent.
+  Easy edits:
+  - Prices: "$19", "$228", "$29", "$348", "$49", "$360"
+  - Founder deadline: search "EDIT-DEADLINE"
+  - Logo: the .wordmark block
+  - Proof (Doc's equity curve + stats): the .hero-proof / .proof blocks. Verify numbers before publishing.
+-->
+<style>
+  :root{
+    --ink:#0a0a0a;--ink-soft:#444;--muted:#8c8c8c;--line:#e6e6e6;
+    --bg:#ffffff;--card:#ffffff;--accent:#1d4ed8;--accent-soft:#eef3ff;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,Helvetica,Arial,sans-serif;background:var(--bg);color:var(--ink);-webkit-font-smoothing:antialiased;line-height:1.5;}
+  .wrap{max-width:1060px;margin:0 auto;padding:52px 24px 64px;}
+
+  .brand{text-align:center;margin-bottom:6px;}
+  .wordmark{font-size:26px;font-weight:800;letter-spacing:-.5px;}
+  .wordmark b{color:var(--accent);}
+  .tagline{text-align:center;color:var(--muted);font-size:13px;letter-spacing:.5px;margin-bottom:30px;text-transform:uppercase;}
+
+  h1{text-align:center;font-size:44px;line-height:1.04;font-weight:800;letter-spacing:-.6px;margin:6px 0 12px;}
+  .sub{text-align:center;color:var(--ink-soft);font-size:17px;max-width:560px;margin:0 auto 22px;}
+
+  .urgency{max-width:560px;margin:0 auto 34px;text-align:center;background:var(--accent-soft);border:1px solid #d7e2ff;border-radius:12px;padding:14px 18px;font-size:15px;color:var(--ink);}
+  .urgency b{color:var(--accent);}
+  .urgency .small{display:block;color:var(--muted);font-size:13px;margin-top:3px;}
+
+  .cards{display:grid;grid-template-columns:1fr 1.08fr 1fr;gap:20px;align-items:stretch;}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:30px 26px 26px;display:flex;flex-direction:column;}
+  .card.feature{border:2px solid var(--accent);box-shadow:0 16px 44px rgba(29,78,216,.13);position:relative;}
+  .ribbon{position:absolute;top:-13px;left:50%;transform:translateX(-50%);background:var(--accent);color:#fff;font-size:11.5px;font-weight:700;letter-spacing:.6px;padding:5px 15px;border-radius:999px;text-transform:uppercase;white-space:nowrap;}
+  .save{display:inline-block;background:var(--accent);color:#fff;font-weight:700;font-size:13px;padding:6px 12px;border-radius:8px;margin-bottom:14px;}
+  .plan{font-size:20px;font-weight:700;margin-bottom:8px;}
+  .price{margin-bottom:4px;min-height:42px;}
+  .price .big{font-size:38px;font-weight:800;letter-spacing:-1px;}
+  .price .per{font-size:15px;color:var(--ink-soft);}
+  .billed{font-size:13.5px;color:var(--muted);margin-bottom:8px;min-height:18px;}
+  .billed.lock{color:var(--ink);font-weight:600;}
+  .billed.lock b{color:var(--accent);}
+  .lockline{font-size:12.5px;color:var(--muted);margin-bottom:18px;}
+  ul{list-style:none;padding:0;margin:0 0 22px;flex:1;}
+  li{display:flex;gap:10px;align-items:flex-start;font-size:14.5px;color:var(--ink-soft);padding:6px 0;}
+  li svg{flex:none;margin-top:2px;}
+  li.plus{color:var(--ink);font-weight:600;}
+  li.off{color:#b0b0b0;}li.off span{text-decoration:line-through;color:#b0b0b0;}
+  .btn{display:block;text-align:center;padding:13px;border-radius:10px;font-weight:700;font-size:15px;text-decoration:none;cursor:pointer;border:none;width:100%;}
+  .btn.primary{background:var(--accent);color:#fff;}
+  .btn.outline{background:#fff;color:var(--ink);border:1.5px solid var(--ink);}
+  .btn.disabled{background:#f3f3f3;color:var(--muted);cursor:default;}
+
+  /* comparison */
+  .section-h{text-align:center;font-size:15px;font-weight:700;letter-spacing:.4px;text-transform:uppercase;color:var(--muted);margin:56px 0 18px;}
+  table{width:100%;border-collapse:collapse;font-size:14px;}
+  th,td{padding:12px 10px;text-align:center;border-bottom:1px solid var(--line);}
+  th{font-weight:700;font-size:13px;}
+  td:first-child,th:first-child{text-align:left;color:var(--ink-soft);}
+  .col-cb{background:var(--accent-soft);}
+  th.col-cb{color:var(--accent);border-top:2px solid var(--accent);border-radius:8px 8px 0 0;}
+  td.col-cb{font-weight:700;color:var(--ink);}
+  .yes{color:var(--accent);font-weight:800;}
+  .no{color:#c4c4c4;}
+  .dim{color:var(--muted);font-size:12.5px;}
+
+  /* hero proof: equity curve */
+  .proofwrap{margin-top:56px;border:1px solid var(--line);border-radius:16px;padding:26px;}
+  .proof-top{display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:8px;margin-bottom:6px;}
+  .proof-top .who{font-size:16px;font-weight:700;}
+  .proof-top .span{font-size:13px;color:var(--muted);}
+  .stats{display:flex;gap:26px;flex-wrap:wrap;margin:10px 0 16px;}
+  .stat .n{font-size:22px;font-weight:800;}
+  .stat .n.blue{color:var(--accent);}
+  .stat .l{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.4px;}
+  .curve{width:100%;height:auto;display:block;}
+  .proof-note{text-align:center;font-size:12px;color:var(--muted);margin-top:14px;}
+
+  .roi{text-align:center;font-size:16px;font-weight:600;color:var(--accent);margin:30px auto 0;max-width:560px;}
+
+  .fine{max-width:640px;margin:26px auto 0;text-align:center;color:var(--muted);font-size:12.5px;line-height:1.65;}
+
+  @media(max-width:840px){.cards{grid-template-columns:1fr;max-width:420px;margin:0 auto;}h1{font-size:34px;}table{font-size:12.5px;}th,td{padding:9px 5px;}}
+</style>
+</head>
+<body>
+  <div class="wrap">
+
+    <div class="brand"><div class="wordmark">Cook<b>book</b></div></div>
+    <div class="tagline">All signal. No noise.</div>
+
+    <h1>Founding Member Special</h1>
+    <p class="sub">Trade alongside five analysts. Their positions, levels, and calls, every week.</p>
+
+    <div class="urgency">
+      Founder rate ends <b>June 30, 11:59pm EDT</b>.
+      <span class="small">After that, pricing goes to <b>$29/mo ($348/yr)</b>. Lock in $19/mo now and it never goes up while you're subscribed.</span>
+    </div>
+
+    <div class="cards">
+
+      <!-- FREE -->
+      <div class="card">
+        <div class="plan">Free</div>
+        <div class="price"><span class="big">$0</span></div>
+        <div class="billed">The weekly teaser</div>
+        <div class="lockline">&nbsp;</div>
+        <ul>
+          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="11" stroke="#0a0a0a" stroke-width="1.5"/><path d="M7 12.5l3 3 7-7" stroke="#0a0a0a" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>Weekly Cookbook Brief — the team's market lean in 2 minutes</li>
+          <li class="off"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="11" stroke="#d0d0d0" stroke-width="1.5"/><path d="M8.5 8.5l7 7M15.5 8.5l-7 7" stroke="#d0d0d0" stroke-width="1.6" stroke-linecap="round"/></svg><span>Full weekly editions (all 5 analysts)</span></li>
+          <li class="off"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="11" stroke="#d0d0d0" stroke-width="1.5"/><path d="M8.5 8.5l7 7M15.5 8.5l-7 7" stroke="#d0d0d0" stroke-width="1.6" stroke-linecap="round"/></svg><span>Model portfolio</span></li>
+          <li class="off"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="11" stroke="#d0d0d0" stroke-width="1.5"/><path d="M8.5 8.5l7 7M15.5 8.5l-7 7" stroke="#d0d0d0" stroke-width="1.6" stroke-linecap="round"/></svg><span>Trade recaps &amp; levels</span></li>
+          <li class="off"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="11" stroke="#d0d0d0" stroke-width="1.5"/><path d="M8.5 8.5l7 7M15.5 8.5l-7 7" stroke="#d0d0d0" stroke-width="1.6" stroke-linecap="round"/></svg><span>Monthly member call</span></li>
+          <li class="off"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="11" stroke="#d0d0d0" stroke-width="1.5"/><path d="M8.5 8.5l7 7M15.5 8.5l-7 7" stroke="#d0d0d0" stroke-width="1.6" stroke-linecap="round"/></svg><span>Track record</span></li>
+          <li class="off"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="11" stroke="#d0d0d0" stroke-width="1.5"/><path d="M8.5 8.5l7 7M15.5 8.5l-7 7" stroke="#d0d0d0" stroke-width="1.6" stroke-linecap="round"/></svg><span>Custom indicators &amp; tools</span></li>
+        </ul>
+        <a class="btn disabled">Stay on free</a>
+      </div>
+
+      <!-- ANNUAL -->
+      <div class="card feature">
+        <div class="ribbon">Best value</div>
+        <div class="save">Save $360/yr · 61% off monthly</div>
+        <div class="plan">Annual</div>
+        <div class="price"><span class="big">$19</span><span class="per"> / month</span></div>
+        <div class="billed lock"><b>$228/year</b>, billed annually</div>
+        <div class="lockline">Your rate never goes up while you stay subscribed.</div>
+        <ul>
+          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="11" stroke="#0a0a0a" stroke-width="1.5"/><path d="M7 12.5l3 3 7-7" stroke="#0a0a0a" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>Weekly editions — all 5 analysts</li>
+          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="11" stroke="#0a0a0a" stroke-width="1.5"/><path d="M7 12.5l3 3 7-7" stroke="#0a0a0a" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>Model portfolio — what we're holding</li>
+          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="11" stroke="#0a0a0a" stroke-width="1.5"/><path d="M7 12.5l3 3 7-7" stroke="#0a0a0a" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>Weekly trade recap with levels</li>
+          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="11" stroke="#0a0a0a" stroke-width="1.5"/><path d="M7 12.5l3 3 7-7" stroke="#0a0a0a" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>Monthly live member call + track record</li>
+          <li class="plus"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="11" fill="#1d4ed8"/><path d="M7 12.5l3 3 7-7" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>Custom indicators &amp; tools <span style="font-weight:500;color:var(--accent)">(annual only)</span></li>
+          <li class="plus"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="11" fill="#1d4ed8"/><path d="M7 12.5l3 3 7-7" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>Quarterly deep-dive report <span style="font-weight:500;color:var(--accent)">(annual only)</span></li>
+        </ul>
+        <a class="btn primary">Lock in founder rate</a>
+      </div>
+
+      <!-- MONTHLY -->
+      <div class="card">
+        <div class="plan">Monthly</div>
+        <div class="price"><span class="big">$49</span><span class="per"> / month</span></div>
+        <div class="billed">billed monthly</div>
+        <div class="lockline">&nbsp;</div>
+        <ul>
+          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="11" stroke="#0a0a0a" stroke-width="1.5"/><path d="M7 12.5l3 3 7-7" stroke="#0a0a0a" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>Weekly editions — all 5 analysts</li>
+          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="11" stroke="#0a0a0a" stroke-width="1.5"/><path d="M7 12.5l3 3 7-7" stroke="#0a0a0a" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>Model portfolio — what we're holding</li>
+          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="11" stroke="#0a0a0a" stroke-width="1.5"/><path d="M7 12.5l3 3 7-7" stroke="#0a0a0a" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>Weekly trade recap with levels</li>
+          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="11" stroke="#0a0a0a" stroke-width="1.5"/><path d="M7 12.5l3 3 7-7" stroke="#0a0a0a" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>Monthly live member call + track record</li>
+        </ul>
+        <a class="btn outline">Subscribe monthly</a>
+      </div>
+
+    </div>
+
+    <!-- COMPARISON -->
+    <div class="section-h">How we compare</div>
+    <table>
+      <thead>
+        <tr>
+          <th></th>
+          <th>Solo letter</th>
+          <th>Research newsletter</th>
+          <th>Daily signal community</th>
+          <th class="col-cb">Cookbook</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>Price</td><td>$10–20/mo</td><td>$40–90/mo</td><td>$100–150/mo</td><td class="col-cb">$19/mo</td></tr>
+        <tr><td>Analysts</td><td>1</td><td>1–2</td><td>varies</td><td class="col-cb">5</td></tr>
+        <tr><td>Weekly actionable edition</td><td><span class="yes">✓</span></td><td><span class="yes">✓</span></td><td><span class="dim">daily chat only</span></td><td class="col-cb"><span class="yes">✓</span></td></tr>
+        <tr><td>Model portfolio</td><td><span class="no">✗</span></td><td><span class="dim">partial</span></td><td><span class="no">✗</span></td><td class="col-cb"><span class="yes">✓</span></td></tr>
+        <tr><td>Trade recaps with levels</td><td><span class="no">✗</span></td><td><span class="no">✗</span></td><td><span class="yes">✓</span></td><td class="col-cb"><span class="yes">✓</span></td></tr>
+        <tr><td>Live member calls</td><td><span class="no">✗</span></td><td><span class="no">✗</span></td><td><span class="yes">✓</span></td><td class="col-cb"><span class="yes">✓</span></td></tr>
+        <tr><td>Custom indicators &amp; tools</td><td><span class="no">✗</span></td><td><span class="no">✗</span></td><td><span class="dim">sometimes</span></td><td class="col-cb"><span class="yes">✓</span></td></tr>
+      </tbody>
+    </table>
+
+    <!-- PROOF: equity curve -->
+    <div class="proofwrap">
+      <div class="proof-top"><span class="who">Doc — recent run</span><span class="span">Since Christmas</span></div>
+      <div class="stats">
+        <div class="stat"><div class="n">21</div><div class="l">Trades</div></div>
+        <div class="stat"><div class="n">18W / 3L</div><div class="l">Record</div></div>
+        <div class="stat"><div class="n">85%</div><div class="l">Win rate</div></div>
+        <div class="stat"><div class="n blue">+38%</div><div class="l">Account</div></div>
+        <div class="stat"><div class="n">+8%</div><div class="l">BTC, same span</div></div>
+      </div>
+      <svg class="curve" viewBox="0 0 640 170" fill="none" preserveAspectRatio="none">
+        <line x1="0" y1="150" x2="640" y2="150" stroke="#eee"/>
+        <line x1="0" y1="100" x2="640" y2="100" stroke="#f3f3f3"/>
+        <line x1="0" y1="50" x2="640" y2="50" stroke="#f3f3f3"/>
+        <path d="M10 132 L46 128 L72 138 L104 130 L142 122 L186 116 L226 112 L262 98 L300 96 L338 86 L378 80 L410 84 L452 66 L492 56 L528 60 L566 42 L602 34 L632 24 L632 168 L10 168 Z" fill="#eef3ff"/>
+        <path d="M10 132 L46 128 L72 138 L104 130 L142 122 L186 116 L226 112 L262 98 L300 96 L338 86 L378 80 L410 84 L452 66 L492 56 L528 60 L566 42 L602 34 L632 24" stroke="#1d4ed8" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <p class="proof-note">Doc's own account, shared in chat. Recreated for display. Past performance is not indicative of future results. Not financial advice.</p>
+    </div>
+
+    <p class="roi">One alt call like Doc's AKT (+50%) covers the whole year.</p>
+
+    <p class="fine">
+      Founder pricing is locked for life as long as your subscription stays active. After June 30, 2026 (11:59pm EDT), standard pricing applies to new members. Annual plans renew yearly, monthly plans renew monthly. Cancel anytime.<br><br>
+      Not financial advice. The analysts may hold positions in any asset discussed. Nothing here is a recommendation to buy or sell.
+    </p>
+
+  </div>
+</body>
+</html>
