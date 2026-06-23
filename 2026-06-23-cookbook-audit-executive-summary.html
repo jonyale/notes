@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>CookBook — Monetization Audit (Internal)</title>
+<!--
+  INTERNAL exec summary for the free->paid / ads decision. Unlisted (noindex).
+  Data pulled live via beehiiv API/MCP on 2026-06-23. House style: black/white + blue accent.
+  All figures verified against publication stats, 15 recent posts, link-level clicks,
+  and subscriber status counts that reconcile exactly to totals (3,944 / 332 / 2,509).
+-->
+<style>
+  :root{
+    --ink:#0a0a0a;--ink-soft:#3f3f46;--muted:#8c8c8c;--line:#e6e6e6;--line-soft:#f0f0f0;
+    --bg:#ffffff;--card:#ffffff;--accent:#1d4ed8;--accent-soft:#eef3ff;--accent-line:#d7e2ff;
+    --good:#15803d;--good-soft:#eaf6ee;--bad:#b91c1c;--bad-soft:#fbeaea;--warn:#b45309;--warn-soft:#fdf3e7;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,Helvetica,Arial,sans-serif;background:#f7f7f8;color:var(--ink);-webkit-font-smoothing:antialiased;line-height:1.55;}
+  .wrap{max-width:980px;margin:0 auto;padding:46px 22px 80px;}
+  a{color:var(--accent);}
+
+  /* header */
+  .brand{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;margin-bottom:30px;}
+  .wordmark{font-size:23px;font-weight:800;letter-spacing:-.5px;}
+  .wordmark b{color:var(--accent);}
+  .kicker{font-size:11.5px;letter-spacing:1.4px;text-transform:uppercase;color:var(--muted);font-weight:600;}
+  .meta-top{font-size:12.5px;color:var(--muted);text-align:right;}
+
+  h1{font-size:38px;line-height:1.06;font-weight:800;letter-spacing:-.8px;margin:6px 0 10px;}
+  h1 .blue{color:var(--accent);}
+  .lede{font-size:18px;color:var(--ink-soft);max-width:680px;margin:0 0 8px;}
+  .source{font-size:12.5px;color:var(--muted);margin-bottom:26px;}
+
+  h2{font-size:13px;letter-spacing:1.2px;text-transform:uppercase;color:var(--muted);font-weight:700;margin:46px 0 16px;padding-bottom:9px;border-bottom:1px solid var(--line);}
+  h3{font-size:18px;font-weight:700;letter-spacing:-.3px;margin:0 0 8px;}
+  p{margin:0 0 13px;}
+  .small{font-size:13px;color:var(--muted);}
+
+  /* decision box */
+  .decision{background:var(--ink);color:#fff;border-radius:16px;padding:28px 30px;margin:8px 0 6px;}
+  .decision .tag{font-size:11.5px;letter-spacing:1.4px;text-transform:uppercase;color:#9db4ff;font-weight:700;}
+  .decision h3{color:#fff;font-size:23px;margin:8px 0 12px;letter-spacing:-.4px;}
+  .decision p{color:#d4d4d8;margin:0 0 12px;}
+  .decision ol{margin:0;padding-left:20px;color:#e9e9ee;}
+  .decision li{margin:6px 0;}
+  .decision b{color:#fff;}
+
+  /* metric cards */
+  .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px;margin:18px 0 6px;}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px 20px 18px;}
+  .card .big{font-size:34px;font-weight:800;letter-spacing:-1px;line-height:1;}
+  .card .lbl{font-size:13px;color:var(--ink-soft);margin-top:7px;font-weight:600;}
+  .card .note{font-size:12px;color:var(--muted);margin-top:3px;}
+  .card.good .big{color:var(--good);}
+  .card.bad .big{color:var(--bad);}
+  .card.warn .big{color:var(--warn);}
+
+  /* two-up */
+  .two{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+  .panel{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:24px 24px 20px;}
+  .panel .q{font-size:12px;letter-spacing:.5px;text-transform:uppercase;color:var(--accent);font-weight:700;margin-bottom:8px;}
+  .verdict{display:inline-block;font-size:12.5px;font-weight:700;padding:4px 11px;border-radius:999px;margin-bottom:12px;}
+  .verdict.size{background:var(--warn-soft);color:var(--warn);}
+  .verdict.yes{background:var(--good-soft);color:var(--good);}
+
+  /* callout */
+  .callout{border-radius:14px;padding:22px 24px;margin:16px 0;border:1px solid;}
+  .callout.flag{background:var(--warn-soft);border-color:#f0dcc0;}
+  .callout.danger{background:var(--bad-soft);border-color:#f1cccc;}
+  .callout.info{background:var(--accent-soft);border-color:var(--accent-line);}
+  .callout h3{margin-bottom:6px;}
+  .callout .eyebrow{font-size:11.5px;letter-spacing:1.2px;text-transform:uppercase;font-weight:700;margin-bottom:6px;}
+  .callout.flag .eyebrow{color:var(--warn);}
+  .callout.danger .eyebrow{color:var(--bad);}
+  .callout.info .eyebrow{color:var(--accent);}
+  .callout p:last-child{margin-bottom:0;}
+
+  /* tables */
+  .tbl-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:14px;margin:10px 0;}
+  table{width:100%;border-collapse:collapse;font-size:13.5px;min-width:560px;}
+  th,td{padding:10px 13px;text-align:right;border-bottom:1px solid var(--line-soft);white-space:nowrap;}
+  th:first-child,td:first-child{text-align:left;white-space:normal;}
+  thead th{font-size:11px;letter-spacing:.5px;text-transform:uppercase;color:var(--muted);font-weight:700;background:#fafafa;border-bottom:1px solid var(--line);}
+  tbody tr:last-child td{border-bottom:none;}
+  tr.hl td{background:var(--good-soft);}
+  tr.lo td{background:var(--bad-soft);}
+  td.num{font-variant-numeric:tabular-nums;}
+  .foot td{font-weight:700;background:#fafafa;border-top:1px solid var(--line);}
+
+  /* lens grid */
+  .lens{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;}
+  .lens .panel{padding:20px;}
+  .lens .grade{font-size:12px;font-weight:700;padding:3px 9px;border-radius:999px;float:right;}
+  .grade.a{background:var(--good-soft);color:var(--good);}
+  .grade.b{background:var(--accent-soft);color:var(--accent);}
+  .grade.c{background:var(--warn-soft);color:var(--warn);}
+  .grade.f{background:var(--bad-soft);color:var(--bad);}
+  .lens ul{margin:6px 0 0;padding-left:17px;font-size:13.5px;color:var(--ink-soft);}
+  .lens li{margin:4px 0;}
+
+  /* recs */
+  ol.recs{list-style:none;counter-reset:r;padding:0;margin:0;}
+  ol.recs li{counter-increment:r;position:relative;padding:16px 18px 16px 58px;background:var(--card);border:1px solid var(--line);border-radius:12px;margin-bottom:10px;}
+  ol.recs li::before{content:counter(r);position:absolute;left:16px;top:15px;width:28px;height:28px;border-radius:8px;background:var(--accent);color:#fff;font-weight:800;font-size:15px;display:flex;align-items:center;justify-content:center;}
+  ol.recs .h{font-weight:700;}
+  ol.recs .pill{font-size:11px;font-weight:700;letter-spacing:.4px;text-transform:uppercase;padding:2px 8px;border-radius:999px;margin-left:8px;vertical-align:middle;}
+  .pill.now{background:var(--bad-soft);color:var(--bad);}
+  .pill.soon{background:var(--warn-soft);color:var(--warn);}
+  .pill.later{background:#eee;color:#666;}
+  ol.recs .d{font-size:13.5px;color:var(--ink-soft);margin-top:3px;}
+
+  /* misc */
+  .chips{display:flex;gap:8px;flex-wrap:wrap;margin:4px 0 0;}
+  .chip{font-size:12.5px;padding:5px 11px;border-radius:999px;border:1px solid var(--line);background:#fff;color:var(--ink-soft);}
+  .chip b{color:var(--ink);}
+  ul.clean{padding-left:18px;}ul.clean li{margin:6px 0;}
+  .corr{font-size:13.5px;}
+  .corr b{color:var(--bad);}
+  hr.soft{border:none;border-top:1px solid var(--line);margin:30px 0;}
+  footer{margin-top:50px;padding-top:20px;border-top:1px solid var(--line);font-size:12.5px;color:var(--muted);}
+
+  @media (max-width:640px){
+    h1{font-size:30px;} .two{grid-template-columns:1fr;} .meta-top{text-align:left;}
+  }
+  @media print{
+    body{background:#fff;} .wrap{max-width:none;padding:0;}
+    .card,.panel,.callout,ol.recs li,.tbl-wrap{break-inside:avoid;}
+    .decision{background:#fff;color:#000;border:2px solid #000;}
+    .decision p,.decision ol,.decision .tag{color:#000;}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="brand">
+    <div>
+      <div class="kicker">Internal · Confidential</div>
+      <div class="wordmark">Cook<b>Book</b></div>
+    </div>
+    <div class="meta-top">Monetization Audit<br>June 23, 2026</div>
+  </div>
+
+  <h1>Not a quality problem.<br>A <span class="blue">scale &amp; plumbing</span> problem.</h1>
+  <p class="lede">CookBook's engagement and audience quality are genuinely strong. What's blocking money is reach, a self-inflicted signup leak, and a click metric that looks better than it sells.</p>
+  <p class="source">~11 months live · 3,944 active subscribers · data pulled live from the beehiiv API on 2026-06-23 · open rates caveated for Apple Mail Privacy Protection throughout.</p>
+
+  <div class="decision">
+    <div class="tag">The decision on the table</div>
+    <h3>Advertisers aren't coming. Do we switch to paid?</h3>
+    <p>Short version: don't frame it as "free vs paid." Fix two leaks, then pick a rail. Three things are capping monetization right now —</p>
+    <ol>
+      <li><b>Too small for advertisers</b> (~3,900 reach) — and ~40% of every signup cohort never makes it onto the list at all.</li>
+      <li><b>Growth is single-channel and front-loaded</b> — 64% of the entire list arrived in the launch quarter, almost all via Twitter/X. Referrals are switched off.</li>
+      <li><b>You already have a paid product (The Paragon) and barely point at it</b> — its link gets 3–5 clicks an entire edition.</li>
+    </ol>
+  </div>
+
+  <div class="cards">
+    <div class="card"><div class="big">3,944</div><div class="lbl">Active subscribers</div><div class="note">+400 net / last 90 days</div></div>
+    <div class="card good"><div class="big">~53%</div><div class="lbl">Open rate</div><div class="note">Elite — but MPP-inflated</div></div>
+    <div class="card warn"><div class="big">~1–2%</div><div class="lbl">True outbound click rate</div><div class="note">Headline "12%" is ~90% chart taps</div></div>
+    <div class="card bad"><div class="big">$0</div><div class="lbl">Lifetime earnings</div><div class="note">Monetization essentially un-attempted</div></div>
+  </div>
+
+  <!-- ============ THE TWO QUESTIONS ============ -->
+  <h2>The two questions, answered</h2>
+  <div class="two">
+    <div class="panel">
+      <div class="q">Q1 — Why aren't advertisers biting?</div>
+      <span class="verdict size">It's a SIZE problem</span>
+      <p>Not engagement, not positioning. A sponsor buying you today gets ~250–320 clicks and a line item worth roughly <b>$120–175 per send</b>. That's below the floor (~10k–20k subscribers) most direct crypto sponsors and ad networks screen for.</p>
+      <p class="small">Your engagement would earn a premium CPM — there just isn't enough volume underneath it to matter to a buyer yet.</p>
+    </div>
+    <div class="panel">
+      <div class="q">Q2 — Is the list good enough for paid?</div>
+      <span class="verdict yes">Yes — the core is real</span>
+      <p>~1,900–2,100 weekly openers and <b>~250–320 weekly clickers</b>, with churn that's low and improving (3–9% lifetime). People who confirm, stay. That's the lifetime value a paid motion needs.</p>
+      <p class="small">The hook is the trader voices + the proprietary "built-with-Claude" tooling — content readers can't get free on X.</p>
+    </div>
+  </div>
+
+  <!-- ============ THE CLICK NUANCE ============ -->
+  <h2>The most important nuance: the click rate is mostly chart taps</h2>
+  <div class="callout flag">
+    <div class="eyebrow">⚠ Read before quoting the click rate to anyone</div>
+    <h3>~90% of all clicks are people enlarging a chart, not clicking through to a destination.</h3>
+    <p>Across three editions inspected at the link level, chart-image expands were <b>91% / 93% / 91%</b> of every email click. Charts are clickable images that open the full-size PNG in a new tab.</p>
+    <p><b>The clean proof:</b> the one recent edition with no clickable charts ("Defense so I can play offense," May 18) saw its click rate collapse to <b>~1%</b> — that's CookBook's <i>true</i> outbound click rate once chart taps are stripped out.</p>
+    <p style="margin-bottom:0"><b>So:</b> the ~12% headline CTR is a real <i>engagement / attentiveness</i> signal (people study the charts) but <b>must not be sold to advertisers as click-through intent.</b> A sponsor's link should expect ~1–2%, which is normal, not elite.</p>
+  </div>
+
+  <!-- ============ FIVE LENSES ============ -->
+  <h2>Five-lens health check</h2>
+  <div class="lens">
+    <div class="panel"><span class="grade c">WATCH</span><h3>Growth &amp; list health</h3>
+      <ul>
+        <li>+400 net / 90 days (~4%/mo), but decelerating</li>
+        <li>Launch quarter = <b>64%</b> of the entire active list</li>
+        <li><b>79%</b> from Twitter/X — single-channel risk</li>
+        <li>Referral program <b>OFF</b></li>
+      </ul>
+    </div>
+    <div class="panel"><span class="grade a">STRONG</span><h3>Engagement</h3>
+      <ul>
+        <li>Open ~53%, stable week to week</li>
+        <li>Real attentiveness (chart study, repeat clickers)</li>
+        <li>Best edition: "Bull curious" — 316 clickers</li>
+        <li>True outbound CTR modest (~1–2%)</li>
+      </ul>
+    </div>
+    <div class="panel"><span class="grade a">CLEAN</span><h3>Deliverability</h3>
+      <ul>
+        <li>Unsub 0.05–0.27%/send (&lt;0.5% ✓)</li>
+        <li><b>0 spam complaints</b>, every edition (✓)</li>
+        <li>Delivery 99.4–99.7%, bounce &lt;1%</li>
+        <li>No accounts flagged for attention</li>
+      </ul>
+    </div>
+    <div class="panel"><span class="grade c">NOT READY</span><h3>Monetization</h3>
+      <ul>
+        <li>Ads: not viable at 3.9k reach</li>
+        <li>Paid: engaged + sticky core supports it</li>
+        <li>Existing Paragon funnel barely used</li>
+        <li>$0 lifetime — un-attempted, not failed</li>
+      </ul>
+    </div>
+    <div class="panel"><span class="grade b">SEE BELOW</span><h3>Content / per-trader</h3>
+      <ul>
+        <li>Weekly 5-voice format = engagement workhorse</li>
+        <li>"Built-with-Claude" editions = top sharers</li>
+        <li>Per-trader attribution not yet possible</li>
+        <li>Charlie's alts travel best per chart</li>
+      </ul>
+    </div>
+    <div class="panel" style="background:#fafafa;">
+      <h3 style="color:var(--muted);font-size:14px;letter-spacing:.3px;">How to read the grades</h3>
+      <p class="small" style="margin:0;">STRONG/CLEAN = real assets to build on. WATCH = working but fragile. NOT READY = the gate to revenue. SEE BELOW = needs instrumentation before it can be judged.</p>
+    </div>
+  </div>
+
+  <!-- ============ THE LEAK ============ -->
+  <h2>The biggest, cheapest fix: the signup leak</h2>
+  <div class="callout danger">
+    <div class="eyebrow">🚨 2,509 people wanted in and never made it onto the list</div>
+    <p>That's people who hit subscribe but never confirmed the double-opt-in email — so they receive <b>nothing</b>. It holds in <i>every</i> cohort (35–41%) and is slightly worsening, so it's structural, not a launch artifact.</p>
+    <p style="margin-bottom:0">Counting everyone who ever signed up, the list <i>should</i> be ~6,450 emailable. Killing or fixing double-opt-in (and re-confirming the ~520 fresh pendings) is the single highest-ROI move — it directly grows the one number that gates both ads and paid.</p>
+  </div>
+
+  <h2>Cohort retention — and where the list actually came from</h2>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Acquisition quarter</th><th>Signed up</th><th>Active now</th><th>Pending (never confirmed)</th><th>Unsubbed</th><th>Confirm rate</th><th>Churn (of confirmed)</th></tr></thead>
+      <tbody>
+        <tr><td>Q3 '25 — launch</td><td class="num">4,212</td><td class="num">2,508</td><td class="num">1,469 (35%)</td><td class="num">235</td><td class="num">65%</td><td class="num">8.6%</td></tr>
+        <tr><td>Q4 '25</td><td class="num">1,296</td><td class="num">707</td><td class="num">521 (40%)</td><td class="num">68</td><td class="num">60%</td><td class="num">8.8%</td></tr>
+        <tr><td>Q1 '26</td><td class="num">539</td><td class="num">307</td><td class="num">216 (40%)</td><td class="num">16</td><td class="num">60%</td><td class="num">5.0%</td></tr>
+        <tr><td>Q2 '26 (to date)</td><td class="num">738</td><td class="num">422</td><td class="num">303 (41%)</td><td class="num">13</td><td class="num">59%</td><td class="num">3.0%</td></tr>
+        <tr class="foot"><td>Total</td><td class="num">6,785</td><td class="num">3,944</td><td class="num">2,509</td><td class="num">332</td><td class="num">—</td><td class="num">—</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="small">Two takeaways: <b>retention is excellent and improving</b> (lifetime churn tops out ~9% even for the oldest cohort — confirmed subscribers are sticky, the precondition for paid). And <b>growth is front-loaded</b> — the launch quarter is still 64% of the list; every quarter since adds far less. Buckets reconcile exactly to the live totals.</p>
+
+  <div class="chips" style="margin-top:14px;">
+    <span class="chip">Acquisition mix: <b>Twitter/X 79%</b></span>
+    <span class="chip">Direct <b>18%</b></span>
+    <span class="chip">YouTube <b>~3%</b></span>
+    <span class="chip">Referral program <b>off</b></span>
+  </div>
+
+  <!-- ============ EDITIONS ============ -->
+  <h2>Edition performance (last ~3 months)</h2>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Edition</th><th>Date</th><th>Recipients</th><th>Open*</th><th>Unique clickers</th><th>CTOR</th><th>Unsub</th></tr></thead>
+      <tbody>
+        <tr><td>Why a clean Q4 would worry me</td><td>06-22</td><td class="num">3,926</td><td class="num">—†</td><td class="num">186</td><td class="num">—†</td><td class="num">0.08%</td></tr>
+        <tr><td>Don't be the 12k guy</td><td>06-15</td><td class="num">3,873</td><td class="num">54%</td><td class="num">307</td><td class="num">14.7%</td><td class="num">0.05%</td></tr>
+        <tr><td>8 down, 4 to go</td><td>06-08</td><td class="num">3,873</td><td class="num">54%</td><td class="num">247</td><td class="num">11.9%</td><td class="num">0.13%</td></tr>
+        <tr class="hl"><td>Bull curious &nbsp;— best</td><td>06-01</td><td class="num">3,827</td><td class="num">54%</td><td class="num">316</td><td class="num">15.2%</td><td class="num">0.24%</td></tr>
+        <tr><td>About to double my stack</td><td>05-26</td><td class="num">3,822</td><td class="num">54%</td><td class="num">291</td><td class="num">14.1%</td><td class="num">0.13%</td></tr>
+        <tr class="lo"><td>Defense so I can play offense &nbsp;— no clickable charts</td><td>05-18</td><td class="num">3,805</td><td class="num">52%</td><td class="num">38</td><td class="num">1.9%</td><td class="num">0.26%</td></tr>
+        <tr><td>Slow grind, no panic</td><td>05-11</td><td class="num">3,741</td><td class="num">52%</td><td class="num">180</td><td class="num">9.3%</td><td class="num">0.27%</td></tr>
+        <tr><td>First crack in the trend</td><td>04-27</td><td class="num">3,709</td><td class="num">54%</td><td class="num">260</td><td class="num">13.1%</td><td class="num">0.27%</td></tr>
+        <tr><td>Bull or bear here?</td><td>04-20</td><td class="num">3,703</td><td class="num">52%</td><td class="num">262</td><td class="num">13.6%</td><td class="num">0.22%</td></tr>
+        <tr><td>Macro bottom or dead cat?</td><td>04-13</td><td class="num">3,667</td><td class="num">52%</td><td class="num">160</td><td class="num">8.5%</td><td class="num">0.22%</td></tr>
+        <tr><td>Win-win from here</td><td>04-06</td><td class="num">3,645</td><td class="num">54%</td><td class="num">215</td><td class="num">11.1%</td><td class="num">0.08%</td></tr>
+        <tr><td>I built a 545-asset scanner with Claude &nbsp;— 1,538 web views</td><td>04-02</td><td class="num">3,587</td><td class="num">53%</td><td class="num">123</td><td class="num">6.5%</td><td class="num">0.14%</td></tr>
+        <tr><td>Claude Code shows me the outliers &nbsp;— 906 web views</td><td>03-30</td><td class="num">3,515</td><td class="num">54%</td><td class="num">266</td><td class="num">14.0%</td><td class="num">0.20%</td></tr>
+        <tr><td>Doomers everywhere</td><td>03-23</td><td class="num">3,475</td><td class="num">54%</td><td class="num">199</td><td class="num">10.7%</td><td class="num">0.09%</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="small">CTOR = unique clickers ÷ unique openers. *Open rates are Apple-MPP-inflated. †June 22 opens were still maturing at pull time. The "built-with-Claude" editions under-index on email clicks but massively over-index on web views — they're acquisition/shareability pieces, not click pieces.</p>
+
+  <!-- ============ PER TRADER ============ -->
+  <h2>Per-trader: the honest answer is "we can't tell yet"</h2>
+  <div class="callout info">
+    <div class="eyebrow">Why a per-trader leaderboard would mislead</div>
+    <p>We wanted to rank the five voices by attention to find the paid hook. The data doesn't currently support it: beehiiv tracks <b>only chart-image clicks and a few nav links — there are no per-trader section links or tags.</b> Chart clicks are the only per-section signal, and they're biased three ways:</p>
+    <ul class="clean" style="margin-top:0;">
+      <li><b>Position</b> — whoever's first (Magus) gets the most clicks regardless of content.</li>
+      <li><b>Chart count</b> — Stoic and Mercury run few or no charts by design, so they <i>can't</i> accumulate clicks.</li>
+      <li><b>No read signal</b> — a great section with no chart scores zero.</li>
+    </ul>
+    <p>The one signal that survives the bias check: <b>Charlie's alt-coin charts pull the most clicks per chart despite appearing late in the email</b> — his content travels. Beyond that, "who's the hook" is currently <i>unmeasured</i>, not measured.</p>
+    <p style="margin-bottom:0"><b>The fix (costs nothing):</b> add one tagged link per trader section going forward (e.g. <code>utm_content=magus|doc|charlie|stoic|mercury</code>), and tag the Twitter subscribe links per account. After ~4–6 tagged editions we can rank voices cleanly <i>and</i> finally prove which account drives the 79%.</p>
+  </div>
+
+  <!-- ============ RECOMMENDATIONS ============ -->
+  <h2>Recommendations, in priority order</h2>
+  <ol class="recs">
+    <li><span class="h">Kill or fix double opt-in<span class="pill now">Do now</span></span><div class="d">~40% of every cohort never confirms. A settings change (plus re-confirming the ~520 fresh pendings) grows emailable reach immediately — the number that gates both ads and paid.</div></li>
+    <li><span class="h">Turn on the referral program<span class="pill now">Do now</span></span><div class="d">Free, on-brand growth. A trader audience shares charts readily, and it reduces the all-eggs-in-Twitter risk.</div></li>
+    <li><span class="h">Instrument links: per-trader + per-account<span class="pill soon">Next edition</span></span><div class="d">UTM-tag each trader's section and each account's subscribe link. Turns "who's the hook" and "who drives acquisition" from guesses into data.</div></li>
+    <li><span class="h">Monetize via Paragon first — not a new paywall<span class="pill soon">This quarter</span></span><div class="d">You already have the paid product and elite engagement; you're just barely pointing at it. Move the upsell out of the P.S. into a real placement and measure newsletter → Paragon conversion before building separate CookBook tiers.</div></li>
+    <li><span class="h">Defer direct ad sales until ~8–10k emailable<span class="pill later">Later</span></span><div class="d">The engagement will command premium CPMs then. Today the absolute volume is too low to attract or justify a sponsor relationship.</div></li>
+    <li><span class="h">Always make charts clickable — and never sell chart-taps as ad CTR<span class="pill later">Standing rule</span></span><div class="d">The May 18 collapse shows clickable charts drive the engagement signal; just price ads on real outbound behavior (~1–2%), not the headline number.</div></li>
+  </ol>
+
+  <!-- ============ METHOD ============ -->
+  <h2>Methodology &amp; caveats</h2>
+  <p class="small">Pulled live from the beehiiv API/MCP on 2026-06-23: publication aggregates (90-day + all-time), the 15 most-recent editions with full email/web stats, link-level click breakdowns on 4 editions, and subscriber counts by status and acquisition quarter (which reconcile exactly to 3,944 active / 332 inactive / 2,509 pending).</p>
+  <ul class="clean small">
+    <li><b>Open rates</b> are inflated by Apple Mail Privacy Protection — directional only; we leaned on clicks/CTOR.</li>
+    <li><b>"Click rate"</b> is ~90% chart-image expands; true outbound click intent is ~1–2%.</li>
+    <li><b>Per-trader attribution</b> is not yet possible (no section-level links) — see the fix above.</li>
+    <li><b>Paid-tier config</b> couldn't be read directly (API token lacks billing scope); all other signals confirm free-only.</li>
+  </ul>
+  <hr class="soft">
+  <p class="corr"><b>Corrections made during review</b> (flagged here for transparency, since this went out to the people in the numbers):</p>
+  <ul class="clean corr small">
+    <li>"Magus's Twitter = 79%" → corrected to <b>"Twitter/X = 79%, specific account unverified"</b> (<code>t.co</code> masks the account; the @CookBookSauce brand account also drives signups).</li>
+    <li>"Magus is the hook / his lead chart proves it" → <b>downgraded to low confidence</b> (that chart leads only because it's first in the email — position bias).</li>
+    <li>May 18 "broken send" → <b>reframed</b> as the no-clickable-charts natural experiment that proves the ~1–2% true CTR.</li>
+  </ul>
+
+  <footer>
+    CookBook — Internal monetization audit · prepared June 23, 2026 · unlisted, not for distribution outside the team.<br>
+    All figures verified against the live beehiiv API on the pull date and subject to change as the list grows.
+  </footer>
+
+</div>
+</body>
+</html>
