@@ -1,0 +1,1460 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Memory Breaks the Momentum Trade</title>
+<style>/* Direction 1 — Print financial journal.
+   Ink on paper, hairline rules instead of cards, serif throughout,
+   oxblood accent. Broadsheet table discipline. */
+:root {
+  --paper: #FBF9F3;
+  --ink: #191511;
+  --ink-2: #4C453B;
+  --faint: #8B8272;
+  --hair: #DAD3C3;
+  --hair-strong: #191511;
+  --wash: #F3EFE4;
+  --accent: #8C2B26;
+  --bull: #2E6B47;
+  --bear: #9C3B2E;
+  --mixed: #8A6519;
+  --serif: "Iowan Old Style", Charter, Georgia, "Times New Roman", serif;
+  --caps-ls: 0.14em;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --paper: #171310;
+    --ink: #EAE3D5;
+    --ink-2: #B5AB99;
+    --faint: #7E7566;
+    --hair: #352F27;
+    --hair-strong: #EAE3D5;
+    --wash: #201B16;
+    --accent: #D0796A;
+    --bull: #7EBD97;
+    --bear: #E08D7A;
+    --mixed: #CBA658;
+  }
+}
+/* The toggle stamps data-theme on <html> and must beat the media query in both
+   directions, so each mode is spelled out rather than inherited. */
+:root[data-theme="dark"] {
+  --paper: #171310; --ink: #EAE3D5; --ink-2: #B5AB99; --faint: #7E7566;
+  --hair: #352F27; --hair-strong: #EAE3D5; --wash: #201B16;
+  --accent: #D0796A; --bull: #7EBD97; --bear: #E08D7A; --mixed: #CBA658;
+}
+:root[data-theme="light"] {
+  --paper: #FBF9F3; --ink: #191511; --ink-2: #4C453B; --faint: #8B8272;
+  --hair: #DAD3C3; --hair-strong: #191511; --wash: #F3EFE4;
+  --accent: #8C2B26; --bull: #2E6B47; --bear: #9C3B2E; --mixed: #8A6519;
+}
+
+/* Theme toggle + back to contents */
+.page-tools {
+  position: fixed; top: 14px; right: 14px; z-index: 20;
+  display: flex; gap: 8px; align-items: center;
+}
+.page-tools a, .page-tools button {
+  font-family: var(--serif); font-size: 11px; letter-spacing: var(--caps-ls);
+  text-transform: uppercase; font-weight: 700;
+  color: var(--faint); background: var(--paper);
+  border: 1px solid var(--hair); border-radius: 2px;
+  padding: 5px 9px; cursor: pointer; text-decoration: none; line-height: 1;
+}
+.page-tools a:hover, .page-tools button:hover { color: var(--accent); border-color: var(--accent); }
+#to-top { opacity: 0; pointer-events: none; transition: opacity .2s; }
+#to-top.on { opacity: 1; pointer-events: auto; }
+@media print { .page-tools { display: none; } }
+@media (max-width: 520px) { .page-tools { top: 8px; right: 8px; } }
+
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--serif);
+  font-size: 17px;
+  line-height: 1.55;
+  text-rendering: optimizeLegibility;
+  font-variant-numeric: oldstyle-nums;
+}
+.wrap { max-width: 920px; margin: 0 auto; padding: 56px 32px 96px; }
+@media (max-width: 720px) { .wrap { padding: 32px 18px 64px; } body { font-size: 16px; } }
+
+/* Masthead */
+header { border-bottom: 1px solid var(--hair-strong); padding-bottom: 0; margin-bottom: 40px; }
+.eyebrow {
+  font-size: 12px;
+  letter-spacing: var(--caps-ls);
+  text-transform: uppercase;
+  color: var(--accent);
+  font-weight: 700;
+  border-top: 3px double var(--hair-strong);
+  padding-top: 12px;
+  margin-bottom: 20px;
+}
+h1, h2, h3, h4 { font-family: var(--serif); color: var(--ink); }
+h1 {
+  font-size: clamp(2.1rem, 5vw, 3.1rem);
+  line-height: 1.04;
+  letter-spacing: -0.015em;
+  font-weight: 700;
+  margin: 0 0 18px;
+}
+.lede {
+  font-size: 1.12rem;
+  line-height: 1.5;
+  color: var(--ink-2);
+  font-style: italic;
+  margin: 0 0 28px;
+  max-width: 62ch;
+}
+.meta {
+  display: grid;
+  grid-template-columns: repeat(4, auto);
+  justify-content: start;
+  gap: 0 40px;
+  border-top: 1px solid var(--hair);
+  padding: 12px 0 14px;
+  font-size: 15px;
+}
+.meta span { display: flex; flex-direction: column; gap: 2px; }
+.meta span strong {
+  font-size: 10.5px;
+  letter-spacing: var(--caps-ls);
+  text-transform: uppercase;
+  color: var(--faint);
+  font-weight: 600;
+}
+@media (max-width: 640px) { .meta { grid-template-columns: repeat(2, auto); gap: 12px 32px; } }
+
+/* Links */
+a { color: var(--ink); text-decoration: underline; text-decoration-color: var(--faint); text-underline-offset: 3px; text-decoration-thickness: 1px; }
+a:hover { color: var(--accent); text-decoration-color: var(--accent); }
+a.abbr { text-decoration-style: dotted; }
+.g-row:target { background: var(--wash); box-shadow: 0 0 0 8px var(--wash); }
+
+/* Contents — plain index */
+.toc { margin-bottom: 56px; border-bottom: 1px solid var(--hair); padding-bottom: 20px; }
+.toc-title {
+  font-size: 11px;
+  letter-spacing: var(--caps-ls);
+  text-transform: uppercase;
+  color: var(--faint);
+  font-weight: 700;
+  margin-bottom: 12px;
+}
+.toc ul {
+  list-style: none;
+  counter-reset: tocs;
+  margin: 0; padding: 0;
+  columns: 3;
+  column-gap: 40px;
+}
+@media (max-width: 800px) { .toc ul { columns: 2; } }
+@media (max-width: 520px) { .toc ul { columns: 1; } }
+.toc ul li { counter-increment: tocs; break-inside: avoid; }
+.toc a {
+  display: flex;
+  gap: 10px;
+  padding: 3px 0;
+  font-size: 15.5px;
+  text-decoration: none;
+  color: var(--ink);
+}
+.toc a::before {
+  content: counter(tocs);
+  color: var(--accent);
+  font-variant-numeric: lining-nums;
+  min-width: 18px;
+  font-size: 13px;
+  padding-top: 2px;
+}
+.toc a:hover { color: var(--accent); }
+
+/* Sections */
+article { counter-reset: section; }
+section { margin-bottom: 64px; }
+h2 {
+  counter-increment: section;
+  font-size: clamp(1.45rem, 2.6vw, 1.7rem);
+  font-weight: 700;
+  letter-spacing: -0.008em;
+  line-height: 1.15;
+  margin: 0 0 18px;
+  padding-top: 16px;
+  border-top: 1px solid var(--hair-strong);
+}
+h2::before {
+  content: "No. " counter(section);
+  display: block;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: var(--caps-ls);
+  text-transform: uppercase;
+  color: var(--accent);
+  font-variant-numeric: lining-nums;
+  margin-bottom: 8px;
+}
+h3 { font-size: 1.15rem; font-weight: 700; margin: 32px 0 10px; }
+p { margin: 0 0 16px; max-width: 72ch; }
+p.note { font-size: 14.5px; color: var(--ink-2); border-left: 2px solid var(--hair); padding-left: 14px; }
+
+/* Tables — broadsheet rules */
+.table-scroll { overflow-x: auto; margin: 0 0 24px; }
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14.5px;
+  line-height: 1.45;
+  border-top: 2px solid var(--hair-strong);
+  border-bottom: 2px solid var(--hair-strong);
+}
+th, td { text-align: left; padding: 11px 16px 11px 0; vertical-align: top; border-bottom: 1px solid var(--hair); }
+th {
+  font-size: 10.5px;
+  letter-spacing: var(--caps-ls);
+  text-transform: uppercase;
+  color: var(--faint);
+  font-weight: 700;
+  border-bottom: 1px solid var(--hair-strong);
+  white-space: nowrap;
+}
+tbody tr:last-child td { border-bottom: none; }
+td strong { font-weight: 700; }
+td.asset { max-width: 210px; overflow-wrap: break-word; }
+/* News Scan headlines are sentences, not asset names — 210px broke them to one
+   or two words a line (owner note, 2026-07-23). */
+#newsscan td.asset { max-width: none; min-width: 220px; }
+#newsscan table { table-layout: auto; }
+td.asset strong { font-size: 15.5px; }
+td.source { font-size: 13px; color: var(--ink-2); min-width: 150px; }
+td.source a { color: var(--ink-2); }
+td.source a:hover { color: var(--accent); }
+td.source .ep-date { color: var(--faint); font-size: 12px; white-space: nowrap; }
+td.source .src-line { display: block; margin-bottom: 3px; }
+
+/* Positions — ink-only marks, no boxes */
+.position-cell { min-width: 170px; }
+.pill {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: var(--caps-ls);
+  text-transform: uppercase;
+  font-variant-numeric: lining-nums;
+}
+.pill::before { margin-right: 5px; font-size: 10px; }
+.pill.bull { color: var(--bull); } .pill.bull::before { content: "▲"; }
+.pill.bear { color: var(--bear); } .pill.bear::before { content: "▼"; }
+.pill.mixed { color: var(--mixed); } .pill.mixed::before { content: "◆"; }
+.pill.watch { color: var(--faint); } .pill.watch::before { content: "◇"; }
+.pill.conviction { color: var(--paper); background: var(--bull); padding: 2px 7px; }
+.pill.conviction::before { content: "■"; }
+.position-text { display: block; margin-top: 4px; font-style: italic; font-size: 13px; color: var(--faint); line-height: 1.4; }
+
+/* Week-over-week diff — same ink marks as the position pills */
+.chg {
+  font-size: 10.5px;
+  letter-spacing: var(--caps-ls);
+  text-transform: uppercase;
+  font-weight: 700;
+  color: var(--faint);
+  white-space: nowrap;
+}
+.chg-moved { color: var(--accent); }
+.chg-new { color: var(--ink); }
+/* The diff table shows historical stance labels, including issue #1's filled
+   "conviction" pill. A solid block reads as emphasis in a comparison column it
+   doesn't deserve, so flatten it to ink here only. */
+#weekdiff .pill.conviction { color: var(--bull); background: none; padding: 0; }
+
+/* Fattened inference rows — levels ledger + per-trade invalidation */
+dl.levels {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 2px 14px;
+  margin: 10px 0 0;
+  padding-top: 8px;
+  border-top: 1px solid var(--hair);
+  font-size: 13px;
+}
+dl.levels dt {
+  font-size: 10.5px;
+  letter-spacing: var(--caps-ls);
+  text-transform: uppercase;
+  color: var(--faint);
+  font-weight: 700;
+  padding-top: 3px;
+  white-space: nowrap;
+}
+dl.levels dd { margin: 0; color: var(--ink); font-variant-numeric: lining-nums; }
+/* "Wrong if" sits in its own column so the text block aligns to the right of the
+   label instead of wrapping underneath it (owner note, 2026-07-23). */
+.row-invalidation {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0 8px;
+  margin-top: 10px;
+  padding-top: 8px;
+  border-top: 1px solid var(--hair);
+  font-size: 13px;
+  color: var(--ink-2);
+  line-height: 1.45;
+}
+.row-invalidation strong {
+  font-size: 10.5px;
+  letter-spacing: var(--caps-ls);
+  text-transform: uppercase;
+  color: var(--bear);
+  white-space: nowrap;
+  padding-top: 2px;
+}
+
+/* Portfolio — ruled columns, no cards.
+   Column logic per owner 2026-07-23: left = buy side (Bullish, Vol cheap),
+   right = sell side (Bearish, Vol expensive). The renderer emits the blocks
+   in that DOM order (PORT_ORDER in render_issue.py), so no CSS `order` is
+   involved and the reading order matches the visual order. */
+.portfolio-panel {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0 40px;
+  border-top: 2px solid var(--hair-strong);
+  border-bottom: 2px solid var(--hair-strong);
+  margin: 20px 0 28px;
+}
+.port-block { padding: 18px 0 20px; border-bottom: 1px solid var(--hair); }
+.port-block.port-sell-vol, .port-block.port-buy-vol { border-bottom: none; }
+.port-block h4 {
+  font-size: 11.5px;
+  letter-spacing: var(--caps-ls);
+  text-transform: uppercase;
+  font-weight: 700;
+  margin: 0 0 12px;
+}
+.port-block.port-long h4 { color: var(--bull); }
+.port-block.port-short h4 { color: var(--bear); }
+.port-block.port-buy-vol h4 { color: var(--bull); }
+.port-block.port-sell-vol h4 { color: var(--bear); }
+.port-block .port-note { font-style: italic; font-size: 13.5px; color: var(--faint); margin: 0 0 12px; }
+.port-block ul { list-style: none; margin: 0; padding: 0; }
+.port-block li { font-size: 15px; line-height: 1.45; padding: 4px 0 4px 16px; position: relative; color: var(--ink); }
+.port-block li::before { content: "—"; position: absolute; left: 0; color: var(--faint); }
+.port-block li .item-note { display: block; font-size: 13px; font-style: italic; color: var(--faint); margin-top: 1px; }
+@media (max-width: 680px) {
+  .portfolio-panel { grid-template-columns: 1fr; gap: 0; }
+  /* single column: visual order is long, short, buy-vol, sell-vol —
+     restore the rule under buy-vol, keep the last block open */
+  .port-block.port-buy-vol { border-bottom: 1px solid var(--hair); }
+}
+
+/* Invalidations — indexed ledger rows (layout adopted from the Swiss
+   direction per owner review 2026-07-23; typography stays journal) */
+.catalyst-list { list-style: none; margin: 0; padding: 0; counter-reset: cat; border-top: 2px solid var(--hair-strong); }
+.catalyst-list li {
+  counter-increment: cat;
+  display: grid;
+  grid-template-columns: 84px 1fr;
+  gap: 0 26px;
+  padding: 20px 0;
+  border-bottom: 1px solid var(--hair);
+}
+.catalyst-list li::before {
+  content: counter(cat, decimal-leading-zero);
+  grid-row: 1 / span 3;
+  font-size: 1.9rem;
+  font-weight: 400;
+  color: var(--accent);
+  line-height: 1;
+  font-variant-numeric: lining-nums;
+  padding-top: 2px;
+}
+.catalyst-list li strong { display: block; grid-column: 2; font-size: 1.08rem; font-weight: 700; margin-bottom: 5px; }
+.catalyst-list li span { grid-column: 2; font-size: 14.5px; color: var(--ink-2); line-height: 1.5; max-width: 72ch; }
+/* Hits: label in the subdued bear red (our colour language), but the sections it
+   names set as body text, matching how the Helps lines read. */
+.catalyst-list li .hits {
+  display: block; margin-top: 9px;
+  font-size: 13.5px; color: var(--ink-2); line-height: 1.5;
+}
+.catalyst-list li .hits b {
+  font-size: 10.5px; letter-spacing: var(--caps-ls); text-transform: uppercase;
+  color: var(--bear); font-weight: 700; margin-right: 6px; opacity: 0.8;
+}
+.catalyst-list li .helps {
+  display: block; margin-top: 9px;
+  font-size: 13.5px; color: var(--ink-2); line-height: 1.5;
+}
+.catalyst-list li .helps b {
+  font-size: 10.5px; letter-spacing: var(--caps-ls); text-transform: uppercase;
+  color: var(--bull); font-weight: 700; margin-right: 6px;
+}
+.catalyst-list li .helps .tier {
+  display: inline;
+  margin-left: 7px;
+  font-size: 10px; letter-spacing: var(--caps-ls); text-transform: uppercase;
+  color: var(--faint); font-weight: 600; white-space: nowrap;
+}
+@media (max-width: 560px) {
+  .catalyst-list li { grid-template-columns: 48px 1fr; gap: 0 16px; }
+  .catalyst-list li::before { font-size: 1.25rem; padding-top: 4px; }
+}
+
+/* Speaker key */
+.speaker-key { border-top: 2px solid var(--hair-strong); border-bottom: 1px solid var(--hair); padding: 18px 0 16px; margin-bottom: 24px; }
+.speaker-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px 36px; }
+@media (max-width: 640px) { .speaker-grid { grid-template-columns: 1fr; } }
+.speaker-entry { font-size: 14.5px; line-height: 1.45; color: var(--ink-2); }
+.speaker-entry strong { color: var(--ink); font-weight: 700; margin-right: 8px; }
+.speaker-key .note { margin: 14px 0 0; padding-top: 12px; border-top: 1px solid var(--hair); font-size: 13px; color: var(--faint); line-height: 1.5; max-width: none; }
+
+.inference-intro { color: var(--ink-2); max-width: 76ch; margin-bottom: 20px; }
+.inference-intro em { color: var(--ink); }
+
+/* Sources */
+.source-list { list-style: none; margin: 0 0 20px; padding: 0; border-top: 2px solid var(--hair-strong); }
+.source-list li { border-bottom: 1px solid var(--hair); }
+.source-list li a { display: grid; grid-template-columns: auto 1fr auto; gap: 20px; align-items: baseline; padding: 11px 0; text-decoration: none; font-size: 15px; }
+.source-list li a:hover { color: var(--accent); }
+.source-list li .src-date { font-size: 12.5px; color: var(--faint); font-variant-numeric: lining-nums; min-width: 84px; }
+.source-list li .src-ext { font-size: 10.5px; letter-spacing: var(--caps-ls); text-transform: uppercase; color: var(--faint); }
+.source-list li .src-ext::before { content: "↗ "; }
+@media (max-width: 640px) {
+  .source-list li a { grid-template-columns: auto auto; grid-template-rows: auto auto; gap: 4px 12px; }
+  .source-list li .src-date { grid-row: 1; }
+  .source-list li .src-ext { grid-row: 1; justify-self: end; }
+  .source-list li a > :not(.src-date):not(.src-ext) { grid-row: 2; grid-column: 1 / -1; }
+}
+
+/* Glossary */
+#glossary { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px 40px; }
+#glossary h2 { grid-column: 1 / -1; margin-bottom: 0; }
+@media (max-width: 640px) { #glossary { grid-template-columns: 1fr; } }
+.g-row { line-height: 1.45; }
+.g-term { display: block; font-weight: 700; font-size: 14.5px; margin-bottom: 2px; }
+.g-def { display: block; font-size: 13.5px; color: var(--ink-2); }
+
+/* Footer */
+.footer { border-top: 3px double var(--hair-strong); padding-top: 20px; font-size: 13.5px; color: var(--ink-2); line-height: 1.6; }
+.footer p { margin: 0 0 10px; max-width: none; }
+.disclaimer { border: 1px solid var(--hair); padding: 14px 18px; font-size: 13px; margin-top: 18px; font-style: italic; }
+
+/* Mobile: stack tables */
+@media (max-width: 640px) {
+  .table-scroll { overflow-x: visible; }
+  table, tbody, tr, td { display: block; width: 100%; }
+  thead { display: none; }
+  table { border-top: 2px solid var(--hair-strong); }
+  tr { padding: 14px 0; border-bottom: 1px solid var(--hair); }
+  tr:last-child { border-bottom: none; }
+  td, td.asset, td.source { border: none; padding: 2px 0; max-width: none; min-width: 0; }
+  td.asset strong { font-size: 16px; }
+  td.source { margin-top: 6px; }
+  .position-cell { min-width: 0; }
+}
+
+/* Print */
+@media print {
+  @page { margin: 14mm; }
+  :root { --paper: #FFF; --ink: #111; --ink-2: #333; --faint: #666; --hair: #CCC; --hair-strong: #111; --wash: #F2F2F2; --accent: #7A211C; --bull: #1F5C3B; --bear: #7E2E22; --mixed: #6E5113; }
+  body { font-size: 10.5pt; line-height: 1.45; }
+  .wrap { max-width: 100%; padding: 0; }
+  a { text-decoration: none; color: inherit; }
+  h2 { page-break-after: avoid; }
+  tr, .port-block, .catalyst-list li, .g-row, .source-list li { page-break-inside: avoid; }
+  .toc { display: none; }
+}
+
+</style>
+</head>
+<body>
+<div class="page-tools">
+  <a id="to-top" href="#toc" title="Back to contents">&uarr; Contents</a>
+  <button id="theme-toggle" type="button" aria-label="Switch between light and dark">Dark</button>
+</div>
+<article class="wrap">
+
+<header>
+  <h1>Memory Breaks the Momentum Trade</h1>
+  <p class="lede">The Invesco S&amp;P 500 <a class="abbr" href="#g-momentum" title="A strategy that holds whatever has been rising">Momentum</a> ETF is down 10.5% with six sessions left in July, its worst month since it launched in 2015, and four memory and storage names caused almost half of that. The S&amp;P 500 sat 2% off its high through the whole thing. Three of the five shows took up the question, and they agreed on the facts while disagreeing about the cause. Animal Spirits puts it down to leverage and positioning. <a class="abbr" href="#speakers" title="Mark Cuban — Guest, interviewed by Jason Calacanis for All-In">Mark Cuban</a> points at how the AI buildout is financed. <a class="abbr" href="#speakers" title="Aahan Menon — Prometheus Research; guest on Excess Returns with Jack Forehand">Aahan Menon</a> spends an hour explaining why this is a bad week to hold a macro view, then states one anyway: if oil resumes its climb, the Fed hikes. Much of the back half of this issue depends on whether he is right.</p>
+  <div class="meta">
+    <span><strong>Window</strong> Jul 21–23, 2026</span>
+    <span><strong>Episodes</strong> 5</span>
+    <span><strong>Positions tracked</strong> 39</span>
+    <span><strong>Compiled</strong> Jul 23, 2026</span>
+  </div>
+</header>
+
+<nav class="toc" id="toc" aria-label="Table of contents">
+  <div class="toc-title">Contents</div>
+  <ul>
+    <li><a href="#newsscan">News Scan</a></li>
+    <li><a href="#weekdiff">What Changed</a></li>
+    <li><a href="#composite">Portfolio</a></li>
+    <li><a href="#catalysts">Invalidations</a></li>
+    <li><a href="#speakers">Speaker Key</a></li>
+    <li><a href="#equities">Equities &amp; Themes</a></li>
+    <li><a href="#stocks">Single Stocks</a></li>
+    <li><a href="#rates">Bonds, Rates &amp; the Fed</a></li>
+    <li><a href="#oil">Oil</a></li>
+    <li><a href="#compute">Compute Costs</a></li>
+    <li><a href="#realestate">Real Estate</a></li>
+    <li><a href="#inferences">Illustrative Trades</a></li>
+    <li><a href="#sources">Sources</a></li>
+    <li><a href="#glossary">Glossary</a></li>
+  </ul>
+</nav>
+
+<section id="newsscan">
+  <h2>News Scan</h2>
+  <p>The news our speakers were reacting to.</p>
+  <div class="table-scroll">
+    <table>
+      <thead><tr><th>Story</th><th>What actually happened</th><th>Source</th></tr></thead>
+      <tbody>
+      <tr>
+        <td class="asset"><strong><a class="abbr" href="#g-momentum" title="A strategy that holds whatever has been rising">Momentum stocks</a> are having their worst month since 2015</strong><br><span class="position-text">July, month to date</span></td>
+        <td>The Invesco S&amp;P 500 <a class="abbr" href="#g-momentum" title="A strategy that holds whatever has been rising">Momentum</a> ETF is down <strong>10.54%</strong> in July with six sessions still to run, already its steepest monthly decline since the fund launched in October 2015. Four memory and storage names caused close to half of that: Micron down 25% on the month, SanDisk 36.3%, Western Digital 34.7%, Seagate 25.0%.</td>
+        <td class="source"><a href="https://www.benzinga.com/markets/large-cap/26/07/60575305/spmo-worst-month-micron-memory-selloff" target="_blank" rel="noopener">Benzinga</a><span class="ep-date">· July</span></td>
+      </tr>
+      <tr>
+        <td class="asset"><strong>The memory complex went into a bear market first</strong><br><span class="position-text">peak Jun 25</span></td>
+        <td>Measured from the June 25 peak, memory names fell more than 20% and Micron alone shed close to <strong>$350bn</strong> of market value. Across the semiconductor group roughly $1.5tn came off in seven sessions, with 25 names down at least 20%. The same group had gained about 60% at the median since late March and added close to $5tn on the way up.</td>
+        <td class="source"><a href="https://finance.yahoo.com/markets/article/micron-samsung-sk-hynix-just-dragged-memory-stocks-into-a-bear-market-154549356.html" target="_blank" rel="noopener">Yahoo Finance</a><span class="ep-date">· Jul 7</span></td>
+      </tr>
+      <tr>
+        <td class="asset"><strong>Korea's leveraged chip trade hits the margin-call wall</strong><br><span class="position-text">through Jul 21</span></td>
+        <td>The <a class="abbr" href="#g-kospi" title="South Korea's main stock index">KOSPI</a> is roughly 27% below its June peak. Goldman's trading desk counted more than <strong>1.2 million</strong> leveraged retail accounts triggering margin calls by July 13, with 320,000 to 360,000 fully liquidated and retail brokerage deposits down about ₩30tn. The Financial Services Commission suspended new single-stock leveraged ETF listings and tripled the minimum deposit to ₩30m, about $20,000.</td>
+        <td class="source"><a href="https://m.investing.com/analysis/koreas-leveraged-chip-trade-hits-the-margin-call-wall-200684082" target="_blank" rel="noopener">Investing.com</a><span class="ep-date">· July</span></td>
+      </tr>
+      <tr>
+        <td class="asset"><strong>What SpaceX is actually charging for compute</strong><br><span class="position-text">filed Jun 5</span></td>
+        <td>Google pays <strong>$920m a month</strong> from October 2026 through June 2029 for about 110,000 Nvidia GPUs, with either side able to exit on 90 days' notice after December 31. The separate Anthropic contract runs at $1.25bn a month through 2029 for all available capacity at Colossus 1 near Memphis.</td>
+        <td class="source"><a href="https://techcrunch.com/2026/06/05/google-will-pay-spacex-920m-per-month-for-compute/" target="_blank" rel="noopener">TechCrunch</a><span class="ep-date">· Jun 5</span></td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section id="weekdiff">
+  <h2>What Changed Since Last Issue</h2>
+  <div class="table-scroll">
+    <table>
+      <thead><tr><th>Asset</th><th>Change</th><th>Last issue</th><th>This issue</th><th>Section</th></tr></thead>
+      <tbody>
+      <tr>
+        <td class="asset"><strong>Company spending on AI</strong></td>
+        <td><span class="chg chg-moved">Moved</span></td>
+        <td class="position-cell"><span class="pill watch">Watch</span></td>
+        <td class="position-cell"><span class="pill bull">Bullish</span></td>
+        <td class="source"><a href="#equities">Equities &amp; Themes</a></td>
+      </tr>
+      <tr>
+        <td class="asset"><strong>Crude oil</strong></td>
+        <td><span class="chg chg-moved">Moved</span></td>
+        <td class="position-cell"><span class="pill bear">Bearish</span></td>
+        <td class="position-cell"><span class="pill watch">Watch</span></td>
+        <td class="source"><a href="#oil">Oil</a></td>
+      </tr>
+      <tr>
+        <td class="asset"><strong>Data-center capacity that can be powered</strong></td>
+        <td><span class="chg chg-moved">Moved</span></td>
+        <td class="position-cell"><span class="pill conviction">Highest conviction</span></td>
+        <td class="position-cell"><span class="pill mixed">Mixed</span></td>
+        <td class="source"><a href="#equities">Equities &amp; Themes</a></td>
+      </tr>
+      <tr>
+        <td class="asset"><strong>Enterprise software vendors</strong></td>
+        <td><span class="chg chg-moved">Moved</span></td>
+        <td class="position-cell"><span class="pill bear">Bearish</span></td>
+        <td class="position-cell"><span class="pill mixed">Mixed</span></td>
+        <td class="source"><a href="#equities">Equities &amp; Themes</a></td>
+      </tr>
+      <tr>
+        <td class="asset"><strong>How much value the AI labs keep</strong></td>
+        <td><span class="chg chg-moved">Moved</span></td>
+        <td class="position-cell"><span class="pill bear">Bearish</span></td>
+        <td class="position-cell"><span class="pill mixed">Mixed</span></td>
+        <td class="source"><a href="#equities">Equities &amp; Themes</a></td>
+      </tr>
+      <tr>
+        <td class="asset"><strong>Hyperscaler credit quality</strong></td>
+        <td><span class="chg chg-moved">Moved</span></td>
+        <td class="position-cell"><span class="pill mixed">Mixed</span></td>
+        <td class="position-cell"><span class="pill bear">Bearish</span></td>
+        <td class="source"><a href="#rates">Bonds, Rates &amp; the Fed</a></td>
+      </tr>
+      <tr>
+        <td class="asset"><strong>Hyperscalers / Mag 7 (the largest US tech names)</strong></td>
+        <td><span class="chg chg-moved">Moved</span></td>
+        <td class="position-cell"><span class="pill mixed">Mixed</span></td>
+        <td class="position-cell"><span class="pill bear">Bearish</span></td>
+        <td class="source"><a href="#equities">Equities &amp; Themes</a></td>
+      </tr>
+      <tr>
+        <td class="asset"><strong>Korean stocks after the margin calls</strong></td>
+        <td><span class="chg chg-moved">Moved</span></td>
+        <td class="position-cell"><span class="pill watch">Watch</span></td>
+        <td class="position-cell"><span class="pill bear">Bearish</span></td>
+        <td class="source"><a href="#equities">Equities &amp; Themes</a></td>
+      </tr>
+      <tr>
+        <td class="asset"><strong>Pricing power at the frontier labs</strong></td>
+        <td><span class="chg chg-moved">Moved</span></td>
+        <td class="position-cell"><span class="pill bear">Bearish</span></td>
+        <td class="position-cell"><span class="pill mixed">Mixed</span></td>
+        <td class="source"><a href="#equities">Equities &amp; Themes</a></td>
+      </tr>
+      <tr>
+        <td class="asset"><strong>US electricity &amp; data-center politics</strong></td>
+        <td><span class="chg chg-moved">Moved</span></td>
+        <td class="position-cell"><span class="pill bear">Bearish</span></td>
+        <td class="position-cell"><span class="pill mixed">Mixed</span></td>
+        <td class="source"><a href="#equities">Equities &amp; Themes</a></td>
+      </tr>
+      <tr>
+        <td class="asset"><strong>Value over growth</strong></td>
+        <td><span class="chg chg-moved">Moved</span></td>
+        <td class="position-cell"><span class="pill watch">Watch</span></td>
+        <td class="position-cell"><span class="pill bull">Bullish</span></td>
+        <td class="source"><a href="#equities">Equities &amp; Themes</a></td>
+      </tr>
+      <tr>
+        <td class="asset"><strong>Who ends up with AI's profits</strong></td>
+        <td><span class="chg chg-moved">Moved</span></td>
+        <td class="position-cell"><span class="pill bull">Bullish</span></td>
+        <td class="position-cell"><span class="pill mixed">Mixed</span></td>
+        <td class="source"><a href="#equities">Equities &amp; Themes</a></td>
+      </tr>
+      <tr>
+        <td class="asset"><strong>AI as the driver of GDP growth</strong></td>
+        <td><span class="chg chg-new">New</span></td>
+        <td class="position-cell"><span class="chg">not tracked</span></td>
+        <td class="position-cell"><span class="pill bear">Bearish</span></td>
+        <td class="source"><a href="#rates">Bonds, Rates &amp; the Fed</a></td>
+      </tr>
+      <tr>
+        <td class="asset"><strong>Consumer <a class="abbr" href="#g-dissaving" title="Households spending more than they earn, drawing down savings">dissaving</a></strong></td>
+        <td><span class="chg chg-new">New</span></td>
+        <td class="position-cell"><span class="chg">not tracked</span></td>
+        <td class="position-cell"><span class="pill watch">Watch</span></td>
+        <td class="source"><a href="#rates">Bonds, Rates &amp; the Fed</a></td>
+      </tr>
+      <tr>
+        <td class="asset"><strong>Disney</strong></td>
+        <td><span class="chg chg-new">New</span></td>
+        <td class="position-cell"><span class="chg">not tracked</span></td>
+        <td class="position-cell"><span class="pill bear">Bearish</span></td>
+        <td class="source"><a href="#stocks">Single Stocks</a></td>
+      </tr>
+      <tr>
+        <td class="asset"><strong>GPU rental prices</strong></td>
+        <td><span class="chg chg-new">New</span></td>
+        <td class="position-cell"><span class="chg">not tracked</span></td>
+        <td class="position-cell"><span class="pill bull">Bullish</span></td>
+        <td class="source"><a href="#compute">Compute Costs</a></td>
+      </tr>
+      <tr>
+        <td class="asset"><strong>Households paying for AI</strong></td>
+        <td><span class="chg chg-new">New</span></td>
+        <td class="position-cell"><span class="chg">not tracked</span></td>
+        <td class="position-cell"><span class="pill bull">Bullish</span></td>
+        <td class="source"><a href="#equities">Equities &amp; Themes</a></td>
+      </tr>
+      <tr>
+        <td class="asset"><strong>IMAX</strong></td>
+        <td><span class="chg chg-new">New</span></td>
+        <td class="position-cell"><span class="chg">not tracked</span></td>
+        <td class="position-cell"><span class="pill bull">Bullish</span></td>
+        <td class="source"><a href="#stocks">Single Stocks</a></td>
+      </tr>
+      <tr>
+        <td class="asset"><strong>Long-dated US government bonds</strong></td>
+        <td><span class="chg chg-new">New</span></td>
+        <td class="position-cell"><span class="chg">not tracked</span></td>
+        <td class="position-cell"><span class="pill bear">Bearish</span></td>
+        <td class="source"><a href="#rates">Bonds, Rates &amp; the Fed</a></td>
+      </tr>
+      <tr>
+        <td class="asset"><strong>Netflix</strong></td>
+        <td><span class="chg chg-new">New</span></td>
+        <td class="position-cell"><span class="chg">not tracked</span></td>
+        <td class="position-cell"><span class="pill bull">Bullish</span></td>
+        <td class="source"><a href="#stocks">Single Stocks</a></td>
+      </tr>
+      <tr>
+        <td class="asset"><strong>Nike</strong></td>
+        <td><span class="chg chg-new">New</span></td>
+        <td class="position-cell"><span class="chg">not tracked</span></td>
+        <td class="position-cell"><span class="pill bear">Bearish</span></td>
+        <td class="source"><a href="#stocks">Single Stocks</a></td>
+      </tr>
+      <tr>
+        <td class="asset"><strong>Rental prices for older GPUs</strong></td>
+        <td><span class="chg chg-new">New</span></td>
+        <td class="position-cell"><span class="chg">not tracked</span></td>
+        <td class="position-cell"><span class="pill bull">Bullish</span></td>
+        <td class="source"><a href="#compute">Compute Costs</a></td>
+      </tr>
+      <tr>
+        <td class="asset"><strong>Retail buying of US stocks</strong></td>
+        <td><span class="chg chg-new">New</span></td>
+        <td class="position-cell"><span class="chg">not tracked</span></td>
+        <td class="position-cell"><span class="pill bull">Bullish</span></td>
+        <td class="source"><a href="#equities">Equities &amp; Themes</a></td>
+      </tr>
+      <tr>
+        <td class="asset"><strong>Semiconductor valuations</strong></td>
+        <td><span class="chg chg-new">New</span></td>
+        <td class="position-cell"><span class="chg">not tracked</span></td>
+        <td class="position-cell"><span class="pill mixed">Mixed</span></td>
+        <td class="source"><a href="#equities">Equities &amp; Themes</a></td>
+      </tr>
+      <tr>
+        <td class="asset"><strong>The boomer downsizing wave</strong></td>
+        <td><span class="chg chg-new">New</span></td>
+        <td class="position-cell"><span class="chg">not tracked</span></td>
+        <td class="position-cell"><span class="pill bear">Bearish</span></td>
+        <td class="source"><a href="#realestate">Real Estate</a></td>
+      </tr>
+      <tr>
+        <td class="asset"><strong>The gap between buying AI and using it</strong></td>
+        <td><span class="chg chg-new">New</span></td>
+        <td class="position-cell"><span class="chg">not tracked</span></td>
+        <td class="position-cell"><span class="pill watch">Watch</span></td>
+        <td class="source"><a href="#equities">Equities &amp; Themes</a></td>
+      </tr>
+      <tr>
+        <td class="asset"><strong>The house as a household's main asset</strong></td>
+        <td><span class="chg chg-new">New</span></td>
+        <td class="position-cell"><span class="chg">not tracked</span></td>
+        <td class="position-cell"><span class="pill watch">Watch</span></td>
+        <td class="source"><a href="#realestate">Real Estate</a></td>
+      </tr>
+      <tr>
+        <td class="asset"><strong>The US expansion continuing</strong></td>
+        <td><span class="chg chg-new">New</span></td>
+        <td class="position-cell"><span class="chg">not tracked</span></td>
+        <td class="position-cell"><span class="pill bull">Bullish</span></td>
+        <td class="source"><a href="#rates">Bonds, Rates &amp; the Fed</a></td>
+      </tr>
+      <tr>
+        <td class="asset"><strong>US <a class="abbr" href="#g-nominalgdp" title="Total spending in the economy, before adjusting for inflation">nominal GDP</a> growth</strong></td>
+        <td><span class="chg chg-new">New</span></td>
+        <td class="position-cell"><span class="chg">not tracked</span></td>
+        <td class="position-cell"><span class="pill bull">Bullish</span></td>
+        <td class="source"><a href="#rates">Bonds, Rates &amp; the Fed</a></td>
+      </tr>
+      <tr>
+        <td class="asset"><strong>Which competitive moats survive AI</strong></td>
+        <td><span class="chg chg-new">New</span></td>
+        <td class="position-cell"><span class="chg">not tracked</span></td>
+        <td class="position-cell"><span class="pill mixed">Mixed</span></td>
+        <td class="source"><a href="#equities">Equities &amp; Themes</a></td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="note"><strong>Held, unchanged (9).</strong> AI capex spending, Housing in build-friendly states, Inflation staying above the Fed's target, Leveraged single-stock ETFs, Memory and <a class="abbr" href="#g-dram" title="Dynamic Random-Access Memory, the working memory in servers and PCs">DRAM</a> makers, <a class="abbr" href="#g-momentum" title="A strategy that holds whatever has been rising">Momentum stocks</a>, Open-weight models taking share, The price of running AI models, Whether the Fed's next move is a hike.</p>
+  <p class="note"><strong>Not tracked this issue (26).</strong> 2-year Treasury, AI-native takeovers of legacy internet assets, Alphabet, Apple, Bitcoin, Ethereum, Gold, Gulf-state data centers, Inflation breakevens, Japanese yen, Marvell, Meta Platforms, Micron, New York State, PayPal, Rate &amp; currency volatility, Semiconductors (silicon demand), Silver, Stablecoin payment rails, Texas, Tokenized real-world assets, Uber, UnitedHealth, US dollar, US money-center banks, Visa &amp; Mastercard.</p>
+  <p class="note"><strong>Not tracked</strong> means the asset has no standalone row this issue, not that we stopped following it: Micron, for one, runs through the News Scan, the Portfolio and the first trade below while sitting inside the Memory and <a class="abbr" href="#g-dram" title="Dynamic Random-Access Memory, the working memory in servers and PCs">DRAM</a> row. Only Forward Guidance and All-In appear in both issues, so most of that list reflects which shows published inside a three-day window. Two of the moves are our own bookkeeping and are listed in the table like any other: Korea shifted from FX into equities as a retail-leverage row, and US electricity absorbed the data-center politics row. Nothing this week reversed from bullish to bearish or back.</p>
+</section>
+
+<section id="composite">
+  <h2>Portfolio</h2>
+  <p>The composite position implied by what these five episodes said. It is a report. Nobody runs it as a book and none of it is a recommendation. Bullish and Bearish throughout this issue refer to the thing named in the Asset column rising or happening, not to whether it would be good news. The two volatility panels are our reading of stated views; nobody framed anything this week as a volatility trade.</p>
+  <div class="portfolio-panel">
+    <section class="port-block port-long">
+      <h4>Bullish</h4>
+      <ul>
+        <li>Renting out GPUs <span class="item-note">Rental prices have risen at every contract length since March. CoreWeave, Nebius, Oracle.</span></li>
+        <li>The memory makers, on <a class="abbr" href="#speakers" title="Azeem Azhar — Exponential View; guest on The Intangible Economy with Kai Wu, an Excess Returns show">Azhar</a>'s structural case <span class="item-note">Three suppliers, sold out a year ahead. The tracked row is Mixed: <a class="abbr" href="#speakers" title="Steve Hou — Head of research, Silicon Data (ex-Bloomberg); guest on Forward Guidance with Felix Jauvin">Hou</a> doubts the margins hold. Micron, SanDisk, Western Digital.</span></li>
+        <li>Equal-weighted over market-cap-weighted <span class="item-note">Two-thirds of US stocks are up this year, median 12.6%. RSP over SPY.</span></li>
+        <li>Company AI spending as models get cheaper <span class="item-note">Only 2% of US households pay for AI. Cheaper models are what make a company-wide rollout affordable.</span></li>
+        <li>Netflix and IMAX <span class="item-note">The two names a host says he owns.</span></li>
+        <li>Housing in states where building is easy <span class="item-note">Texas keeps permitting, so supply keeps up and prices and rents have fallen three years running. The call is on those markets growing, not on prices rising.</span></li>
+      </ul>
+    </section>
+    <section class="port-block port-short">
+      <h4>Bearish</h4>
+      <ul>
+        <li>Long-dated US government bonds <span class="item-note"><a class="abbr" href="#speakers" title="Aahan Menon — Prometheus Research; guest on Excess Returns with Jack Forehand">Menon</a>'s rate-rise call, conditional on oil resuming its climb. TLT.</span></li>
+        <li>The bonds of the big cloud builders <span class="item-note">They are spending their cash flow on data centers and borrowing on top of that.</span></li>
+        <li>Leveraged single-stock ETFs <span class="item-note">$198bn of assets, $53bn of it semiconductors, which is what turned a Korean margin call into forced selling.</span></li>
+        <li>Consumer brands that lost their pull <span class="item-note">Nike trades where it did in 2014. Lululemon is down 80%, Under Armour 84%.</span></li>
+        <li>Film and TV libraries valued at what they cost <span class="item-note">Disney paid about $182bn in today's money for Marvel, Star Wars, Pixar, ESPN and Fox. The whole company is worth $169bn.</span></li>
+      </ul>
+    </section>
+    <section class="port-block port-buy-vol">
+      <h4>Where volatility looks cheap</h4>
+      <p class="port-note">Protection here looks underpriced next to the size of move these speakers expect.</p>
+      <ul>
+        <li>Short-dated interest rates <span class="item-note"><a class="abbr" href="#speakers" title="Aahan Menon — Prometheus Research; guest on Excess Returns with Jack Forehand">Menon</a> thinks the market is not positioned for a hike. Nobody else on this week's tape addressed it.</span></li>
+        <li>Oil <span class="item-note">A small share of the inflation basket that is currently swamping every other part of it.</span></li>
+      </ul>
+    </section>
+    <section class="port-block port-sell-vol">
+      <h4>Where volatility looks expensive</h4>
+      <p class="port-note">The move has already happened here, so protection is dear.</p>
+      <ul>
+        <li>Individual memory and storage stocks <span class="item-note">After a 36% month, as SanDisk had, option sellers will have repriced. Nobody in these episodes discussed options; this is our read.</span></li>
+        <li>Korean chipmakers <span class="item-note">The forced selling has already run through them.</span></li>
+      </ul>
+    </section>
+  </div>
+</section>
+
+<section id="catalysts">
+  <h2>Invalidations</h2>
+  <p class="note">What would break each thesis.</p>
+  <ul class="catalyst-list">
+    <li>
+      <strong>Oil rolls over instead of resuming</strong>
+      <span><a class="abbr" href="#speakers" title="Aahan Menon — Prometheus Research; guest on Excess Returns with Jack Forehand">Menon</a>'s rate-rise call depends on oil continuing to climb. Without that the hike loses its trigger and its timing. His own reading still has 75% of inflation coming from demand, which leaves it above target regardless, so the case against long-dated bonds weakens from avoid to no hurry rather than disappearing.</span>
+      <span class="helps"><b>Helps</b>Long-dated US government bonds<span class="tier">our inference</span></span>
+      <span class="helps"><b>Helps</b>Share prices, since <a class="abbr" href="#speakers" title="Aahan Menon — Prometheus Research; guest on Excess Returns with Jack Forehand">Menon</a>'s stated reason for caution was how sensitive they are to rising rates<span class="tier">our inference</span></span>
+      <span class="hits"><b>Hits</b>Bonds, Rates &amp; the Fed · Oil</span>
+    </li>
+    <li>
+      <strong>Memory stops rallying on good news</strong>
+      <span>The structural case for memory rests on three suppliers being sold out a year ahead. If good results stop being rewarded, <a class="abbr" href="#speakers" title="Steve Hou — Head of research, Silicon Data (ex-Bloomberg); guest on Forward Guidance with Felix Jauvin">Hou</a>'s reading wins over <a class="abbr" href="#speakers" title="Azeem Azhar — Exponential View; guest on The Intangible Economy with Kai Wu, an Excess Returns show">Azhar</a>'s: profit margins fall back within about two years rather than holding up for the five to ten Azhar's case needs.</span>
+      <span class="helps"><b>Helps</b>Every buyer of memory, which is every hyperscaler and every <a class="abbr" href="#g-neocloud" title="A specialist AI data-center operator that rents out GPU capacity">neocloud</a><span class="tier">our inference</span></span>
+      <span class="hits"><b>Hits</b>Equities &amp; Themes · Single Stocks</span>
+    </li>
+    <li>
+      <strong>Renting a GPU for a year gets cheaper than renting it for a month</strong>
+      <span>Today it costs more per hour to rent a GPU for a year than for a month, because providers expect to raise prices again. If they start discounting long contracts instead, capacity has stopped being scarce. That would show up here long before it reached anyone's reported revenue.</span>
+      <span class="helps"><b>Helps</b>Everyone who buys compute rather than sells it, from enterprises to consumers<span class="tier">our inference</span></span>
+      <span class="hits"><b>Hits</b>Equities &amp; Themes · Compute Costs</span>
+    </li>
+    <li>
+      <strong>The consumer stops <a class="abbr" href="#g-dissaving" title="Households spending more than they earn, drawing down savings">dissaving</a></strong>
+      <span>US consumers now spend more than they earn, and that gap has become the biggest single source of company profits. If they stop, profits fall with them, and the rising asset prices that have been funding the spending start working in reverse. <a class="abbr" href="#speakers" title="Aahan Menon — Prometheus Research; guest on Excess Returns with Jack Forehand">Menon</a> files this as a watch item because there is no way to time it.</span>
+      <span class="helps"><b>Helps</b>Treasuries, on the growth-scare path rather than the inflation path<span class="tier">our inference</span></span>
+      <span class="hits"><b>Hits</b>Equities &amp; Themes · Bonds, Rates &amp; the Fed · Real Estate</span>
+    </li>
+    <li>
+      <strong>A bank or a hospital adopts open-weight models</strong>
+      <span><a class="abbr" href="#speakers" title="Azeem Azhar — Exponential View; guest on The Intangible Economy with Kai Wu, an Excess Returns show">Azhar</a> compares this to the database market, which settled at roughly half paid and half free. Buyers pay for assurance, not better technology. Every company running mostly open weights today (Shopify, Airbnb, Coinbase) sits outside a regulated industry, and the first regulated buyer to switch removes the price floor under the paid AI labs.</span>
+      <span class="helps"><b>Helps</b>Companies buying AI, and the compute layer underneath whichever model they pick<span class="tier">our inference</span></span>
+      <span class="hits"><b>Hits</b>Equities &amp; Themes</span>
+    </li>
+  </ul>
+</section>
+
+<section id="speakers">
+  <h2>Speaker Key</h2>
+  <div class="speaker-key">
+    <div class="speaker-grid">
+      <div class="speaker-entry"><strong>Steve Hou</strong>Head of research, Silicon Data (ex-Bloomberg); guest on Forward Guidance with Felix Jauvin</div>
+      <div class="speaker-entry"><strong>Aahan Menon</strong>Prometheus Research; guest on Excess Returns with Jack Forehand</div>
+      <div class="speaker-entry"><strong>Azeem Azhar</strong>Exponential View; guest on The Intangible Economy with Kai Wu, an Excess Returns show</div>
+      <div class="speaker-entry"><strong>Mark Cuban</strong>Guest, interviewed by Jason Calacanis for All-In</div>
+      <div class="speaker-entry"><strong>Michael Batnick, Ben Carlson</strong>Animal Spirits co-hosts (Ritholtz Wealth Management)</div>
+    </div>
+  </div>
+</section>
+
+<section id="equities">
+  <h2>Equities &amp; Themes</h2>
+  <div class="table-scroll">
+    <table>
+      <thead><tr><th>Asset</th><th>Position</th><th>Thesis</th><th>Source</th></tr></thead>
+      <tbody>
+      <tr>
+        <td class="asset"><strong>Semiconductor valuations</strong></td>
+        <td class="position-cell"><span class="pill mixed">Mixed</span><span class="position-text">the shows split two ways</span></td>
+        <td>Animal Spirits argues there is no bubble in the share prices. Chip stocks are priced more cheaply against next year's earnings than at any point in the AI era, which means the market has already assumed those earnings fall. <a class="abbr" href="#speakers" title="Mark Cuban — Guest, interviewed by Jason Calacanis for All-In">Cuban</a> says it is not the kind of bubble that reaches most people, but that it could destroy a lot of venture capital, funds and private equity, because they are going all in.</td>
+        <td class="source">
+          <span class="src-line"><a href="https://www.youtube.com/watch?v=rqvxWyYT5jg&amp;t=1517s" target="_blank" rel="noopener">Animal Spirits</a><span class="ep-date">· Jul 22</span></span>
+          <span class="src-line"><a href="https://www.youtube.com/watch?v=rqvxWyYT5jg&amp;t=1396s" target="_blank" rel="noopener">Animal Spirits</a><span class="ep-date">· Jul 22</span></span>
+          <span class="src-line"><a href="https://www.youtube.com/watch?v=OY2Sjbjd_VE&amp;t=32s" target="_blank" rel="noopener">Cuban</a><span class="ep-date">· Jul 21</span></span>
+        </td>
+      </tr>
+      <tr>
+        <td class="asset"><strong><a class="abbr" href="#g-momentum" title="A strategy that holds whatever has been rising">Momentum stocks</a></strong></td>
+        <td class="position-cell"><span class="pill mixed">Mixed</span><span class="position-text">single names down 30-60%</span></td>
+        <td>The index is holding up but its former leaders are not. It is a violent separation inside one market. Oracle is 60% off its high, Netflix and bitcoin 50%, memory down a third, while two-thirds of US stocks are up on the year at a 12.6% median.</td>
+        <td class="source">
+          <span class="src-line"><a href="https://www.youtube.com/watch?v=rqvxWyYT5jg&amp;t=93s" target="_blank" rel="noopener">Animal Spirits</a><span class="ep-date">· Jul 22</span></span>
+          <span class="src-line"><a href="https://www.youtube.com/watch?v=rqvxWyYT5jg&amp;t=178s" target="_blank" rel="noopener">Animal Spirits</a><span class="ep-date">· Jul 22</span></span>
+          <span class="src-line"><a href="https://www.youtube.com/watch?v=rqvxWyYT5jg&amp;t=282s" target="_blank" rel="noopener">Animal Spirits</a><span class="ep-date">· Jul 22</span></span>
+        </td>
+      </tr>
+      <tr>
+        <td class="asset"><strong>Leveraged single-stock ETFs</strong></td>
+        <td class="position-cell"><span class="pill bear">Bearish</span><span class="position-text">$198bn of assets, a quarter of it semis</span></td>
+        <td>Levered ETF assets reached $198bn with $53bn in semiconductors alone, roughly half a trillion of effective exposure once amplified. The hosts' explanation for a 36% monthly move in a storage name starts there, and Korea showed what it does at the extreme.</td>
+        <td class="source">
+          <a href="https://www.youtube.com/watch?v=rqvxWyYT5jg&amp;t=1014s" target="_blank" rel="noopener">Animal Spirits</a><span class="ep-date">· Jul 22</span>
+        </td>
+      </tr>
+      <tr>
+        <td class="asset"><strong>Korean stocks after the margin calls</strong></td>
+        <td class="position-cell"><span class="pill bear">Bearish</span><span class="position-text">the forced selling is the story</span></td>
+        <td><a class="abbr" href="#g-kospi" title="South Korea's main stock index">KOSPI</a> 30-day volatility hit its highest reading ever, above the dot-com bust and 2008. The hosts shrug it off: "everyone has to pay their tuition to the market gods at some point." The liquidation figures in the News Scan read narrower than that. The losses concentrate in the 1.2 million retail accounts that borrowed to buy.</td>
+        <td class="source">
+          <a href="https://www.youtube.com/watch?v=rqvxWyYT5jg&amp;t=545s" target="_blank" rel="noopener">Animal Spirits</a><span class="ep-date">· Jul 22</span>
+        </td>
+      </tr>
+      <tr>
+        <td class="asset"><strong>Hyperscalers / Mag 7 (the largest US tech names)</strong></td>
+        <td class="position-cell"><span class="pill bear">Bearish</span><span class="position-text">borrowing on top of capex, and no lock-in at the bottom</span></td>
+        <td><a class="abbr" href="#speakers" title="Mark Cuban — Guest, interviewed by Jason Calacanis for All-In">Cuban</a> objects to the funding: cash flow already goes to capex, and the bonds go on top of that. <a class="abbr" href="#speakers" title="Azeem Azhar — Exponential View; guest on The Intangible Economy with Kai Wu, an Excess Returns show">Azhar</a> adds that hosting has no natural network effect, so the three-way cloud oligopoly may not re-form in AI.</td>
+        <td class="source">
+          <span class="src-line"><a href="https://www.youtube.com/watch?v=OY2Sjbjd_VE&amp;t=164s" target="_blank" rel="noopener">Cuban</a><span class="ep-date">· Jul 21</span></span>
+          <span class="src-line"><a href="https://www.youtube.com/watch?v=Ubx8TrhU3-k&amp;t=1001s" target="_blank" rel="noopener">Azhar</a><span class="ep-date">· Jul 21</span></span>
+        </td>
+      </tr>
+      <tr>
+        <td class="asset"><strong>Memory and <a class="abbr" href="#g-dram" title="Dynamic Random-Access Memory, the working memory in servers and PCs">DRAM</a> makers</strong></td>
+        <td class="position-cell"><span class="pill mixed">Mixed</span><span class="position-text">the tightest bottleneck in the chain</span></td>
+        <td><a class="abbr" href="#speakers" title="Azeem Azhar — Exponential View; guest on The Intangible Economy with Kai Wu, an Excess Returns show">Azhar</a>'s five-to-ten-year model has memory, not compute, as the binding constraint: <a class="abbr" href="#g-hbm" title="The memory stacked next to an AI chip, made by three companies">high-bandwidth memory</a> is three suppliers, sold out a year ahead. <a class="abbr" href="#speakers" title="Steve Hou — Head of research, Silicon Data (ex-Bloomberg); guest on Forward Guidance with Felix Jauvin">Hou</a> agrees demand holds but doubts 85% gross margins survive two years.</td>
+        <td class="source">
+          <span class="src-line"><a href="https://www.youtube.com/watch?v=Ubx8TrhU3-k&amp;t=840s" target="_blank" rel="noopener">Azhar</a><span class="ep-date">· Jul 21</span></span>
+          <span class="src-line"><a href="https://www.youtube.com/watch?v=CJE3YWA4LLk&amp;t=2026s" target="_blank" rel="noopener">Hou</a><span class="ep-date">· Jul 22</span></span>
+        </td>
+      </tr>
+      <tr>
+        <td class="asset"><strong>AI capex spending</strong></td>
+        <td class="position-cell"><span class="pill bull">Bullish</span><span class="position-text">$175bn annualized</span></td>
+        <td><a class="abbr" href="#speakers" title="Azeem Azhar — Exponential View; guest on The Intangible Economy with Kai Wu, an Excess Returns show">Azhar</a>'s bottom-up reconstruction puts generative-AI spending at $110bn over the twelve months to June, $175bn annualized off the June figure, growing about as fast as it was in December. Azhar expected the growth rate to have slowed; it hadn't.</td>
+        <td class="source">
+          <span class="src-line"><a href="https://www.youtube.com/watch?v=Ubx8TrhU3-k&amp;t=161s" target="_blank" rel="noopener">Azhar</a><span class="ep-date">· Jul 21</span></span>
+          <span class="src-line"><a href="https://www.youtube.com/watch?v=Ubx8TrhU3-k&amp;t=190s" target="_blank" rel="noopener">Azhar</a><span class="ep-date">· Jul 21</span></span>
+        </td>
+      </tr>
+      <tr>
+        <td class="asset"><strong>Open-weight models taking share</strong></td>
+        <td class="position-cell"><span class="pill bull">Bullish</span><span class="position-text">pricing pressure on the paid labs</span></td>
+        <td><a class="abbr" href="#speakers" title="Azeem Azhar — Exponential View; guest on The Intangible Economy with Kai Wu, an Excess Returns show">Azhar</a> compares this to the database market, which settled at roughly half paid and half free. Buyers pay for assurance, not better technology. Every company running mostly open weights today (Shopify, Airbnb, Coinbase) sits outside a regulated industry.</td>
+        <td class="source">
+          <span class="src-line"><a href="https://www.youtube.com/watch?v=Ubx8TrhU3-k&amp;t=1282s" target="_blank" rel="noopener">Azhar</a><span class="ep-date">· Jul 21</span></span>
+          <span class="src-line"><a href="https://www.youtube.com/watch?v=CJE3YWA4LLk&amp;t=280s" target="_blank" rel="noopener">Hou</a><span class="ep-date">· Jul 22</span></span>
+        </td>
+      </tr>
+      <tr>
+        <td class="asset"><strong>The price of running AI models</strong></td>
+        <td class="position-cell"><span class="pill bear">Bearish</span><span class="position-text">the index fell because buyers substituted</span></td>
+        <td><a class="abbr" href="#speakers" title="Steve Hou — Head of research, Silicon Data (ex-Bloomberg); guest on Forward Guidance with Felix Jauvin">Hou</a> built the token index and says the market misread it. It is an expenditure-weighted price index, a PCE for AI, so its June roll-over measures buyers routing cheap work to cheap models. Demand for tokens didn't fall.</td>
+        <td class="source">
+          <span class="src-line"><a href="https://www.youtube.com/watch?v=CJE3YWA4LLk&amp;t=483s" target="_blank" rel="noopener">Hou</a><span class="ep-date">· Jul 22</span></span>
+          <span class="src-line"><a href="https://www.youtube.com/watch?v=CJE3YWA4LLk&amp;t=909s" target="_blank" rel="noopener">Hou</a><span class="ep-date">· Jul 22</span></span>
+        </td>
+      </tr>
+      <tr>
+        <td class="asset"><strong>Pricing power at the frontier labs</strong></td>
+        <td class="position-cell"><span class="pill mixed">Mixed</span><span class="position-text">margin pressure, but the market is still tiny</span></td>
+        <td><a class="abbr" href="#speakers" title="Steve Hou — Head of research, Silicon Data (ex-Bloomberg); guest on Forward Guidance with Felix Jauvin">Hou</a> expects the profits to shift away from the two leading labs, toward whoever supplies the computing power or toward the customer. <a class="abbr" href="#speakers" title="Azeem Azhar — Exponential View; guest on The Intangible Economy with Kai Wu, an Excess Returns show">Azhar</a>'s counter is that the median American company spends $11 per employee per month on AI, so the market is far too young for anyone's share of it to matter yet.</td>
+        <td class="source">
+          <span class="src-line"><a href="https://www.youtube.com/watch?v=CJE3YWA4LLk&amp;t=1326s" target="_blank" rel="noopener">Hou</a><span class="ep-date">· Jul 22</span></span>
+          <span class="src-line"><a href="https://www.youtube.com/watch?v=Ubx8TrhU3-k&amp;t=1373s" target="_blank" rel="noopener">Azhar</a><span class="ep-date">· Jul 21</span></span>
+        </td>
+      </tr>
+      <tr>
+        <td class="asset"><strong>How much value the AI labs keep</strong></td>
+        <td class="position-cell"><span class="pill mixed">Mixed</span><span class="position-text">share of volumes rising off a small base</span></td>
+        <td>The labs' share of AI volumes has risen over the past year on tripled revenue, and their gross margins now show it. <a class="abbr" href="#speakers" title="Mark Cuban — Guest, interviewed by Jason Calacanis for All-In">Cuban</a> counters that this cycle is funded privately, so a break lands on funds and private equity; retail is barely in it.</td>
+        <td class="source">
+          <span class="src-line"><a href="https://www.youtube.com/watch?v=Ubx8TrhU3-k&amp;t=580s" target="_blank" rel="noopener">Azhar</a><span class="ep-date">· Jul 21</span></span>
+          <span class="src-line"><a href="https://www.youtube.com/watch?v=OY2Sjbjd_VE&amp;t=40s" target="_blank" rel="noopener">Cuban</a><span class="ep-date">· Jul 21</span></span>
+        </td>
+      </tr>
+      <tr>
+        <td class="asset"><strong>Who ends up with AI's profits</strong></td>
+        <td class="position-cell"><span class="pill mixed">Mixed</span><span class="position-text">the bear case now has steps</span></td>
+        <td><a class="abbr" href="#speakers" title="Azeem Azhar — Exponential View; guest on The Intangible Economy with Kai Wu, an Excess Returns show">Azhar</a> lays out three steps: general models eat the app layer, open weights get good enough, and models get efficient enough to loosen the compute chokepoint. Margins on the supply side get squeezed and users keep the surplus. Investors lose while the technology still works.</td>
+        <td class="source">
+          <a href="https://www.youtube.com/watch?v=Ubx8TrhU3-k&amp;t=1742s" target="_blank" rel="noopener">Azhar</a><span class="ep-date">· Jul 21</span>
+        </td>
+      </tr>
+      <tr>
+        <td class="asset"><strong>Data-center capacity that can be powered</strong></td>
+        <td class="position-cell"><span class="pill mixed">Mixed</span><span class="position-text">hosting is the chokepoint</span></td>
+        <td><a class="abbr" href="#speakers" title="Azeem Azhar — Exponential View; guest on The Intangible Economy with Kai Wu, an Excess Returns show">Azhar</a> calls hosting the real chokepoint because capacity has to be energized, but expects a more fragmented market than IT usually produces. <a class="abbr" href="#speakers" title="Mark Cuban — Guest, interviewed by Jason Calacanis for All-In">Cuban</a>'s version of the risk is blunter: enough efficiency gains and some of these buildings become pickleball courts.</td>
+        <td class="source">
+          <span class="src-line"><a href="https://www.youtube.com/watch?v=Ubx8TrhU3-k&amp;t=769s" target="_blank" rel="noopener">Azhar</a><span class="ep-date">· Jul 21</span></span>
+          <span class="src-line"><a href="https://www.youtube.com/watch?v=OY2Sjbjd_VE&amp;t=177s" target="_blank" rel="noopener">Cuban</a><span class="ep-date">· Jul 21</span></span>
+        </td>
+      </tr>
+      <tr>
+        <td class="asset"><strong>US electricity &amp; data-center politics</strong></td>
+        <td class="position-cell"><span class="pill mixed">Mixed</span><span class="position-text">backlash now, energy innovation later</span></td>
+        <td><a class="abbr" href="#speakers" title="Azeem Azhar — Exponential View; guest on The Intangible Economy with Kai Wu, an Excess Returns show">Azhar</a> reads the data-center fight as institutions moving slower than the technology, and thinks it resolves into an energy-innovation cycle the way fracking and 1950s nuclear did. He notes both parties are angry about it, which he takes as a sign the rules actually get rewritten.</td>
+        <td class="source">
+          <a href="https://www.youtube.com/watch?v=Ubx8TrhU3-k&amp;t=3944s" target="_blank" rel="noopener">Azhar</a><span class="ep-date">· Jul 21</span>
+        </td>
+      </tr>
+      <tr>
+        <td class="asset"><strong>Value over growth</strong></td>
+        <td class="position-cell"><span class="pill bull">Bullish</span><span class="position-text">more than 300 S&amp;P names under 20x forward</span></td>
+        <td>Forward multiples are compressing across almost every sector while earnings and margins are at highs. Animal Spirits' line to the managers who spent a decade calling tech overpriced: this had better be your year.</td>
+        <td class="source">
+          <a href="https://www.youtube.com/watch?v=rqvxWyYT5jg&amp;t=1440s" target="_blank" rel="noopener">Animal Spirits</a><span class="ep-date">· Jul 22</span>
+        </td>
+      </tr>
+      <tr>
+        <td class="asset"><strong>Enterprise software vendors</strong></td>
+        <td class="position-cell"><span class="pill mixed">Mixed</span><span class="position-text">the split is business-model rotation</span></td>
+        <td><a class="abbr" href="#speakers" title="Azeem Azhar — Exponential View; guest on The Intangible Economy with Kai Wu, an Excess Returns show">Azhar</a> separates the names: ServiceNow and Datadog have held up, Salesforce hasn't, and the difference is whether a vendor can host AI over the customer data it already holds. Intellectual property erodes fastest of any moat here.</td>
+        <td class="source">
+          <a href="https://www.youtube.com/watch?v=Ubx8TrhU3-k&amp;t=3217s" target="_blank" rel="noopener">Azhar</a><span class="ep-date">· Jul 21</span>
+        </td>
+      </tr>
+      <tr>
+        <td class="asset"><strong>Company spending on AI</strong></td>
+        <td class="position-cell"><span class="pill bull">Bullish</span><span class="position-text">cheap models are the unlock</span></td>
+        <td><a class="abbr" href="#speakers" title="Steve Hou — Head of research, Silicon Data (ex-Bloomberg); guest on Forward Guidance with Felix Jauvin">Hou</a>'s argument inverts the bearish read of falling token prices: heavy token use only becomes rational once models are cheap enough that a CFO stops counting, which Hou argues is what just happened.</td>
+        <td class="source">
+          <span class="src-line"><a href="https://www.youtube.com/watch?v=CJE3YWA4LLk&amp;t=2483s" target="_blank" rel="noopener">Hou</a><span class="ep-date">· Jul 22</span></span>
+          <span class="src-line"><a href="https://www.youtube.com/watch?v=OY2Sjbjd_VE&amp;t=1063s" target="_blank" rel="noopener">Cuban</a><span class="ep-date">· Jul 21</span></span>
+        </td>
+      </tr>
+      <tr>
+        <td class="asset"><strong>The gap between buying AI and using it</strong></td>
+        <td class="position-cell"><span class="pill watch">Watch</span><span class="position-text">forward-deployed engineers are the tell</span></td>
+        <td>Both shows land in the same place from opposite directions. <a class="abbr" href="#speakers" title="Mark Cuban — Guest, interviewed by Jason Calacanis for All-In">Cuban</a> says that if the technology worked as advertised it wouldn't need armies of engineers to install it. <a class="abbr" href="#speakers" title="Azeem Azhar — Exponential View; guest on The Intangible Economy with Kai Wu, an Excess Returns show">Azhar</a> says electrification took three phases, and you can't reach an assembly line by hanging more light bulbs.</td>
+        <td class="source">
+          <span class="src-line"><a href="https://www.youtube.com/watch?v=OY2Sjbjd_VE&amp;t=560s" target="_blank" rel="noopener">Cuban</a><span class="ep-date">· Jul 21</span></span>
+          <span class="src-line"><a href="https://www.youtube.com/watch?v=Ubx8TrhU3-k&amp;t=2018s" target="_blank" rel="noopener">Azhar</a><span class="ep-date">· Jul 21</span></span>
+        </td>
+      </tr>
+      <tr>
+        <td class="asset"><strong>Which competitive moats survive AI</strong></td>
+        <td class="position-cell"><span class="pill mixed">Mixed</span><span class="position-text">brand up, network effects down, IP down</span></td>
+        <td><a class="abbr" href="#speakers" title="Azeem Azhar — Exponential View; guest on The Intangible Economy with Kai Wu, an Excess Returns show">Azhar</a> expects brand to strengthen, because people pay for assurance when generated output is infinite. Consumer network effects weaken as agents do the choosing. Average human capital stops being worth much while knowing what good looks like gets dearer.</td>
+        <td class="source">
+          <span class="src-line"><a href="https://www.youtube.com/watch?v=Ubx8TrhU3-k&amp;t=3037s" target="_blank" rel="noopener">Azhar</a><span class="ep-date">· Jul 21</span></span>
+          <span class="src-line"><a href="https://www.youtube.com/watch?v=Ubx8TrhU3-k&amp;t=3061s" target="_blank" rel="noopener">Azhar</a><span class="ep-date">· Jul 21</span></span>
+        </td>
+      </tr>
+      <tr>
+        <td class="asset"><strong>Retail buying of US stocks</strong></td>
+        <td class="position-cell"><span class="pill bull">Bullish</span><span class="position-text">not one net sell day in July</span></td>
+        <td>Citadel Securities reports no single net sell day on its retail cash equities platform this month, the second-strongest month for retail buying since January 2020.</td>
+        <td class="source">
+          <a href="https://www.youtube.com/watch?v=rqvxWyYT5jg&amp;t=957s" target="_blank" rel="noopener">Animal Spirits</a><span class="ep-date">· Jul 22</span>
+        </td>
+      </tr>
+      <tr>
+        <td class="asset"><strong>Households paying for AI</strong></td>
+        <td class="position-cell"><span class="pill bull">Bullish</span><span class="position-text">2% of US households pay for it</span></td>
+        <td>The Andreessen Horowitz figure both hosts keep returning to. At 2%, saturation is not the constraint, which is the hosts' point in coming back to it. Animal Spirits' read is that the market keeps pricing 2027 and 2028 off a base that is barely started.</td>
+        <td class="source">
+          <a href="https://www.youtube.com/watch?v=rqvxWyYT5jg&amp;t=2261s" target="_blank" rel="noopener">Animal Spirits</a><span class="ep-date">· Jul 22</span>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section id="stocks">
+  <h2>Single Stocks</h2>
+  <div class="table-scroll">
+    <table>
+      <thead><tr><th>Asset</th><th>Position</th><th>Thesis</th><th>Source</th></tr></thead>
+      <tbody>
+      <tr>
+        <td class="asset"><strong>Netflix</strong></td>
+        <td class="position-cell"><span class="pill bull">Bullish</span><span class="position-text">NFLX</span></td>
+        <td><a class="abbr" href="#speakers" title="Michael Batnick — Animal Spirits co-hosts (Ritholtz Wealth Management)">Batnick</a> owns it, average cost around $90 against a $67 price, and bought more. Operating income is about to pass Disney's without owning parks, margins are 30%, and it trades at a market multiple. <a class="abbr" href="#speakers" title="Ben Carlson — Animal Spirits co-hosts (Ritholtz Wealth Management)">Carlson</a>'s objection is that growth is slowing and content is a hamster wheel.</td>
+        <td class="source">
+          <span class="src-line"><a href="https://www.youtube.com/watch?v=rqvxWyYT5jg&amp;t=3343s" target="_blank" rel="noopener">Batnick</a><span class="ep-date">· Jul 22</span></span>
+          <span class="src-line"><a href="https://www.youtube.com/watch?v=rqvxWyYT5jg&amp;t=3435s" target="_blank" rel="noopener">Batnick</a><span class="ep-date">· Jul 22</span></span>
+        </td>
+      </tr>
+      <tr>
+        <td class="asset"><strong>Nike</strong></td>
+        <td class="position-cell"><span class="pill bear">Bearish</span><span class="position-text">NKE</span></td>
+        <td>Down about 75% from its high and back at 2014 prices, with Lululemon off 80% and Under Armour 84%. Both hosts still buy the products but both think the brand has left the conversation. Neither has a case for the fundamentals turning.</td>
+        <td class="source">
+          <a href="https://www.youtube.com/watch?v=rqvxWyYT5jg&amp;t=1110s" target="_blank" rel="noopener">Animal Spirits</a><span class="ep-date">· Jul 22</span>
+        </td>
+      </tr>
+      <tr>
+        <td class="asset"><strong>IMAX</strong></td>
+        <td class="position-cell"><span class="pill bull">Bullish</span><span class="position-text">IMAX</span></td>
+        <td><a class="abbr" href="#speakers" title="Michael Batnick — Animal Spirits co-hosts (Ritholtz Wealth Management)">Batnick</a>'s largest position. The Odyssey opened to $124m domestic, Nolan's biggest since 2012, with IMAX screens selling 24% of those tickets and premium formats of all kinds 45%. It lands on top of the best second quarter for domestic box office in seven years.</td>
+        <td class="source">
+          <span class="src-line"><a href="https://www.youtube.com/watch?v=rqvxWyYT5jg&amp;t=3630s" target="_blank" rel="noopener">Batnick</a><span class="ep-date">· Jul 22</span></span>
+          <span class="src-line"><a href="https://www.youtube.com/watch?v=rqvxWyYT5jg&amp;t=3771s" target="_blank" rel="noopener">Animal Spirits</a><span class="ep-date">· Jul 22</span></span>
+        </td>
+      </tr>
+      <tr>
+        <td class="asset"><strong>Disney</strong></td>
+        <td class="position-cell"><span class="pill bear">Bearish</span><span class="position-text">DIS</span></td>
+        <td>Disney paid $129bn for Marvel, Star Wars, Pixar, ESPN and Fox, about $182bn in today's money, and the whole company including every legacy asset is now worth $169bn. Streaming was a bad business for everyone chasing Netflix into it.</td>
+        <td class="source">
+          <a href="https://www.youtube.com/watch?v=rqvxWyYT5jg&amp;t=3231s" target="_blank" rel="noopener">Animal Spirits</a><span class="ep-date">· Jul 22</span>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section id="rates">
+  <h2>Bonds, Rates &amp; the Fed</h2>
+  <div class="table-scroll">
+    <table>
+      <thead><tr><th>Asset</th><th>Position</th><th>Thesis</th><th>Source</th></tr></thead>
+      <tbody>
+      <tr>
+        <td class="asset"><strong>Whether the Fed's next move is a hike</strong></td>
+        <td class="position-cell"><span class="pill mixed">Mixed</span><span class="position-text">pressure gauge neutral, bias to hike</span></td>
+        <td><a class="abbr" href="#speakers" title="Aahan Menon — Prometheus Research; guest on Excess Returns with Jack Forehand">Menon</a>'s monetary-pressure reading sits roughly neutral with an inherent bias toward hiking rather than cutting. He is unimpressed by the debate over giving less forward guidance: the Fed has always followed <a class="abbr" href="#g-nominalgdp" title="Total spending in the economy, before adjusting for inflation">nominal GDP</a>, whatever it says at the podium.</td>
+        <td class="source">
+          <a href="https://www.youtube.com/watch?v=Q6ThY2JBZgU&amp;t=2205s" target="_blank" rel="noopener">Menon</a><span class="ep-date">· Jul 23</span>
+        </td>
+      </tr>
+      <tr>
+        <td class="asset"><strong>Inflation staying above the Fed's target</strong></td>
+        <td class="position-cell"><span class="pill bull">Bullish</span><span class="position-text">about 75% of it is demand-driven</span></td>
+        <td><a class="abbr" href="#speakers" title="Aahan Menon — Prometheus Research; guest on Excess Returns with Jack Forehand">Menon</a> splits inflation into the part driven by demand and the part driven by supply shocks. Demand-driven inflation feeds on itself; supply shocks fade. About 75% of what we have now is the demand kind, so even removing every supply effect, oil included, leaves inflation well above the Fed's 2% target.</td>
+        <td class="source">
+          <span class="src-line"><a href="https://www.youtube.com/watch?v=Q6ThY2JBZgU&amp;t=1431s" target="_blank" rel="noopener">Menon</a><span class="ep-date">· Jul 23</span></span>
+          <span class="src-line"><a href="https://www.youtube.com/watch?v=Q6ThY2JBZgU&amp;t=1398s" target="_blank" rel="noopener">Menon</a><span class="ep-date">· Jul 23</span></span>
+        </td>
+      </tr>
+      <tr>
+        <td class="asset"><strong>Long-dated US government bonds</strong></td>
+        <td class="position-cell"><span class="pill bear">Bearish</span><span class="position-text">TLT</span></td>
+        <td>This is <a class="abbr" href="#speakers" title="Aahan Menon — Prometheus Research; guest on Excess Returns with Jack Forehand">Menon</a>'s stated big call. Rising oil pushes inflation higher on top of demand pressure that is already there, which pushes the Fed to hike, and hikes hurt bonds. About 80% of all bond returns arrive during easing cycles, and this is not one.</td>
+        <td class="source">
+          <span class="src-line"><a href="https://www.youtube.com/watch?v=Q6ThY2JBZgU&amp;t=3326s" target="_blank" rel="noopener">Menon</a><span class="ep-date">· Jul 23</span></span>
+          <span class="src-line"><a href="https://www.youtube.com/watch?v=Q6ThY2JBZgU&amp;t=2295s" target="_blank" rel="noopener">Menon</a><span class="ep-date">· Jul 23</span></span>
+        </td>
+      </tr>
+      <tr>
+        <td class="asset"><strong>Hyperscaler credit quality</strong></td>
+        <td class="position-cell"><span class="pill bear">Bearish</span><span class="position-text">private credit sits under the capex</span></td>
+        <td><a class="abbr" href="#speakers" title="Mark Cuban — Guest, interviewed by Jason Calacanis for All-In">Cuban</a>'s worry is the balance sheet: the largest companies already spend their cash flow on capex, then borrow on top of it. A squeeze can hold the equity up for months. Spreads have no such buffer, so if the capex is debt-funded they widen first.</td>
+        <td class="source">
+          <a href="https://www.youtube.com/watch?v=OY2Sjbjd_VE&amp;t=143s" target="_blank" rel="noopener">Cuban</a><span class="ep-date">· Jul 21</span>
+        </td>
+      </tr>
+      <tr>
+        <td class="asset"><strong>US <a class="abbr" href="#g-nominalgdp" title="Total spending in the economy, before adjusting for inflation">nominal GDP</a> growth</strong></td>
+        <td class="position-cell"><span class="pill bull">Bullish</span><span class="position-text">steady all year</span></td>
+        <td><a class="abbr" href="#speakers" title="Aahan Menon — Prometheus Research; guest on Excess Returns with Jack Forehand">Menon</a>'s daily income-based now-cast has been flat and stable through every drawdown and melt-up of 2026. Incomes held steady, so spending did too, and spending is what <a class="abbr" href="#g-nominalgdp" title="Total spending in the economy, before adjusting for inflation">nominal GDP</a> measures. The volatility has been in inflation.</td>
+        <td class="source">
+          <a href="https://www.youtube.com/watch?v=Q6ThY2JBZgU&amp;t=411s" target="_blank" rel="noopener">Menon</a><span class="ep-date">· Jul 23</span>
+        </td>
+      </tr>
+      <tr>
+        <td class="asset"><strong>AI as the driver of GDP growth</strong></td>
+        <td class="position-cell"><span class="pill bear">Bearish</span><span class="position-text">10 to 30 basis points of real GDP</span></td>
+        <td>The claim that AI capex is carrying the economy is, in <a class="abbr" href="#speakers" title="Aahan Menon — Prometheus Research; guest on Excess Returns with Jack Forehand">Menon</a>'s words, a gross overstatement: tech investment contributes somewhere between 10 and 30 basis points of a roughly 2.7% number. It is carrying the market.</td>
+        <td class="source">
+          <a href="https://www.youtube.com/watch?v=Q6ThY2JBZgU&amp;t=461s" target="_blank" rel="noopener">Menon</a><span class="ep-date">· Jul 23</span>
+        </td>
+      </tr>
+      <tr>
+        <td class="asset"><strong>Consumer <a class="abbr" href="#g-dissaving" title="Households spending more than they earn, drawing down savings">dissaving</a></strong></td>
+        <td class="position-cell"><span class="pill watch">Watch</span><span class="position-text">the dominant driver of corporate profits</span></td>
+        <td>Post-Covid the consumer became the dominant input to US corporate profits, so shorting the low savings rate means fading the biggest single profit driver. <a class="abbr" href="#speakers" title="Aahan Menon — Prometheus Research; guest on Excess Returns with Jack Forehand">Menon</a> says to wait for the <a class="abbr" href="#g-dissaving" title="Households spending more than they earn, drawing down savings">dissaving</a> impulse to turn rather than anticipate it.</td>
+        <td class="source">
+          <span class="src-line"><a href="https://www.youtube.com/watch?v=Q6ThY2JBZgU&amp;t=737s" target="_blank" rel="noopener">Menon</a><span class="ep-date">· Jul 23</span></span>
+          <span class="src-line"><a href="https://www.youtube.com/watch?v=Q6ThY2JBZgU&amp;t=758s" target="_blank" rel="noopener">Menon</a><span class="ep-date">· Jul 23</span></span>
+        </td>
+      </tr>
+      <tr>
+        <td class="asset"><strong>The US expansion continuing</strong></td>
+        <td class="position-cell"><span class="pill bull">Bullish</span><span class="position-text">still expanding</span></td>
+        <td>Leading indexes built on the yield curve, housing and purchasing-manager surveys have read negative since 2022 and been wrong throughout. <a class="abbr" href="#speakers" title="Aahan Menon — Prometheus Research; guest on Excess Returns with Jack Forehand">Menon</a>'s fix was to add information processing and equipment investment, after which the aggregate is still rising.</td>
+        <td class="source">
+          <span class="src-line"><a href="https://www.youtube.com/watch?v=Q6ThY2JBZgU&amp;t=1712s" target="_blank" rel="noopener">Menon</a><span class="ep-date">· Jul 23</span></span>
+          <span class="src-line"><a href="https://www.youtube.com/watch?v=Q6ThY2JBZgU&amp;t=1905s" target="_blank" rel="noopener">Menon</a><span class="ep-date">· Jul 23</span></span>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section id="oil">
+  <h2>Oil</h2>
+  <div class="table-scroll">
+    <table>
+      <thead><tr><th>Asset</th><th>Position</th><th>Thesis</th><th>Source</th></tr></thead>
+      <tbody>
+      <tr>
+        <td class="asset"><strong>Crude oil</strong></td>
+        <td class="position-cell"><span class="pill watch">Watch</span><span class="position-text">the hinge the whole macro turns on</span></td>
+        <td>Oil is a small part of the inflation basket, but it swings so hard that it swamps every other component, and inflation readings drive what the Fed does next. <a class="abbr" href="#speakers" title="Aahan Menon — Prometheus Research; guest on Excess Returns with Jack Forehand">Menon</a> calls this a bad time to make macro bets and will not call the direction. He says getting oil right matters more than anything else on the board.</td>
+        <td class="source">
+          <span class="src-line"><a href="https://www.youtube.com/watch?v=Q6ThY2JBZgU&amp;t=3326s" target="_blank" rel="noopener">Menon</a><span class="ep-date">· Jul 23</span></span>
+          <span class="src-line"><a href="https://www.youtube.com/watch?v=Q6ThY2JBZgU&amp;t=68s" target="_blank" rel="noopener">Menon</a><span class="ep-date">· Jul 23</span></span>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section id="compute">
+  <h2>Compute Costs</h2>
+  <div class="table-scroll">
+    <table>
+      <thead><tr><th>Asset</th><th>Position</th><th>Thesis</th><th>Source</th></tr></thead>
+      <tbody>
+      <tr>
+        <td class="asset"><strong>GPU rental prices</strong></td>
+        <td class="position-cell"><span class="pill bull">Bullish</span><span class="position-text">long contracts now cost more than short ones</span></td>
+        <td>Renting a GPU for a year now costs more per hour than renting one for a month. A rental market normally does the opposite, a shape called <a class="abbr" href="#g-backwardation" title="Whether longer contracts price cheaper (backwardation) or dearer (contango)">backwardation</a>, so this says providers expect to raise prices again and see no reason to discount long deals. Prices for one-year contracts rose on each of the last three readings.</td>
+        <td class="source">
+          <span class="src-line"><a href="https://www.youtube.com/watch?v=CJE3YWA4LLk&amp;t=1720s" target="_blank" rel="noopener">Hou</a><span class="ep-date">· Jul 22</span></span>
+          <span class="src-line"><a href="https://www.youtube.com/watch?v=CJE3YWA4LLk&amp;t=1848s" target="_blank" rel="noopener">Hou</a><span class="ep-date">· Jul 22</span></span>
+        </td>
+      </tr>
+      <tr>
+        <td class="asset"><strong>Rental prices for older GPUs</strong></td>
+        <td class="position-cell"><span class="pill bull">Bullish</span><span class="position-text">the five-year-old chips are the surprise</span></td>
+        <td><a class="abbr" href="#speakers" title="Steve Hou — Head of research, Silicon Data (ex-Bloomberg); guest on Forward Guidance with Felix Jauvin">Hou</a> kept returning to the A100, a five-year-old chip. Its rental rate has gone up and stayed up, which is the opposite of what happens to hardware being replaced. He reads it as demand deep enough to reach the old workhorses.</td>
+        <td class="source">
+          <a href="https://www.youtube.com/watch?v=CJE3YWA4LLk&amp;t=1582s" target="_blank" rel="noopener">Hou</a><span class="ep-date">· Jul 22</span>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section id="realestate">
+  <h2>Real Estate</h2>
+  <div class="table-scroll">
+    <table>
+      <thead><tr><th>Asset</th><th>Position</th><th>Thesis</th><th>Source</th></tr></thead>
+      <tbody>
+      <tr>
+        <td class="asset"><strong>Housing in build-friendly states</strong></td>
+        <td class="position-cell"><span class="pill bull">Bullish</span><span class="position-text">supply keeps up, so prices have fallen</span></td>
+        <td><a class="abbr" href="#speakers" title="Mark Cuban — Guest, interviewed by Jason Calacanis for All-In">Cuban</a>'s case rests on permitting. Outside the city limits you build what you like, so supply keeps up with the people arriving and prices and rents have fallen three years running. The bullish call is on these markets continuing to grow.</td>
+        <td class="source">
+          <a href="https://www.youtube.com/watch?v=OY2Sjbjd_VE&amp;t=2053s" target="_blank" rel="noopener">Cuban</a><span class="ep-date">· Jul 21</span>
+        </td>
+      </tr>
+      <tr>
+        <td class="asset"><strong>The boomer downsizing wave</strong></td>
+        <td class="position-cell"><span class="pill bear">Bearish</span><span class="position-text">the downsizing never happened</span></td>
+        <td>Empty nesters own about 28% of large US homes against 16% for millennials with children, and boomers are 42% of buyers, often in cash. One adviser reports eight clients retired this year and every one of them upsized.</td>
+        <td class="source">
+          <span class="src-line"><a href="https://www.youtube.com/watch?v=rqvxWyYT5jg&amp;t=2705s" target="_blank" rel="noopener">Animal Spirits</a><span class="ep-date">· Jul 22</span></span>
+          <span class="src-line"><a href="https://www.youtube.com/watch?v=rqvxWyYT5jg&amp;t=2782s" target="_blank" rel="noopener">Animal Spirits</a><span class="ep-date">· Jul 22</span></span>
+        </td>
+      </tr>
+      <tr>
+        <td class="asset"><strong>The house as a household's main asset</strong></td>
+        <td class="position-cell"><span class="pill watch">Watch</span><span class="position-text">one in four under-40s still believes it</span></td>
+        <td>One host's open question: if young buyers are priced out long enough, the stock market becomes the first asset and the house comes later. The other's objection is that people need somewhere to live and families need space.</td>
+        <td class="source">
+          <a href="https://www.youtube.com/watch?v=rqvxWyYT5jg&amp;t=2894s" target="_blank" rel="noopener">Animal Spirits</a><span class="ep-date">· Jul 22</span>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section id="inferences">
+  <h2>Illustrative Trades</h2>
+  <p class="inference-intro">The ideas below are extrapolations from what the speakers said. The trades are ours: no speaker recommended them or named these tickers as a trade. Where a row is tagged <strong>view aired</strong>, the underlying view was stated on air and the tag links to the sourced row.</p>
+  <div class="table-scroll">
+    <table>
+      <thead><tr><th>Trade</th><th>From whose thesis</th><th>Logic &amp; invalidations</th></tr></thead>
+      <tbody>
+      <tr>
+        <td class="asset"><strong>Own the memory bottleneck through the drawdown</strong><br><span class="position-text">MU, SNDK, WDC</span></td>
+        <td>Azhar + Hou<br><span class="ep-date"><a href="#equities">view aired &rarr; Equities &amp; Themes</a></span></td>
+        <td>Two speakers describe the same asset differently. <a class="abbr" href="#speakers" title="Azeem Azhar — Exponential View; guest on The Intangible Economy with Kai Wu, an Excess Returns show">Azhar</a>'s constraint is structural and five years long; <a class="abbr" href="#speakers" title="Steve Hou — Head of research, Silicon Data (ex-Bloomberg); guest on Forward Guidance with Felix Jauvin">Hou</a>'s margin call is cyclical and two years long. That argues for buying the supply chain into the current sell-off, and for sizing against a group that just fell 25% to 36% in a month.
+          <dl class="levels">
+            <dt>context</dt><dd>Micron -25% in July, SanDisk -36%, Western Digital -35%</dd>
+            <dt>sizing</dt><dd>reduced size while the levered-ETF overhang in semis persists</dd>
+          </dl>
+          <span class="row-invalidation"><strong>Wrong if</strong><span>Memory stops rallying on good news, or <a class="abbr" href="#g-hbm" title="The memory stacked next to an AI chip, made by three companies">high-bandwidth memory</a> supply gets a fourth credible entrant. Either one turns a three-supplier bottleneck into a normal commodity.</span></span>
+        </td>
+      </tr>
+      <tr>
+        <td class="asset"><strong>Rent the compute, don't own the model</strong><br><span class="position-text">CRWV, NBIS, ORCL</span></td>
+        <td>Hou + Azhar<br><span class="ep-date"><a href="#compute">view aired &rarr; Compute Costs</a></span></td>
+        <td><a class="abbr" href="#speakers" title="Steve Hou — Head of research, Silicon Data (ex-Bloomberg); guest on Forward Guidance with Felix Jauvin">Hou</a>'s <a class="abbr" href="#g-forwardcurve" title="What it costs today to lock in something for delivery later">forward curve</a> and <a class="abbr" href="#speakers" title="Azeem Azhar — Exponential View; guest on The Intangible Economy with Kai Wu, an Excess Returns show">Azhar</a>'s chokepoint argument point the same way: capacity gets paid, and the contracts are long. The SpaceX filings are the first public numbers on hosting economics, and they show a contract covering its capital inside two years.
+          <dl class="levels">
+            <dt>the signal to watch</dt><dd>the one-year GPU rental rate; it rose on each of the last three readings</dd>
+            <dt>the arithmetic</dt><dd>Azhar's figure on air: about $26bn of capital deployed, covered in 21 months at $1.25bn a month</dd>
+          </dl>
+          <span class="row-invalidation"><strong>Wrong if</strong><span>Renting a GPU for a year gets cheaper than renting one for a month again. That would mean capacity has stopped being scarce.</span></span>
+        </td>
+      </tr>
+      <tr>
+        <td class="asset"><strong>Long the software that hosts your data, short the software that only sells you seats</strong><br><span class="position-text">Long NOW, DDOG · short CRM</span></td>
+        <td>Azhar<br><span class="ep-date"><a href="#equities">view aired &rarr; Equities &amp; Themes</a></span></td>
+        <td><a class="abbr" href="#speakers" title="Azeem Azhar — Exponential View; guest on The Intangible Economy with Kai Wu, an Excess Returns show">Azhar</a>'s split is a pairs trade in disguise. If the moat is a business model that puts AI on top of data the vendor already holds, then the vendors that own operational data keep pricing power and the ones selling seats into an agent-mediated workflow do not.
+          <dl class="levels">
+            <dt>structure</dt><dd>long and short equal dollar amounts, both legs inside software, so a market-wide software sell-off hits both sides equally</dd>
+          </dl>
+          <span class="row-invalidation"><strong>Wrong if</strong><span>Salesforce announces AI pricing on customer data at a margin the market believes. The whole short leg rests on the rotation not happening.</span></span>
+        </td>
+      </tr>
+      <tr>
+        <td class="asset"><strong>Equal weight over cap weight</strong><br><span class="position-text">RSP over SPY</span></td>
+        <td>Animal Spirits + Menon<br><span class="ep-date"><a href="#equities">view aired &rarr; Equities &amp; Themes</a></span></td>
+        <td>Two-thirds of US stocks are positive with a 12.6% median return while the index is held back by the names that led it up. <a class="abbr" href="#speakers" title="Aahan Menon — Prometheus Research; guest on Excess Returns with Jack Forehand">Menon</a>'s macro reading supports equities in aggregate, just not the ones leading the index.
+          <dl class="levels">
+            <dt>the evidence</dt><dd>more than 300 S&amp;P names under 20x forward</dd>
+            <dt>horizon</dt><dd>quarters; breadth trades don't resolve fast</dd>
+          </dl>
+          <span class="row-invalidation"><strong>Wrong if</strong><span>Breadth narrows again on the next leg up. If the median stock stops participating the whole argument is gone.</span></span>
+        </td>
+      </tr>
+      <tr>
+        <td class="asset"><strong>Own the energy the data centers still need</strong><br><span class="position-text">VST, CEG, TLN</span></td>
+        <td>Azhar + Cuban<br><span class="ep-date"><a href="#equities">view aired &rarr; Equities &amp; Themes</a></span></td>
+        <td><a class="abbr" href="#speakers" title="Azeem Azhar — Exponential View; guest on The Intangible Economy with Kai Wu, an Excess Returns show">Azhar</a> expects the data-center backlash to resolve into an energy-innovation cycle, which is a slower and less crowded way to hold AI demand than holding the chips. The permitting fight is the entry point.
+          <dl class="levels">
+            <dt>horizon</dt><dd>medium term by the speaker's own framing, measured in years</dd>
+          </dl>
+          <span class="row-invalidation"><strong>Wrong if</strong><span><a class="abbr" href="#speakers" title="Mark Cuban — Guest, interviewed by Jason Calacanis for All-In">Cuban</a>'s version wins instead: efficiency gains cut the power draw enough that contracted capacity turns into stranded capacity.</span></span>
+        </td>
+      </tr>
+      <tr>
+        <td class="asset"><strong>Hold oil exposure as a hedge on the macro view</strong><br><span class="position-text">XLE, XOM, CVX</span></td>
+        <td>Menon<br><span class="ep-date"><a href="#oil">view aired &rarr; Oil</a></span></td>
+        <td><a class="abbr" href="#speakers" title="Aahan Menon — Prometheus Research; guest on Excess Returns with Jack Forehand">Menon</a> won't call oil's direction, yet says everything else depends on it. That is an argument for owning the exposure and skipping the forecast: oil rising is the path that breaks fixed income and pressures equity multiples, and energy is what gets paid on it.
+          <dl class="levels">
+            <dt>role</dt><dd>hedge sizing; it earns its keep in the bad state</dd>
+          </dl>
+          <span class="row-invalidation"><strong>Wrong if</strong><span>Oil settles into a range, and the hedge costs money in exactly the outcome everyone wants.</span></span>
+        </td>
+      </tr>
+      <tr>
+        <td class="asset"><strong>Underweight duration into <a class="abbr" href="#speakers" title="Aahan Menon — Prometheus Research; guest on Excess Returns with Jack Forehand">Menon</a>'s hiking path</strong><br><span class="position-text">Short TLT, long SHY (long- and short-dated Treasury funds)</span></td>
+        <td>Menon<br><span class="ep-date"><a href="#rates">view aired &rarr; Bonds, Rates &amp; the Fed</a></span></td>
+        <td>This expresses <a class="abbr" href="#speakers" title="Aahan Menon — Prometheus Research; guest on Excess Returns with Jack Forehand">Menon</a>'s stated big call. If oil lifts readings onto demand-driven inflation that never got back to target, the next move is a hike, and 80% of bond returns historically arrive during easing cycles.
+          <dl class="levels">
+            <dt>the trigger</dt><dd>oil resuming its uptrend, the speaker's own precondition</dd>
+            <dt>carry</dt><dd>the position pays you to wait while short-term yields sit at or above long-term ones</dd>
+          </dl>
+          <span class="row-invalidation"><strong>Wrong if</strong><span>Oil rolls over and the demand-driven share of inflation falls with it. <a class="abbr" href="#speakers" title="Aahan Menon — Prometheus Research; guest on Excess Returns with Jack Forehand">Menon</a>'s call is explicitly conditional and this trade should be too.</span></span>
+        </td>
+      </tr>
+      <tr>
+        <td class="asset"><strong>Own the streaming winner at a market multiple</strong><br><span class="position-text">NFLX</span></td>
+        <td>Animal Spirits<br><span class="ep-date"><a href="#stocks">view aired &rarr; Single Stocks</a></span></td>
+        <td>One host is long and states the bear case in the same row: operating income about to pass Disney's without owning parks, against decelerating viewing growth. A market multiple prices the second half of that and not the first.
+          <dl class="levels">
+            <dt>skin in the game</dt><dd>one host is long from ~$90 against a $67 price, underwater</dd>
+            <dt>the bear's number</dt><dd>daily average views growing 1.5-2%</dd>
+          </dl>
+          <span class="row-invalidation"><strong>Wrong if</strong><span>Daily views go flat. Margins justify the multiple only while the audience is still growing.</span></span>
+        </td>
+      </tr>
+      <tr>
+        <td class="asset"><strong>Short the labor-arbitrage end of IT services</strong><br><span class="position-text">ACN, INFY, CTSH</span></td>
+        <td>Azhar<br><span class="ep-date">our inference</span></td>
+        <td>Our extrapolation, with no speaker behind it. <a class="abbr" href="#speakers" title="Azeem Azhar — Exponential View; guest on The Intangible Economy with Kai Wu, an Excess Returns show">Azhar</a> names low revenue-per-employee systems integration as the most substitutable work in the economy, but he also says forward-deployed engineers are proof the work is hard.
+          <dl class="levels">
+            <dt>the screen</dt><dd>revenue per employee; the lower it is, the more exposed</dd>
+            <dt>horizon</dt><dd>multi-year</dd>
+          </dl>
+          <span class="row-invalidation"><strong>Wrong if</strong><span>These firms end up owning the deployment work themselves. <a class="abbr" href="#speakers" title="Azeem Azhar — Exponential View; guest on The Intangible Economy with Kai Wu, an Excess Returns show">Azhar</a>'s own private-equity roll-up scenario is the version where they win.</span></span>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section id="sources">
+  <h2>Sources</h2>
+  <ul class="source-list">
+    <li><a href="https://www.youtube.com/watch?v=Q6ThY2JBZgU" target="_blank" rel="noopener"><span class="src-date">2026-07-23</span>Excess Returns — He Modeled Every Regime Since 1965 | Aahan Menon on What Wins from Here<span class="src-ext">YouTube</span></a></li>
+    <li><a href="https://www.youtube.com/watch?v=CJE3YWA4LLk" target="_blank" rel="noopener"><span class="src-date">2026-07-22</span>Forward Guidance — AI Efficiency Is Repricing The Compute Market | Steve Hou<span class="src-ext">YouTube</span></a></li>
+    <li><a href="https://www.youtube.com/watch?v=rqvxWyYT5jg" target="_blank" rel="noopener"><span class="src-date">2026-07-22</span>Animal Spirits — Say Bubble One More Time. I Dare You! | Animal Spirits 474<span class="src-ext">YouTube</span></a></li>
+    <li><a href="https://www.youtube.com/watch?v=Ubx8TrhU3-k" target="_blank" rel="noopener"><span class="src-date">2026-07-21</span>Excess Returns — We Asked the Man Who Mapped the AI Economy If the Boom Is Real — And Who Keeps the Money<span class="src-ext">YouTube</span></a></li>
+    <li><a href="https://www.youtube.com/watch?v=OY2Sjbjd_VE" target="_blank" rel="noopener"><span class="src-date">2026-07-21</span>All-In — Mark Cuban on the AI Bubble: Who Actually Gets Wiped Out?<span class="src-ext">YouTube</span></a></li>
+  </ul>
+</section>
+
+<section id="glossary">
+  <h2>Glossary</h2>
+  <div class="g-row" id="g-hbm">
+    <span class="g-term">high-bandwidth memory</span>
+    <span class="g-def">Memory packaged directly alongside a GPU's logic chip. Supplied by three companies and typically sold out a year ahead, which is why it behaves like a bottleneck.</span>
+  </div>
+  <div class="g-row" id="g-backwardation">
+    <span class="g-term">backwardation</span>
+    <span class="g-def">A forward curve is in backwardation when longer contracts cost less per unit than short ones. In a rental market like GPUs that is the normal state when more supply is expected to arrive. Contango is the reverse, and in the GPU rental market it means providers no longer feel they need to discount to lock a customer in.</span>
+  </div>
+  <div class="g-row" id="g-momentum">
+    <span class="g-term">momentum stocks</span>
+    <span class="g-def">A systematic strategy that holds recent winners. It concentrates into whatever has led the market, so its composition can end up close to a single sector's.</span>
+  </div>
+  <div class="g-row" id="g-dissaving">
+    <span class="g-term">dissaving</span>
+    <span class="g-def">Spending in excess of income, funded by savings or by asset gains. It reaches company revenue without a matching wage cost.</span>
+  </div>
+  <div class="g-row" id="g-nominalgdp">
+    <span class="g-term">nominal GDP</span>
+    <span class="g-def">Output measured at current prices, combining real growth and inflation in a single number.</span>
+  </div>
+  <div class="g-row" id="g-fde">
+    <span class="g-term">forward-deployed engineer</span>
+    <span class="g-def">An engineer placed inside a customer's organization to implement and adapt a vendor's technology. Both a revenue channel for the vendor and a measure of how much work deployment still takes.</span>
+  </div>
+  <div class="g-row" id="g-dram">
+    <span class="g-term">DRAM</span>
+    <span class="g-def">Dynamic Random-Access Memory, the standard working memory in servers and PCs. High-bandwidth memory is a stacked, faster version of the same technology.</span>
+  </div>
+  <div class="g-row" id="g-neocloud">
+    <span class="g-term">neocloud</span>
+    <span class="g-def">An operator that buys chips, secures power and rents capacity, without the wider software business of a traditional hyperscaler.</span>
+  </div>
+  <div class="g-row" id="g-forwardcurve">
+    <span class="g-term">forward curve</span>
+    <span class="g-def">The set of prices for buying or renting something over different lengths of time. A one-month GPU contract and a one-year GPU contract sit at different points on the same curve.</span>
+  </div>
+  <div class="g-row" id="g-kospi">
+    <span class="g-term">KOSPI</span>
+    <span class="g-def">The Korea Composite Stock Price Index, South Korea's main market index.</span>
+  </div>
+</section>
+
+<footer class="footer">
+  <p>We summarize and link to original sources. All views belong to the original speakers.</p>
+  <p>Compiled from five episodes published between July 21 and July 23, 2026, listed in full under Sources. Every position in the tracked sections links to the timestamp where it was said. There may be errors: tell us and we will correct them in the next issue.</p>
+  <p>This newsletter reports positions. It endorses none of them. Where speakers disagree the row keeps both sides rather than averaging them.</p>
+  <div class="disclaimer">Not investment advice. This document reports positions people stated publicly and does not recommend any of them. Tickers anywhere in this issue, including the Portfolio and Illustrative Trades sections, along with any levels and invalidations attached to them, are our own illustration of how an argument might be expressed. No speaker named or endorsed them. Do your own research.</div>
+</footer>
+
+</article>
+<script>
+(function () {
+  var root = document.documentElement,
+      btn  = document.getElementById('theme-toggle'),
+      top  = document.getElementById('to-top');
+  function dark() {
+    return root.dataset.theme
+      ? root.dataset.theme === 'dark'
+      : window.matchMedia('(prefers-color-scheme: dark)').matches;
+  }
+  function label() { btn.textContent = dark() ? 'Light' : 'Dark'; }
+  label();
+  btn.addEventListener('click', function () {
+    root.dataset.theme = dark() ? 'light' : 'dark';
+    label();
+  });
+  // Show the back-to-contents link only once the reader is past the contents.
+  var toc = document.getElementById('toc');
+  window.addEventListener('scroll', function () {
+    top.classList.toggle('on', window.scrollY > toc.offsetTop + toc.offsetHeight);
+  }, { passive: true });
+})();
+</script>
+</body>
+</html>
