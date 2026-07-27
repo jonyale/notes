@@ -20,6 +20,10 @@
   --bull: #2E6B47;
   --bear: #9C3B2E;
   --mixed: #8A6519;
+  /* --nav is structural chrome (contents numbers, No. N, 01/02, Moved).
+     Kept OFF the semantic reds so navigation never reads as a market call
+     (owner catch 2026-07-24, option B). --accent is interactive only. */
+  --nav: #8B8272;
   --serif: "Iowan Old Style", Charter, Georgia, "Times New Roman", serif;
   --caps-ls: 0.14em;
 }
@@ -36,6 +40,7 @@
     --bull: #7EBD97;
     --bear: #E08D7A;
     --mixed: #CBA658;
+    --nav: #7E7566;
   }
 }
 /* The toggle stamps data-theme on <html> and must beat the media query in both
@@ -44,11 +49,13 @@
   --paper: #171310; --ink: #EAE3D5; --ink-2: #B5AB99; --faint: #7E7566;
   --hair: #352F27; --hair-strong: #EAE3D5; --wash: #201B16;
   --accent: #D0796A; --bull: #7EBD97; --bear: #E08D7A; --mixed: #CBA658;
+  --nav: #7E7566;
 }
 :root[data-theme="light"] {
   --paper: #FBF9F3; --ink: #191511; --ink-2: #4C453B; --faint: #8B8272;
   --hair: #DAD3C3; --hair-strong: #191511; --wash: #F3EFE4;
   --accent: #8C2B26; --bull: #2E6B47; --bear: #9C3B2E; --mixed: #8A6519;
+  --nav: #8B8272;
 }
 
 /* Theme toggle + back to contents */
@@ -167,7 +174,7 @@ a.abbr { text-decoration-style: dotted; }
 }
 .toc a::before {
   content: counter(tocs);
-  color: var(--accent);
+  color: var(--nav);
   font-variant-numeric: lining-nums;
   min-width: 18px;
   font-size: 13px;
@@ -195,7 +202,7 @@ h2::before {
   font-weight: 700;
   letter-spacing: var(--caps-ls);
   text-transform: uppercase;
-  color: var(--accent);
+  color: var(--nav);
   font-variant-numeric: lining-nums;
   margin-bottom: 8px;
 }
@@ -265,7 +272,7 @@ td.source .src-line { display: block; margin-bottom: 3px; }
   color: var(--faint);
   white-space: nowrap;
 }
-.chg-moved { color: var(--accent); }
+.chg-moved { color: var(--faint); }
 .chg-new { color: var(--ink); }
 /* The diff table shows historical stance labels, including issue #1's filled
    "conviction" pill. A solid block reads as emphasis in a comparison column it
@@ -368,7 +375,7 @@ dl.levels dd { margin: 0; color: var(--ink); font-variant-numeric: lining-nums; 
   grid-row: 1 / span 3;
   font-size: 1.9rem;
   font-weight: 400;
-  color: var(--accent);
+  color: var(--nav);
   line-height: 1;
   font-variant-numeric: lining-nums;
   padding-top: 2px;
@@ -493,7 +500,6 @@ dl.levels dd { margin: 0; color: var(--ink); font-variant-numeric: lining-nums; 
   <div class="toc-title">Contents</div>
   <ul>
     <li><a href="#newsscan">News Scan</a></li>
-    <li><a href="#weekdiff">What Changed</a></li>
     <li><a href="#composite">Portfolio</a></li>
     <li><a href="#catalysts">Invalidations</a></li>
     <li><a href="#speakers">Speaker Key</a></li>
@@ -504,6 +510,7 @@ dl.levels dd { margin: 0; color: var(--ink); font-variant-numeric: lining-nums; 
     <li><a href="#compute">Compute Costs</a></li>
     <li><a href="#realestate">Real Estate</a></li>
     <li><a href="#inferences">Illustrative Trades</a></li>
+    <li><a href="#weekdiff">What Changed</a></li>
     <li><a href="#sources">Sources</a></li>
     <li><a href="#glossary">Glossary</a></li>
   </ul>
@@ -539,230 +546,6 @@ dl.levels dd { margin: 0; color: var(--ink); font-variant-numeric: lining-nums; 
       </tbody>
     </table>
   </div>
-</section>
-
-<section id="weekdiff">
-  <h2>What Changed Since Last Issue</h2>
-  <div class="table-scroll">
-    <table>
-      <thead><tr><th>Asset</th><th>Change</th><th>Last issue</th><th>This issue</th><th>Section</th></tr></thead>
-      <tbody>
-      <tr>
-        <td class="asset"><strong>Company spending on AI</strong></td>
-        <td><span class="chg chg-moved">Moved</span></td>
-        <td class="position-cell"><span class="pill watch">Watch</span></td>
-        <td class="position-cell"><span class="pill bull">Bullish</span></td>
-        <td class="source"><a href="#equities">Equities &amp; Themes</a></td>
-      </tr>
-      <tr>
-        <td class="asset"><strong>Crude oil</strong></td>
-        <td><span class="chg chg-moved">Moved</span></td>
-        <td class="position-cell"><span class="pill bear">Bearish</span></td>
-        <td class="position-cell"><span class="pill watch">Watch</span></td>
-        <td class="source"><a href="#oil">Oil</a></td>
-      </tr>
-      <tr>
-        <td class="asset"><strong>Data-center capacity that can be powered</strong></td>
-        <td><span class="chg chg-moved">Moved</span></td>
-        <td class="position-cell"><span class="pill conviction">Highest conviction</span></td>
-        <td class="position-cell"><span class="pill mixed">Mixed</span></td>
-        <td class="source"><a href="#equities">Equities &amp; Themes</a></td>
-      </tr>
-      <tr>
-        <td class="asset"><strong>Enterprise software vendors</strong></td>
-        <td><span class="chg chg-moved">Moved</span></td>
-        <td class="position-cell"><span class="pill bear">Bearish</span></td>
-        <td class="position-cell"><span class="pill mixed">Mixed</span></td>
-        <td class="source"><a href="#equities">Equities &amp; Themes</a></td>
-      </tr>
-      <tr>
-        <td class="asset"><strong>How much value the AI labs keep</strong></td>
-        <td><span class="chg chg-moved">Moved</span></td>
-        <td class="position-cell"><span class="pill bear">Bearish</span></td>
-        <td class="position-cell"><span class="pill mixed">Mixed</span></td>
-        <td class="source"><a href="#equities">Equities &amp; Themes</a></td>
-      </tr>
-      <tr>
-        <td class="asset"><strong>Hyperscaler credit quality</strong></td>
-        <td><span class="chg chg-moved">Moved</span></td>
-        <td class="position-cell"><span class="pill mixed">Mixed</span></td>
-        <td class="position-cell"><span class="pill bear">Bearish</span></td>
-        <td class="source"><a href="#rates">Bonds, Rates &amp; the Fed</a></td>
-      </tr>
-      <tr>
-        <td class="asset"><strong>Hyperscalers / Mag 7 (the largest US tech names)</strong></td>
-        <td><span class="chg chg-moved">Moved</span></td>
-        <td class="position-cell"><span class="pill mixed">Mixed</span></td>
-        <td class="position-cell"><span class="pill bear">Bearish</span></td>
-        <td class="source"><a href="#equities">Equities &amp; Themes</a></td>
-      </tr>
-      <tr>
-        <td class="asset"><strong>Korean stocks after the margin calls</strong></td>
-        <td><span class="chg chg-moved">Moved</span></td>
-        <td class="position-cell"><span class="pill watch">Watch</span></td>
-        <td class="position-cell"><span class="pill bear">Bearish</span></td>
-        <td class="source"><a href="#equities">Equities &amp; Themes</a></td>
-      </tr>
-      <tr>
-        <td class="asset"><strong>Pricing power at the frontier labs</strong></td>
-        <td><span class="chg chg-moved">Moved</span></td>
-        <td class="position-cell"><span class="pill bear">Bearish</span></td>
-        <td class="position-cell"><span class="pill mixed">Mixed</span></td>
-        <td class="source"><a href="#equities">Equities &amp; Themes</a></td>
-      </tr>
-      <tr>
-        <td class="asset"><strong>US electricity &amp; data-center politics</strong></td>
-        <td><span class="chg chg-moved">Moved</span></td>
-        <td class="position-cell"><span class="pill bear">Bearish</span></td>
-        <td class="position-cell"><span class="pill mixed">Mixed</span></td>
-        <td class="source"><a href="#equities">Equities &amp; Themes</a></td>
-      </tr>
-      <tr>
-        <td class="asset"><strong>Value over growth</strong></td>
-        <td><span class="chg chg-moved">Moved</span></td>
-        <td class="position-cell"><span class="pill watch">Watch</span></td>
-        <td class="position-cell"><span class="pill bull">Bullish</span></td>
-        <td class="source"><a href="#equities">Equities &amp; Themes</a></td>
-      </tr>
-      <tr>
-        <td class="asset"><strong>Who ends up with AI's profits</strong></td>
-        <td><span class="chg chg-moved">Moved</span></td>
-        <td class="position-cell"><span class="pill bull">Bullish</span></td>
-        <td class="position-cell"><span class="pill mixed">Mixed</span></td>
-        <td class="source"><a href="#equities">Equities &amp; Themes</a></td>
-      </tr>
-      <tr>
-        <td class="asset"><strong>AI as the driver of GDP growth</strong></td>
-        <td><span class="chg chg-new">New</span></td>
-        <td class="position-cell"><span class="chg">not tracked</span></td>
-        <td class="position-cell"><span class="pill bear">Bearish</span></td>
-        <td class="source"><a href="#rates">Bonds, Rates &amp; the Fed</a></td>
-      </tr>
-      <tr>
-        <td class="asset"><strong>Consumer <a class="abbr" href="#g-dissaving" title="Households spending more than they earn, drawing down savings">dissaving</a></strong></td>
-        <td><span class="chg chg-new">New</span></td>
-        <td class="position-cell"><span class="chg">not tracked</span></td>
-        <td class="position-cell"><span class="pill watch">Watch</span></td>
-        <td class="source"><a href="#rates">Bonds, Rates &amp; the Fed</a></td>
-      </tr>
-      <tr>
-        <td class="asset"><strong>Disney</strong></td>
-        <td><span class="chg chg-new">New</span></td>
-        <td class="position-cell"><span class="chg">not tracked</span></td>
-        <td class="position-cell"><span class="pill bear">Bearish</span></td>
-        <td class="source"><a href="#stocks">Single Stocks</a></td>
-      </tr>
-      <tr>
-        <td class="asset"><strong>GPU rental prices</strong></td>
-        <td><span class="chg chg-new">New</span></td>
-        <td class="position-cell"><span class="chg">not tracked</span></td>
-        <td class="position-cell"><span class="pill bull">Bullish</span></td>
-        <td class="source"><a href="#compute">Compute Costs</a></td>
-      </tr>
-      <tr>
-        <td class="asset"><strong>Households paying for AI</strong></td>
-        <td><span class="chg chg-new">New</span></td>
-        <td class="position-cell"><span class="chg">not tracked</span></td>
-        <td class="position-cell"><span class="pill bull">Bullish</span></td>
-        <td class="source"><a href="#equities">Equities &amp; Themes</a></td>
-      </tr>
-      <tr>
-        <td class="asset"><strong>IMAX</strong></td>
-        <td><span class="chg chg-new">New</span></td>
-        <td class="position-cell"><span class="chg">not tracked</span></td>
-        <td class="position-cell"><span class="pill bull">Bullish</span></td>
-        <td class="source"><a href="#stocks">Single Stocks</a></td>
-      </tr>
-      <tr>
-        <td class="asset"><strong>Long-dated US government bonds</strong></td>
-        <td><span class="chg chg-new">New</span></td>
-        <td class="position-cell"><span class="chg">not tracked</span></td>
-        <td class="position-cell"><span class="pill bear">Bearish</span></td>
-        <td class="source"><a href="#rates">Bonds, Rates &amp; the Fed</a></td>
-      </tr>
-      <tr>
-        <td class="asset"><strong>Netflix</strong></td>
-        <td><span class="chg chg-new">New</span></td>
-        <td class="position-cell"><span class="chg">not tracked</span></td>
-        <td class="position-cell"><span class="pill bull">Bullish</span></td>
-        <td class="source"><a href="#stocks">Single Stocks</a></td>
-      </tr>
-      <tr>
-        <td class="asset"><strong>Nike</strong></td>
-        <td><span class="chg chg-new">New</span></td>
-        <td class="position-cell"><span class="chg">not tracked</span></td>
-        <td class="position-cell"><span class="pill bear">Bearish</span></td>
-        <td class="source"><a href="#stocks">Single Stocks</a></td>
-      </tr>
-      <tr>
-        <td class="asset"><strong>Rental prices for older GPUs</strong></td>
-        <td><span class="chg chg-new">New</span></td>
-        <td class="position-cell"><span class="chg">not tracked</span></td>
-        <td class="position-cell"><span class="pill bull">Bullish</span></td>
-        <td class="source"><a href="#compute">Compute Costs</a></td>
-      </tr>
-      <tr>
-        <td class="asset"><strong>Retail buying of US stocks</strong></td>
-        <td><span class="chg chg-new">New</span></td>
-        <td class="position-cell"><span class="chg">not tracked</span></td>
-        <td class="position-cell"><span class="pill bull">Bullish</span></td>
-        <td class="source"><a href="#equities">Equities &amp; Themes</a></td>
-      </tr>
-      <tr>
-        <td class="asset"><strong>Semiconductor valuations</strong></td>
-        <td><span class="chg chg-new">New</span></td>
-        <td class="position-cell"><span class="chg">not tracked</span></td>
-        <td class="position-cell"><span class="pill mixed">Mixed</span></td>
-        <td class="source"><a href="#equities">Equities &amp; Themes</a></td>
-      </tr>
-      <tr>
-        <td class="asset"><strong>The boomer downsizing wave</strong></td>
-        <td><span class="chg chg-new">New</span></td>
-        <td class="position-cell"><span class="chg">not tracked</span></td>
-        <td class="position-cell"><span class="pill bear">Bearish</span></td>
-        <td class="source"><a href="#realestate">Real Estate</a></td>
-      </tr>
-      <tr>
-        <td class="asset"><strong>The gap between buying AI and using it</strong></td>
-        <td><span class="chg chg-new">New</span></td>
-        <td class="position-cell"><span class="chg">not tracked</span></td>
-        <td class="position-cell"><span class="pill watch">Watch</span></td>
-        <td class="source"><a href="#equities">Equities &amp; Themes</a></td>
-      </tr>
-      <tr>
-        <td class="asset"><strong>The house as a household's main asset</strong></td>
-        <td><span class="chg chg-new">New</span></td>
-        <td class="position-cell"><span class="chg">not tracked</span></td>
-        <td class="position-cell"><span class="pill watch">Watch</span></td>
-        <td class="source"><a href="#realestate">Real Estate</a></td>
-      </tr>
-      <tr>
-        <td class="asset"><strong>The US expansion continuing</strong></td>
-        <td><span class="chg chg-new">New</span></td>
-        <td class="position-cell"><span class="chg">not tracked</span></td>
-        <td class="position-cell"><span class="pill bull">Bullish</span></td>
-        <td class="source"><a href="#rates">Bonds, Rates &amp; the Fed</a></td>
-      </tr>
-      <tr>
-        <td class="asset"><strong>US <a class="abbr" href="#g-nominalgdp" title="Total spending in the economy, before adjusting for inflation">nominal GDP</a> growth</strong></td>
-        <td><span class="chg chg-new">New</span></td>
-        <td class="position-cell"><span class="chg">not tracked</span></td>
-        <td class="position-cell"><span class="pill bull">Bullish</span></td>
-        <td class="source"><a href="#rates">Bonds, Rates &amp; the Fed</a></td>
-      </tr>
-      <tr>
-        <td class="asset"><strong>Which competitive moats survive AI</strong></td>
-        <td><span class="chg chg-new">New</span></td>
-        <td class="position-cell"><span class="chg">not tracked</span></td>
-        <td class="position-cell"><span class="pill mixed">Mixed</span></td>
-        <td class="source"><a href="#equities">Equities &amp; Themes</a></td>
-      </tr>
-      </tbody>
-    </table>
-  </div>
-  <p class="note"><strong>Held, unchanged (9).</strong> AI capex spending, Housing in build-friendly states, Inflation staying above the Fed's target, Leveraged single-stock ETFs, Memory and <a class="abbr" href="#g-dram" title="Dynamic Random-Access Memory, the working memory in servers and PCs">DRAM</a> makers, <a class="abbr" href="#g-momentum" title="A strategy that holds whatever has been rising">Momentum stocks</a>, Open-weight models taking share, The price of running AI models, Whether the Fed's next move is a hike.</p>
-  <p class="note"><strong>Not tracked this issue (26).</strong> 2-year Treasury, AI-native takeovers of legacy internet assets, Alphabet, Apple, Bitcoin, Ethereum, Gold, Gulf-state data centers, Inflation breakevens, Japanese yen, Marvell, Meta Platforms, Micron, New York State, PayPal, Rate &amp; currency volatility, Semiconductors (silicon demand), Silver, Stablecoin payment rails, Texas, Tokenized real-world assets, Uber, UnitedHealth, US dollar, US money-center banks, Visa &amp; Mastercard.</p>
-  <p class="note"><strong>Not tracked</strong> means the asset has no standalone row this issue, not that we stopped following it: Micron, for one, runs through the News Scan, the Portfolio and the first trade below while sitting inside the Memory and <a class="abbr" href="#g-dram" title="Dynamic Random-Access Memory, the working memory in servers and PCs">DRAM</a> row. Only Forward Guidance and All-In appear in both issues, so most of that list reflects which shows published inside a three-day window. Two of the moves are our own bookkeeping and are listed in the table like any other: Korea shifted from FX into equities as a retail-leverage row, and US electricity absorbed the data-center politics row. Nothing this week reversed from bullish to bearish or back.</p>
 </section>
 
 <section id="composite">
@@ -1368,6 +1151,230 @@ dl.levels dd { margin: 0; color: var(--ink); font-variant-numeric: lining-nums; 
       </tbody>
     </table>
   </div>
+</section>
+
+<section id="weekdiff">
+  <h2>What Changed Since Last Issue</h2>
+  <div class="table-scroll">
+    <table>
+      <thead><tr><th>Asset</th><th>Change</th><th>Last issue</th><th>This issue</th><th>Section</th></tr></thead>
+      <tbody>
+      <tr>
+        <td class="asset"><strong>Company spending on AI</strong></td>
+        <td><span class="chg chg-moved">Moved</span></td>
+        <td class="position-cell"><span class="pill watch">Watch</span></td>
+        <td class="position-cell"><span class="pill bull">Bullish</span></td>
+        <td class="source"><a href="#equities">Equities &amp; Themes</a></td>
+      </tr>
+      <tr>
+        <td class="asset"><strong>Crude oil</strong></td>
+        <td><span class="chg chg-moved">Moved</span></td>
+        <td class="position-cell"><span class="pill bear">Bearish</span></td>
+        <td class="position-cell"><span class="pill watch">Watch</span></td>
+        <td class="source"><a href="#oil">Oil</a></td>
+      </tr>
+      <tr>
+        <td class="asset"><strong>Data-center capacity that can be powered</strong></td>
+        <td><span class="chg chg-moved">Moved</span></td>
+        <td class="position-cell"><span class="pill conviction">Highest conviction</span></td>
+        <td class="position-cell"><span class="pill mixed">Mixed</span></td>
+        <td class="source"><a href="#equities">Equities &amp; Themes</a></td>
+      </tr>
+      <tr>
+        <td class="asset"><strong>Enterprise software vendors</strong></td>
+        <td><span class="chg chg-moved">Moved</span></td>
+        <td class="position-cell"><span class="pill bear">Bearish</span></td>
+        <td class="position-cell"><span class="pill mixed">Mixed</span></td>
+        <td class="source"><a href="#equities">Equities &amp; Themes</a></td>
+      </tr>
+      <tr>
+        <td class="asset"><strong>How much value the AI labs keep</strong></td>
+        <td><span class="chg chg-moved">Moved</span></td>
+        <td class="position-cell"><span class="pill bear">Bearish</span></td>
+        <td class="position-cell"><span class="pill mixed">Mixed</span></td>
+        <td class="source"><a href="#equities">Equities &amp; Themes</a></td>
+      </tr>
+      <tr>
+        <td class="asset"><strong>Hyperscaler credit quality</strong></td>
+        <td><span class="chg chg-moved">Moved</span></td>
+        <td class="position-cell"><span class="pill mixed">Mixed</span></td>
+        <td class="position-cell"><span class="pill bear">Bearish</span></td>
+        <td class="source"><a href="#rates">Bonds, Rates &amp; the Fed</a></td>
+      </tr>
+      <tr>
+        <td class="asset"><strong>Hyperscalers / Mag 7 (the largest US tech names)</strong></td>
+        <td><span class="chg chg-moved">Moved</span></td>
+        <td class="position-cell"><span class="pill mixed">Mixed</span></td>
+        <td class="position-cell"><span class="pill bear">Bearish</span></td>
+        <td class="source"><a href="#equities">Equities &amp; Themes</a></td>
+      </tr>
+      <tr>
+        <td class="asset"><strong>Korean stocks after the margin calls</strong></td>
+        <td><span class="chg chg-moved">Moved</span></td>
+        <td class="position-cell"><span class="pill watch">Watch</span></td>
+        <td class="position-cell"><span class="pill bear">Bearish</span></td>
+        <td class="source"><a href="#equities">Equities &amp; Themes</a></td>
+      </tr>
+      <tr>
+        <td class="asset"><strong>Pricing power at the frontier labs</strong></td>
+        <td><span class="chg chg-moved">Moved</span></td>
+        <td class="position-cell"><span class="pill bear">Bearish</span></td>
+        <td class="position-cell"><span class="pill mixed">Mixed</span></td>
+        <td class="source"><a href="#equities">Equities &amp; Themes</a></td>
+      </tr>
+      <tr>
+        <td class="asset"><strong>US electricity &amp; data-center politics</strong></td>
+        <td><span class="chg chg-moved">Moved</span></td>
+        <td class="position-cell"><span class="pill bear">Bearish</span></td>
+        <td class="position-cell"><span class="pill mixed">Mixed</span></td>
+        <td class="source"><a href="#equities">Equities &amp; Themes</a></td>
+      </tr>
+      <tr>
+        <td class="asset"><strong>Value over growth</strong></td>
+        <td><span class="chg chg-moved">Moved</span></td>
+        <td class="position-cell"><span class="pill watch">Watch</span></td>
+        <td class="position-cell"><span class="pill bull">Bullish</span></td>
+        <td class="source"><a href="#equities">Equities &amp; Themes</a></td>
+      </tr>
+      <tr>
+        <td class="asset"><strong>Who ends up with AI's profits</strong></td>
+        <td><span class="chg chg-moved">Moved</span></td>
+        <td class="position-cell"><span class="pill bull">Bullish</span></td>
+        <td class="position-cell"><span class="pill mixed">Mixed</span></td>
+        <td class="source"><a href="#equities">Equities &amp; Themes</a></td>
+      </tr>
+      <tr>
+        <td class="asset"><strong>AI as the driver of GDP growth</strong></td>
+        <td><span class="chg chg-new">New</span></td>
+        <td class="position-cell"><span class="chg">not tracked</span></td>
+        <td class="position-cell"><span class="pill bear">Bearish</span></td>
+        <td class="source"><a href="#rates">Bonds, Rates &amp; the Fed</a></td>
+      </tr>
+      <tr>
+        <td class="asset"><strong>Consumer <a class="abbr" href="#g-dissaving" title="Households spending more than they earn, drawing down savings">dissaving</a></strong></td>
+        <td><span class="chg chg-new">New</span></td>
+        <td class="position-cell"><span class="chg">not tracked</span></td>
+        <td class="position-cell"><span class="pill watch">Watch</span></td>
+        <td class="source"><a href="#rates">Bonds, Rates &amp; the Fed</a></td>
+      </tr>
+      <tr>
+        <td class="asset"><strong>Disney</strong></td>
+        <td><span class="chg chg-new">New</span></td>
+        <td class="position-cell"><span class="chg">not tracked</span></td>
+        <td class="position-cell"><span class="pill bear">Bearish</span></td>
+        <td class="source"><a href="#stocks">Single Stocks</a></td>
+      </tr>
+      <tr>
+        <td class="asset"><strong>GPU rental prices</strong></td>
+        <td><span class="chg chg-new">New</span></td>
+        <td class="position-cell"><span class="chg">not tracked</span></td>
+        <td class="position-cell"><span class="pill bull">Bullish</span></td>
+        <td class="source"><a href="#compute">Compute Costs</a></td>
+      </tr>
+      <tr>
+        <td class="asset"><strong>Households paying for AI</strong></td>
+        <td><span class="chg chg-new">New</span></td>
+        <td class="position-cell"><span class="chg">not tracked</span></td>
+        <td class="position-cell"><span class="pill bull">Bullish</span></td>
+        <td class="source"><a href="#equities">Equities &amp; Themes</a></td>
+      </tr>
+      <tr>
+        <td class="asset"><strong>IMAX</strong></td>
+        <td><span class="chg chg-new">New</span></td>
+        <td class="position-cell"><span class="chg">not tracked</span></td>
+        <td class="position-cell"><span class="pill bull">Bullish</span></td>
+        <td class="source"><a href="#stocks">Single Stocks</a></td>
+      </tr>
+      <tr>
+        <td class="asset"><strong>Long-dated US government bonds</strong></td>
+        <td><span class="chg chg-new">New</span></td>
+        <td class="position-cell"><span class="chg">not tracked</span></td>
+        <td class="position-cell"><span class="pill bear">Bearish</span></td>
+        <td class="source"><a href="#rates">Bonds, Rates &amp; the Fed</a></td>
+      </tr>
+      <tr>
+        <td class="asset"><strong>Netflix</strong></td>
+        <td><span class="chg chg-new">New</span></td>
+        <td class="position-cell"><span class="chg">not tracked</span></td>
+        <td class="position-cell"><span class="pill bull">Bullish</span></td>
+        <td class="source"><a href="#stocks">Single Stocks</a></td>
+      </tr>
+      <tr>
+        <td class="asset"><strong>Nike</strong></td>
+        <td><span class="chg chg-new">New</span></td>
+        <td class="position-cell"><span class="chg">not tracked</span></td>
+        <td class="position-cell"><span class="pill bear">Bearish</span></td>
+        <td class="source"><a href="#stocks">Single Stocks</a></td>
+      </tr>
+      <tr>
+        <td class="asset"><strong>Rental prices for older GPUs</strong></td>
+        <td><span class="chg chg-new">New</span></td>
+        <td class="position-cell"><span class="chg">not tracked</span></td>
+        <td class="position-cell"><span class="pill bull">Bullish</span></td>
+        <td class="source"><a href="#compute">Compute Costs</a></td>
+      </tr>
+      <tr>
+        <td class="asset"><strong>Retail buying of US stocks</strong></td>
+        <td><span class="chg chg-new">New</span></td>
+        <td class="position-cell"><span class="chg">not tracked</span></td>
+        <td class="position-cell"><span class="pill bull">Bullish</span></td>
+        <td class="source"><a href="#equities">Equities &amp; Themes</a></td>
+      </tr>
+      <tr>
+        <td class="asset"><strong>Semiconductor valuations</strong></td>
+        <td><span class="chg chg-new">New</span></td>
+        <td class="position-cell"><span class="chg">not tracked</span></td>
+        <td class="position-cell"><span class="pill mixed">Mixed</span></td>
+        <td class="source"><a href="#equities">Equities &amp; Themes</a></td>
+      </tr>
+      <tr>
+        <td class="asset"><strong>The boomer downsizing wave</strong></td>
+        <td><span class="chg chg-new">New</span></td>
+        <td class="position-cell"><span class="chg">not tracked</span></td>
+        <td class="position-cell"><span class="pill bear">Bearish</span></td>
+        <td class="source"><a href="#realestate">Real Estate</a></td>
+      </tr>
+      <tr>
+        <td class="asset"><strong>The gap between buying AI and using it</strong></td>
+        <td><span class="chg chg-new">New</span></td>
+        <td class="position-cell"><span class="chg">not tracked</span></td>
+        <td class="position-cell"><span class="pill watch">Watch</span></td>
+        <td class="source"><a href="#equities">Equities &amp; Themes</a></td>
+      </tr>
+      <tr>
+        <td class="asset"><strong>The house as a household's main asset</strong></td>
+        <td><span class="chg chg-new">New</span></td>
+        <td class="position-cell"><span class="chg">not tracked</span></td>
+        <td class="position-cell"><span class="pill watch">Watch</span></td>
+        <td class="source"><a href="#realestate">Real Estate</a></td>
+      </tr>
+      <tr>
+        <td class="asset"><strong>The US expansion continuing</strong></td>
+        <td><span class="chg chg-new">New</span></td>
+        <td class="position-cell"><span class="chg">not tracked</span></td>
+        <td class="position-cell"><span class="pill bull">Bullish</span></td>
+        <td class="source"><a href="#rates">Bonds, Rates &amp; the Fed</a></td>
+      </tr>
+      <tr>
+        <td class="asset"><strong>US <a class="abbr" href="#g-nominalgdp" title="Total spending in the economy, before adjusting for inflation">nominal GDP</a> growth</strong></td>
+        <td><span class="chg chg-new">New</span></td>
+        <td class="position-cell"><span class="chg">not tracked</span></td>
+        <td class="position-cell"><span class="pill bull">Bullish</span></td>
+        <td class="source"><a href="#rates">Bonds, Rates &amp; the Fed</a></td>
+      </tr>
+      <tr>
+        <td class="asset"><strong>Which competitive moats survive AI</strong></td>
+        <td><span class="chg chg-new">New</span></td>
+        <td class="position-cell"><span class="chg">not tracked</span></td>
+        <td class="position-cell"><span class="pill mixed">Mixed</span></td>
+        <td class="source"><a href="#equities">Equities &amp; Themes</a></td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="note"><strong>Held, unchanged (9).</strong> AI capex spending, Housing in build-friendly states, Inflation staying above the Fed's target, Leveraged single-stock ETFs, Memory and <a class="abbr" href="#g-dram" title="Dynamic Random-Access Memory, the working memory in servers and PCs">DRAM</a> makers, <a class="abbr" href="#g-momentum" title="A strategy that holds whatever has been rising">Momentum stocks</a>, Open-weight models taking share, The price of running AI models, Whether the Fed's next move is a hike.</p>
+  <p class="note"><strong>Not tracked this issue (26).</strong> 2-year Treasury, AI-native takeovers of legacy internet assets, Alphabet, Apple, Bitcoin, Ethereum, Gold, Gulf-state data centers, Inflation breakevens, Japanese yen, Marvell, Meta Platforms, Micron, New York State, PayPal, Rate &amp; currency volatility, Semiconductors (silicon demand), Silver, Stablecoin payment rails, Texas, Tokenized real-world assets, Uber, UnitedHealth, US dollar, US money-center banks, Visa &amp; Mastercard.</p>
+  <p class="note"><strong>Not tracked</strong> means the asset has no standalone row this issue, not that we stopped following it: Micron, for one, runs through the News Scan, the Portfolio and the first trade below while sitting inside the Memory and <a class="abbr" href="#g-dram" title="Dynamic Random-Access Memory, the working memory in servers and PCs">DRAM</a> row. Only Forward Guidance and All-In appear in both issues, so most of that list reflects which shows published inside a three-day window. Two of the moves are our own bookkeeping and are listed in the table like any other: Korea shifted from FX into equities as a retail-leverage row, and US electricity absorbed the data-center politics row. Nothing this week reversed from bullish to bearish or back.</p>
 </section>
 
 <section id="sources">
