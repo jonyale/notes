@@ -1,0 +1,306 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Clean Popcorn Flavor Map</title>
+<link rel="stylesheet" href="site.css">
+<script src="charts.js"></script>
+</head>
+<body><main>
+
+<div class="hero">
+  <img src="img/olives-oil.jpg" alt="A dish of olive oil beside a bowl of Kalamata olives, rosemary and peppercorns">
+  <div class="credit">Photo: <a href="https://www.kosterina.com/">Kosterina</a></div>
+</div>
+
+<div class="kicker">For Katina Mountanos, Kosterina</div>
+<h1>Clean popcorn: which flavors sell, and what they're popped in</h1>
+<div class="sub">In case snacks are ever on the roadmap. Eight flavors, every ingredient list read on the product page on November 23, 2026 and linked.</div>
+
+<div class="tldr">
+  <ol>
+    <li>Almost every flavored popcorn on shelf is popped in seed oil, even the clean store brands.</li>
+    <li>Nobody clearly sells a flavored popcorn in extra virgin olive oil with no added flavors.</li>
+    <li>White cheddar is the biggest flavor with no clean national version, and seed-oil-free snacks are growing (up 9% in natural stores, while snacks with seed oils fell 4%).<sup><a href="#s9">9</a></sup></li>
+  </ol>
+</div>
+
+<h2>The map</h2>
+<figure class="chart">
+  <div class="ctitle">Clean flavored popcorn is almost all popped in seed oil</div>
+  <div class="csub">Clean products we found for each flavor, by what they're popped in. Clean means no "natural flavor" anywhere in the list.</div>
+  <div class="legend"><span><i class="sw" style="background:var(--accent)"></i>Clean</span><span><i class="sw ring"></i>Unconfirmed (listings disagree, or gray ingredients)</span></div>
+  <div class="plot"></div>
+  <figcaption><span class="webonly">Tap or hover a dot for the product. </span>Product pages are linked in the flavor-by-flavor notes below. Source <a href="#s7">7</a> for demand; ingredient lists read November 23, 2026.</figcaption>
+  <script type="application/json" data-chart="grid">{
+    "type": "grid",
+    "cols": ["Seed oil", "Coconut, avocado or ghee", "Olive oil"],
+    "rows": [
+      {"flavor": "White cheddar", "strong": true, "cells": [
+        {"clean": ["Good & Gather Organic (Target)", "365 Organic (Whole Foods)", "Kroger"]},
+        {"clean": ["Simple Truth Organic (Kroger), coconut and/or sunflower"]},
+        {"gray": ["Khloud, retailer listings disagree on natural flavors"], "open": true, "note": "Open: no national brand"}
+      ]},
+      {"flavor": "Sea salt", "cells": [
+        {"clean": ["SkinnyPop Original", "BjornQorn Classic"]},
+        {"clean": ["LesserEvil Himalayan Pink Salt (coconut)", "Pip's Sea Salt Mini (avocado)"]},
+        {"clean": ["365 Organic EVOO & Sea Salt (Whole Foods)", "Central Market (H-E-B)", "Good & Gather Organic (Target)", "Little Lad's"], "gray": ["Khloud, retailer listings disagree"]}
+      ]},
+      {"flavor": "Sweet & salty kettle", "cells": [
+        {"clean": ["SkinnyPop", "Angie's", "Good & Gather Organic (Target)"]},
+        {},
+        {"gray": ["Khloud Kettle, listings disagree across the line"]}
+      ]},
+      {"flavor": "Butter", "cells": [
+        {},
+        {"clean": ["LesserEvil Oh My Ghee (ghee)"]},
+        {}
+      ]},
+      {"flavor": "Spicy / jalapeño", "cells": [
+        {"clean": ["BjornQorn Spicy"]},
+        {},
+        {}
+      ]},
+      {"flavor": "Cheddar & caramel", "cells": [
+        {"clean": ["G.H. Cretors Cheddar Cheese Corn", "G.H. Cretors Caramel Corn"]},
+        {},
+        {}
+      ]},
+      {"flavor": "Dill pickle", "cells": [
+        {"gray": ["Little Lad's Spicy Dill Pickle (yeast extract, spices)"]},
+        {},
+        {"gray": ["Pop Daddy (maltodextrin, flavor enhancers)"]}
+      ]},
+      {"flavor": "Truffle", "cells": [
+        {},
+        {},
+        {"gray": ["SkinnyPop Truffle 'Made with Olive Oil', a limited run with no ingredient list"]}
+      ]}
+    ]
+  }</script>
+</figure>
+<p>The olive oil column is mostly plain salted popcorn from store brands that say nothing about the oil. The one national brand that pops flavors in olive oil, Khloud, sells protein popcorn, and its retailer listings disagree on whether it adds natural flavors. White cheddar is the flavor to lead with: it's the big mainstream flavor, and no national brand sells it clean.</p>
+
+<h2>What sells</h2>
+<figure class="chart">
+  <div class="ctitle">White cheddar is Smartfood's whole business, and a sliver of the better-for-you brands'</div>
+  <div class="csub">White cheddar's share of each brand's Walmart reviews.</div>
+  <div class="plot"></div>
+  <figcaption>Source <a href="#s7">7</a>. Reviews pile up over years and include every size, so this shows each brand's buyers, not current sales, and it can't rank flavors across brands. In the better-for-you brands the hero is plain salted (93% of SkinnyPop's reviews) and kettle (96% of Angie's).</figcaption>
+  <script type="application/json" data-chart="wc-share">{
+    "type": "hbars", "labelW": 120, "valueW": 56,
+    "alt": "White cheddar's share of each brand's Walmart reviews: Smartfood 88%, LesserEvil 5%, SkinnyPop 2%, Angie's 1%.",
+    "rows": [
+      {"label": "Smartfood", "v": 88, "text": "88%", "style": "accent", "strong": true},
+      {"label": "LesserEvil", "v": 5, "text": "5%", "style": "context"},
+      {"label": "SkinnyPop", "v": 2, "text": "2%", "style": "context"},
+      {"label": "Angie's", "v": 1, "text": "1%", "style": "context"}
+    ]
+  }</script>
+</figure>
+<figure class="chart">
+  <div class="ctitle">Dill pickle and truffle are launching, but almost nobody searches for them</div>
+  <div class="csub">Google Trends, US, average interest over the past 12 months (100 = the peak search week for any of these terms).</div>
+  <div class="plot"></div>
+  <figcaption>Source <a href="#s8">8</a>. White cheddar peaked at 53 in the week of April 12, 2026. Butter and caramel get more searches than white cheddar, but much of that is microwave and homemade popcorn.</figcaption>
+  <script type="application/json" data-chart="trends">{
+    "type": "hbars", "labelW": 170, "valueW": 40,
+    "alt": "Google Trends average over the past 12 months: kettle corn 78, white cheddar popcorn 24, sea salt popcorn 9, truffle popcorn 2, dill pickle popcorn 2.",
+    "rows": [
+      {"label": "Kettle corn", "v": 78, "text": "78", "style": "context"},
+      {"label": "White cheddar popcorn", "v": 24, "text": "24", "style": "accent", "strong": true},
+      {"label": "Sea salt popcorn", "v": 9, "text": "9", "style": "context"},
+      {"label": "Truffle popcorn", "v": 2, "text": "2", "style": "context"},
+      {"label": "Dill pickle popcorn", "v": 2, "text": "2", "style": "context"}
+    ]
+  }</script>
+</figure>
+<p>Ready-to-eat popcorn and caramel corn sold $2.5 billion in the 52 weeks to May 17, 2026, up 2.9% (Circana), while microwave popcorn shrank.<sup><a href="#s2">2</a></sup> SkinnyPop ($657.7M) and Smartfood ($552.8M) are the two biggest brands, and neither sells a clean white cheddar. Flavor-level sales data (Circana, SPINS) is paid, and Kosterina may already have it through its retail business.</p>
+
+<h2>Seed oil is the bigger gap</h2>
+<figure class="chart">
+  <div class="ctitle">In natural stores, seed-oil-free snacks grew while seed-oil snacks shrank</div>
+  <div class="csub">Change in dollar sales, natural channel, SPINS.</div>
+  <div class="plot"></div>
+  <figcaption>Source <a href="#s9">9</a>, citing SPINS. The article doesn't state the time period. Across all channels the figures were up 2% and down 2%.</figcaption>
+  <script type="application/json" data-chart="spins">{
+    "type": "hbars", "labelsAbove": true, "valueW": 44,
+    "alt": "In natural stores, seed-oil-free snacks grew 9% in dollar sales while snacks with seed oils fell 4% (SPINS).",
+    "rows": [
+      {"label": "Seed-oil-free snacks", "v": 9, "text": "+9%", "style": "accent", "strong": true},
+      {"label": "Snacks with seed oils", "v": -4, "text": "−4%", "style": "context"}
+    ]
+  }</script>
+</figure>
+<p>Store brands already skip added flavors, but almost no one skips seed oil in a flavored popcorn. None of the olive oil popcorn pages we read talks about the oil's quality (high-polyphenol, early harvest, single origin), and we found no olive oil white cheddar or truffle we could confirm as clean. We only read product pages, not the bags.</p>
+<p>Graza did a limited-edition popcorn popped in its extra virgin olive oil with BjornQorn in September 2025, sold online only.<sup><a href="#s6">6</a></sup> It's the closest precedent for an olive oil brand selling popcorn. SkinnyPop has also tested olive oil runs.</p>
+
+<h2>How it could be sold</h2>
+<p>Almost nobody searches Google for "seed oil free popcorn," but seed-oil-free snacks are growing in stores.<sup><a href="#s9">9</a></sup> Shoppers find the claim on the bag, so the bag and the shelf do most of the work.</p>
+<ul>
+  <li><b>Put both claims on the front of the bag.</b> For example: "White cheddar popcorn, popped in extra virgin olive oil. No seed oils. No added flavors." The flavor is what people buy, and the two claims are what no national brand has together.</li>
+  <li><b>Start in natural-food stores.</b> That's where SPINS shows seed-oil-free snacks growing and seed-oil snacks shrinking.<sup><a href="#s9">9</a></sup></li>
+  <li><b>Sell it to your olive oil customers first.</b> They already pay more for a better oil, so an online launch can show which flavor sells before a store order.</li>
+  <li><b>Send it to creators who already talk about seed oils.</b> On TikTok that conversation is mostly about chips today, and popcorn barely appears in it yet.</li>
+  <li><b>The oil's quality is the part only you can say.</b> None of the olive oil popcorn pages we read mentions polyphenols, harvest or origin.</li>
+</ul>
+
+<h2>The details</h2>
+<details>
+  <summary>What counts as clean here</summary>
+  <div><p><b>Fails:</b> "natural flavor" or "natural flavors" anywhere in the list, including inside a seasoning's parentheses. <b>Gray, for you to judge:</b> "organic flavor," yeast extract, maltodextrin, undetailed "spices," citric acid, and anything else that does the job of a flavoring. Phosphates, cultures and added sugar are noted but don't change the verdict.</p></div>
+</details>
+<details>
+  <summary>Flavor by flavor, with every ingredient list</summary>
+  <div>
+<div class="flavor">
+      <h3>White cheddar <span class="tag t-open">open for a brand</span></h3>
+      <dl>
+        <dt>Demand</dt><dd>In 2023, Hershey's salty snacks marketing lead (SkinnyPop is Hershey's) said "The most popular RTE flavors are spicy, cheesy, and simply salted."<sup><a href="#s1">1</a></sup> At Walmart, Smartfood White Cheddar carries about 26,000 of Smartfood's roughly 29,700 reviews, and its 10-bag multipack showed "5K+ bought since yesterday."<sup><a href="#s7">7</a></sup> On Google, "white cheddar popcorn" got about a third the searches of "kettle corn" over the past year, lifted by a spring 2026 spike, and about 12 times the searches for truffle or dill pickle popcorn.<sup><a href="#s8">8</a></sup> The counterpoint is the better-for-you shopper. White cheddar is 2% of SkinnyPop's Walmart reviews, 1% of Angie's and 5% of LesserEvil's.<sup><a href="#s7">7</a></sup></dd>
+        <dt>Clean</dt><dd>
+          <a href="https://www.target.com/p/organic-white-cheddar-popcorn-4-5oz-good-38-gather-8482/-/A-85833476">Good &amp; Gather Organic White Cheddar</a> (Target)<span class="ing">"Organic Popcorn, Organic Expeller Pressed Vegetable Oil (Organic Sunflower Oil, Organic Safflower Oil, Organic Canola Oil), Organic White Cheddar Cheese Powder (Organic Cultured Milk, Salt, Enzymes), Organic Nonfat Milk, Salt."</span>
+          <a href="https://www.kroger.com/p/simple-truth-organic-white-cheddar-popcorn/0001111012305">Simple Truth Organic White Cheddar</a> (Kroger)<span class="ing">"Organic Popcorn, Organic Coconut and/or Organic Sunflower Oil, Organic White Cheddar Cheese (Pasteurized Milk, Cheese Cultures, Salt, Enzymes), Organic Whey, Sea Salt."</span>
+          <a href="https://www.wholefoodsmarket.com/grocery/product/365-by-whole-foods-market-organic-white-cheddar-popcorn-4-ounce-b074h64qp9">365 Organic White Cheddar</a> (Whole Foods)<span class="ing">"Organic Popcorn, Organic Expeller Pressed Sunflower Seed And/Or Organic Expeller Pressed Safflower Seed Oil, Organic Cheese Powder (Organic Cheddar Cheese [Organic Cultured Pasteurized Milk, Salt, Microbial Enzymes], Organic Nonfat Milk, Organic Whey Powder, Salt, Disodium Phosphate)."</span>
+          <a href="https://www.kroger.com/p/kroger-white-cheddar-popcorn-bag/0001111009480">Kroger White Cheddar</a><span class="ing">"Popcorn, Vegetable Oil (Corn, Soybean, Canola, and/or Sunflower Oil), Cheddar Cheese (Milk, Salt, Cheese Cultures, Enzymes), Whey, Buttermilk, Salt, Disodium Phosphate"</span>
+        </dd>
+        <dt>Gray</dt><dd><a href="https://www.traderjoes.com/home/products/pdp/white-cheddar-popcorn-005985">Trader Joe's White Cheddar</a> (citric and lactic acid, no natural flavor). <a href="https://thrivemarket.com/p/khloud-protein-popcorn-white-cheddar">Khloud White Cheddar</a> is popped in olive oil, and Thrive's list has no natural flavor, only citric and lactic acid. But Target's list for Khloud's sea salt flavor includes "Natural Flavors" where Thrive's doesn't, so check the bag.</dd>
+        <dt>Fails</dt><dd><a href="https://www.target.com/p/smartfood-white-cheddar-popcorn-2oz/-/A-14930840">Smartfood</a>, <a href="https://www.hersheyland.com/products/skinnypop-white-cheddar-flavored-popcorn-4-4-oz-bag.html">SkinnyPop</a> and <a href="https://thrivemarket.com/p/angies-popcorn-boom-chicka-pop-white-cheddar">Angie's</a> list <span class="bad">Natural Flavor(s)</span>. <a href="https://www.wholefoodsmarket.com/grocery/product/lesserevil-organic-real-cheddar-popcorn-4-6-oz-b0dd224vrl">LesserEvil Real Organic Cheddar</a> lists "Organic Flavor" and yeast extract, even though its own site shows only a three-item graphic (popcorn, coconut oil, cheddar).</dd>
+        <dt>How</dt><dd>Real cheddar powder plus nonfat milk, whey or buttermilk for the tang, and salt. A phosphate keeps the powder smooth. None of the clean ones add a flavoring to push the cheddar taste.</dd>
+      </dl>
+    </div>
+
+    <div class="flavor">
+      <h3>Sea salt <span class="tag t-crowd">crowded</span></h3>
+      <dl>
+        <dt>Demand</dt><dd>"Simply salted" is one of Hershey's three most popular.<sup><a href="#s1">1</a></sup> The trade press credits Khloud's first year to its Olive Oil &amp; Sea Salt, Sweet &amp; Salty Kettle Corn and White Cheddar flavors.<sup><a href="#s2">2</a></sup></dd>
+        <dt>Clean</dt><dd>
+          <a href="https://www.hersheyland.com/products/skinnypop-original-popcorn-4-4-oz-bag.html">SkinnyPop Original</a><span class="ing">"Popcorn, Sunflower Oil, Salt"</span>
+          <a href="https://www.lesserevil.com/products/himalayan-pink-salt-organic-popcorn">LesserEvil Himalayan Pink Salt</a><span class="ing">"organic popcorn, extra-virgin coconut oil, and Himalayan pink salt"</span>
+          <a href="https://www.pipsnacks.com/products/sea-salt-mini-heirloom-popcorn">Pip's Sea Salt Mini</a> (formerly Pipcorn)<span class="ing">"Popcorn, Avocado Oil, Himalayan Pink Sea Salt, Rosemary Extract (Preservative)."</span>
+          <a href="https://bjornqorn.com/products/bjornqorn-12-pack">BjornQorn Classic</a><span class="ing">"Non-GMO popcorn, Safflower Or Sunflower Oil, Nutritional Yeast, Salt"</span>
+        </dd>
+        <dt>Olive oil</dt><dd>At least four clean ones are already on shelf (listed in the olive oil section below), so olive oil alone doesn't make a sea salt popcorn stand out. The oil's quality might.</dd>
+      </dl>
+    </div>
+
+    <div class="flavor">
+      <h3>Sweet &amp; salty kettle <span class="tag t-crowd">crowded</span></h3>
+      <dl>
+        <dt>Demand</dt><dd>"The combination of sweet and salty flavors is also a home run in the category."<sup><a href="#s1">1</a></sup></dd>
+        <dt>Clean</dt><dd>
+          <a href="https://www.hersheyland.com/products/skinnypop-sweet-and-salty-kettle-corn-popcorn-5-3-oz-bag.html">SkinnyPop Sweet &amp; Salty Kettle</a><span class="ing">"Popcorn, Sugar, Sunflower Oil, Sea Salt"</span>
+          <a href="https://www.wholefoodsmarket.com/grocery/product/boomchickapop-angie-s-boomchickapop-sweet-salty-kettle-corn-7-oz-bag-gluten-free-vegan-sweet-salty-kettle-corn-flavor-great-for-movie-night-entertaining-b00jsvk74q">Angie's Sweet &amp; Salty</a> (Whole Foods; Angie's own site hides the list behind a pop-up)<span class="ing">"Popcorn, Sunflower Oil, Cane Sugar, Sea Salt"</span>
+          <a href="https://www.target.com/p/organic-sweet-38-salty-kettle-corn-7oz-good-38-gather-8482/-/A-85833477">Good &amp; Gather Organic Kettle</a><span class="ing">"Organic Popcorn, Organic Sugar, Organic Expeller Pressed Vegetable Oil (Organic Sunflower Oil, Organic Safflower Oil, Organic Canola Oil), Sea Salt."</span>
+        </dd>
+        <dt>Olive oil</dt><dd><a href="https://thrivemarket.com/p/khloud-protein-popcorn-sweet-and-salty-kettle">Khloud Kettle</a> on Thrive: "Popcorn, Milk Protein Isolate, Cane Sugar, Olive Oil, Coconut Oil, Mineral Salt (Pink Himalayan Salt, Potassium Salt)".</dd>
+      </dl>
+    </div>
+
+    <div class="flavor">
+      <h3>Butter <span class="tag t-few">a few clean options</span></h3>
+      <dl>
+        <dt>Demand</dt><dd>Butter leads microwave popcorn. In bagged popcorn, "flavor preferences are more diversified, though butter has shown increased traction."<sup><a href="#s4">4</a></sup></dd>
+        <dt>Clean</dt><dd><a href="https://www.lesserevil.com/products/oh-my-ghee-organic-popcorn">LesserEvil Oh My Ghee</a>. Its own site and <a href="https://thrivemarket.com/p/lesser-evil-organic-oh-my-ghee-popcorn">Thrive</a> agree<span class="ing">"Organic Non-GMO Popcorn, Organic Ghee, Himalayan Salt"</span></dd>
+        <dt>Fails</dt><dd><a href="https://www.hersheyland.com/products/skinnypop-butter-flavored-popcorn-4-4-oz-bag.html">SkinnyPop Butter</a> and <a href="https://www.ghcretors.com/farmhouse-butter">G.H. Cretors Farmhouse Butter</a> both list <span class="bad">Natural Flavor</span>, even with real butter in the bag.</dd>
+        <dt>How</dt><dd>Ghee or clarified butter carries the taste on its own.</dd>
+      </dl>
+    </div>
+
+    <div class="flavor">
+      <h3>Spicy / jalapeño <span class="tag t-few">a few clean options</span></h3>
+      <dl>
+        <dt>Demand</dt><dd>"Spicy is the fastest-growing better-for-you ready-to-eat flavor subsegment" (Hershey, 2023, ahead of SkinnyPop Cheddar Jalapeño).<sup><a href="#s1">1</a></sup></dd>
+        <dt>Clean</dt><dd><a href="https://bjornqorn.com/products/spicy-3oz-12-pack">BjornQorn Spicy</a><span class="ing">"Non-GMO popcorn, Safflower or Sunflower Oil, Nutritional Yeast, Salt, Jalapeño Pepper"</span></dd>
+        <dt>Fails</dt><dd>Hot honey is the newest launch, though it barely registers on Google, and <a href="https://www.traderjoes.com/home/products/pdp/hot-honey-popcorn-081527">Trader Joe's Hot Honey</a> lists <span class="bad">NATURAL FLAVORS</span>, yeast extract and maltodextrin.</dd>
+        <dt>How</dt><dd>Dried jalapeño, salt and nutritional yeast. A clean hot honey would need real honey powder and cayenne with nothing added.</dd>
+      </dl>
+    </div>
+
+    <div class="flavor">
+      <h3>Cheddar &amp; caramel <span class="tag t-few">a few clean options</span></h3>
+      <dl>
+        <dt>Demand</dt><dd>G.H. Cretors' top sellers are its cheddar-and-caramel Mix and Cheese and Caramel Corn (reported 2019, the newest figure we found).<sup><a href="#s5">5</a></sup></dd>
+        <dt>Clean</dt><dd>
+          <a href="https://www.ghcretors.com/cheddar-cheese-corn">G.H. Cretors Cheddar Cheese Corn</a><span class="ing">"Popcorn, Vegetable Oil (Sunflower, Safflower, Corn, and/or Canola), Cheddar and Granular Cheese (Milk, Cheese Culture, Salt, Enzymes), Nonfat Milk, Salt, Cream, Sodium Phosphate, Lactic Acid, Annatto (Color)"</span>
+          <a href="https://www.ghcretors.com/caramel-corn">G.H. Cretors Caramel Corn</a><span class="ing">"Brown Sugar, Cane Sugar, Popcorn, Salted Butter (Pasteurized Sweet Cream, Salt), Brown Rice Syrup, Vegetable Oil (Sunflower, Safflower, Corn, and/or Canola), Sea Salt, Soy Lecithin, Baking Soda"</span>
+          The <a href="https://www.ghcretors.com/cheese-caramel-mix">Cheese &amp; Caramel Mix</a> is the two combined.
+        </dd>
+        <dt>Fit</dt><dd>G.H. Cretors already owns this one cleanly, and a sugar-first recipe is a stretch for a wellness brand.</dd>
+      </dl>
+    </div>
+
+    <div class="flavor">
+      <h3>Dill pickle <span class="tag t-few">no clean option, little demand</span></h3>
+      <dl>
+        <dt>Demand</dt><dd>Launches, not shoppers yet. Conagra launched a Vlasic popcorn<sup><a href="#s3">3</a></sup> and Khloud added Dill Pickle in the past year,<sup><a href="#s2">2</a></sup> but "dill pickle popcorn" averaged 2 on Google Trends against 78 for "kettle corn" over the past 12 months.<sup><a href="#s8">8</a></sup></dd>
+        <dt>Gray</dt><dd>
+          <a href="https://littleladspopcorn.com/products/spicy-dill-pickle">Little Lad's Spicy Dill Pickle</a> (no natural flavor, but yeast extract and "Spices")<span class="ing">"Non-GMO Popcorn, Sunflower Oil, Tapioca Solids, Salt, Apple Cider Vinegar, Citric Acid, Spices, Garlic Powder, Onion Powder, Sugar, Jalapeno Pepper, Lactic Acid, Yeast Extract, Dillweed Oil."</span>
+          <a href="https://www.kroger.com/p/pop-daddy-dill-pickle-popcorn/0085520600553">Pop Daddy Dill Pickle</a>, popped in olive oil (maltodextrin, dextrose, disodium inosinate and guanylate)<span class="ing">"Red Popcorn Kernels, Olive Oil, Dill Seasoning (White Distilled Vinegar [Maltodextrin, White Distilled Vinegar], Salt, Dextrose, Sugar, Dill, Citric Acid, Malic Acid, Garlic, Disodium Inosinate and Guanylate, Natural Color, Silicon Dioxide [Prevents Caking]), Sea Salt."</span>
+        </dd>
+        <dt>How</dt><dd>Vinegar powder, dill, garlic and salt get most of the way. The gray items are what brands add to make up the rest.</dd>
+      </dl>
+    </div>
+
+    <div class="flavor">
+      <h3>Truffle <span class="tag t-few">no clean option, little demand</span></h3>
+      <dl>
+        <dt>Demand</dt><dd>Launch signal only. Khloud's newest flavors include Truffle White Cheddar,<sup><a href="#s2">2</a></sup> but "truffle popcorn" averaged 2 on Google Trends against 78 for "kettle corn."<sup><a href="#s8">8</a></sup> As a second flavor on top of white cheddar it could work, but not as a lead.</dd>
+        <dt>Fails</dt><dd><a href="https://www.pipsnacks.com/products/truffle-mini-heirloom-popcorn">Pip's Truffle</a> hides it inside the salt: "Black Truffle Salt (Sea Salt, Dried Truffle, <span class="bad">Natural Truffle Flavor</span>)".</dd>
+        <dt>Gray</dt><dd><a href="https://bjornqorn.com/products/bjornqorn-earth-12-pack-3oz">BjornQorn Earth</a> lists "Black Truffle Salt" with no breakdown, so it can't be confirmed either way.</dd>
+        <dt>Why it fits</dt><dd>Truffle and olive oil are a natural Mediterranean pair, and truffle white cheddar puts the flavor on top of the biggest flavor. Most truffle salts carry an added flavor, so the salt supplier is the thing to check.</dd>
+      </dl>
+    </div>
+    <p style="font-size:14px;color:var(--muted)">Cinnamon and everything bagel were on the list to check. Cinnamon showed only new launches, and we couldn't read an ingredient list for any of them. Everything bagel had no demand signal in any source we read, so both are left off.</p>
+  
+  </div>
+</details>
+<details>
+  <summary>Every olive oil popcorn we found</summary>
+  <div>
+<ul>
+      <li><a href="https://www.wholefoodsmarket.com/grocery/product/olive-oil-sea-salt-b08tqhvzch">365 Organic Extra Virgin Olive Oil &amp; Sea Salt</a> (Whole Foods): "Organic Popcorn, Organic Extra Virgin Olive Oil, Sea Salt"</li>
+      <li><a href="https://www.heb.com/product-detail/central-market-olive-oil-popcorn/1545533">Central Market Olive Oil Popcorn</a> (H-E-B): "ORGANIC POPCORN, ORGANIC EXTRA VIRGIN OLIVE OIL, SEA SALT."</li>
+      <li><a href="https://www.target.com/p/organic-olive-oil-38-himalayan-salt-popcorn-good-38-gather-8482/-/A-79798932">Good &amp; Gather Organic Olive Oil &amp; Himalayan Salt</a> (Target): "Popcorn†, Olive Oil†, Himalayan Pink Salt. [†Organic]"</li>
+      <li><a href="https://littleladspopcorn.com/products/sea-salt-olive-oil-popcorn">Little Lad's Sea Salt &amp; Olive Oil</a> (Vermont): "Non-GMO Popcorn, Olive Oil, Sea Salt." The pages we read say "No 'Natural Flavors.' No maltodextrin. Ever."</li>
+      <li><b>Khloud</b> (Khloé Kardashian's protein popcorn) uses olive oil across its line, but its listings disagree. Thrive shows <a href="https://thrivemarket.com/p/khloud-protein-popcorn-olive-oil-sea-salt">Olive Oil &amp; Sea Salt</a> with no natural flavor, while <a href="https://www.target.com/p/khloud-olive-oil-and-sea-salt-protein-popcorn-4oz/-/A-94397108">Target</a> shows "Popcorn, Milk Protein Concentrate, Olive Oil, Sea Salt, Natural Flavors, Cultures." Its selling point is protein, not the oil.</li>
+      <li><a href="https://www.kroger.com/p/pop-daddy-dill-pickle-popcorn/0085520600553">Pop Daddy</a> pops in olive oil (gray, see dill pickle).</li>
+      <li><b>SkinnyPop</b> (Hershey) has tested olive oil popcorn. Hershey's shop lists <a href="https://shop.hersheys.com/our-brands/skinnypop/816925023631.html">SkinnyPop Olive Oil Salted Caramel</a> as "currently not available," and a third-party Walmart seller lists a <a href="https://www.walmart.com/ip/SKINNYPOP-Truffle-Popcorn-Made-with-Olive-Oil-Gluten-and-Seed-Oil-Free-7-5-oz-Popcorn-Bag/20299600649">SkinnyPop Truffle "Made with Olive Oil, Gluten and Seed Oil Free"</a> with 44 reviews. Neither is on SkinnyPop's main site, and neither page shows ingredients, so these look like limited runs. Either way, the biggest popcorn brand has already tested olive oil.</li>
+      <li><b>Graza</b>, the squeeze-bottle olive oil brand, did a limited-edition popcorn popped in its extra virgin olive oil with BjornQorn in September 2025, sold online only.<sup><a href="#s6">6</a></sup> It's the closest precedent for an olive oil brand selling popcorn.</li>
+    </ul>
+  </div>
+</details>
+<details>
+  <summary>Worth knowing before a spec</summary>
+  <div>
+<ul>
+      <li><b>"Organic flavor" is still an added flavor.</b> It's the same kind of flavoring as "natural flavor," made from organic ingredients. LesserEvil's cheddar lists "Organic Flavor" and no "natural flavor." If your rule covers organic flavor too, put "no added flavors" in the co-packer spec, or a supplier can swap one for the other.</li>
+      <li><b>The store brands are already free of added flavors, so the edge over them is the oil and the brand.</b> Good &amp; Gather, 365, Simple Truth and Kroger add no flavor of any kind, but their flavored popcorn is popped in sunflower, safflower, canola, coconut, or (Kroger) soybean and corn oil, and they sell on price. Against Smartfood, SkinnyPop, Angie's and LesserEvil, "no added flavors" is itself a difference.</li>
+      <li><b>Flavor hides in sub-ingredients.</b> Some brands, like Pip's truffle and LesserEvil's cheddar, carry the flavoring inside a seasoning's parentheses, so ask every seasoning supplier for the full breakdown.</li>
+      <li><b>Retailer lists can disagree with each other.</b> Khloud is the example. Read the bag before naming a competitor.</li>
+      <li><b>Not covered here:</b> how extra virgin olive oil holds up in popping at scale (smoke point, shelf life), which co-manufacturers pop in it, and shelf prices.</li>
+    </ul>
+  </div>
+</details>
+
+<section class="src">
+  <h2>Sources</h2>
+  <ol>
+    <li id="s1">Snack Food &amp; Wholesale Bakery, "State of the Industry 2023," July 26, 2023, quoting Mark Chu, senior director of marketing, Hershey Salty Snacks: <a href="https://www.snackandbakery.com/articles/109480-state-of-the-industry-2023-interesting-better-for-you-popcorn-flavors-reign-supreme">snackandbakery.com</a></li>
+    <li id="s2">Snack Food &amp; Wholesale Bakery, "State of the Industry 2026," July 27, 2026 (Circana, 52 weeks ending May 17, 2026; Khloud flavor launches): <a href="https://www.snackandbakery.com/articles/116095-state-of-the-industry-2026-popcorn-continues-crunching-on">snackandbakery.com</a></li>
+    <li id="s3">Food Dive, November 16, 2026: <a href="https://www.fooddive.com/news/snacking-popcorn-innovation-conagra-hershey-innovation/823188/">fooddive.com</a></li>
+    <li id="s4">Snack Food &amp; Wholesale Bakery, May 20, 2026: <a href="https://www.snackandbakery.com/articles/115759-popcorn-explores-sweet-spicy-healthy-flavor-profiles">snackandbakery.com</a></li>
+    <li id="s5">Snack Food &amp; Wholesale Bakery, April 4, 2019, on G.H. Cretors' top sellers (old): <a href="https://www.snackandbakery.com/articles/101127-flavor-innovation-makes-popcorn-category-pop">snackandbakery.com</a></li>
+    <li id="s6">Snack Food &amp; Wholesale Bakery, "Graza, BjornQorn collab on EVOO popcorn," September 12, 2025: <a href="https://www.snackandbakery.com/articles/114403-graza-bjornqorn-collab-on-evoo-popcorn">snackandbakery.com</a></li>
+    <li id="s7">Walmart search results, read November 23, 2026. Review counts summed across each flavor's bagged listings on page 1, within each brand. Reviews pile up over years and include every size, so this is a share-of-buyers proxy, not current sales. Full counts: research file popcorn-demand-reviews-raw.md.</li>
+    <li id="s8">Google Trends, US, past 12 months, read November 23, 2026. Averages: kettle corn 78, white cheddar popcorn 24, sea salt popcorn 9, truffle popcorn 2, dill pickle popcorn 2. White cheddar peaked at 53 in the week of April 12, 2026: <a href="https://trends.google.com/trends/explore?date=today%2012-m&amp;geo=US&amp;q=kettle%20corn,white%20cheddar%20popcorn,truffle%20popcorn,dill%20pickle%20popcorn,sea%20salt%20popcorn">trends.google.com</a></li>
+    <li id="s9">FoodNavigator, "Why better-for-you snacks are winning with consumers," July 29, 2026, citing SPINS: "Seed-oil-free snacks grew 2% in dollar sales and 9% in natural channels, compared with declines of 2% and 4%, respectively, for seed-oil-containing snacks." The article doesn't state the time period: <a href="https://www.foodnavigator.com/Article/2026/07/29/why-better-for-you-snacks-are-winning-with-consumers/">foodnavigator.com</a></li>
+  </ol>
+  <p>Product pages are linked in place. Each was read on November 23, 2026. Where the brand's own site doesn't show the list (Angie's, Khloud), a retailer page is used and named.</p>
+</section>
+
+<div class="foot">Prepared by Jon Yale. Ingredient lists change. Check the bag before relying on any single product here.</div>
+<a class="back-home" href="index.html">Back to both pages</a>
+</main></body>
+</html>
